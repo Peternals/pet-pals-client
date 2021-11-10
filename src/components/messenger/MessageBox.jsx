@@ -16,7 +16,8 @@ const MessageBox = () => {
 	}, []);
 
 	useEffect(() => {
-		scrollRef.current.scrollIntoView({ behavior: "smooth" });
+		if (messageList.length > 0)
+			scrollRef?.current.scrollIntoView({ behavior: "smooth" });
 	}, [messageList]);
 
 	const setMessageAction = (e) => {
