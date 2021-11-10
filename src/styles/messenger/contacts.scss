@@ -1,0 +1,44 @@
+@mixin contacts {
+	.contactsListContainer {
+		padding: 20px;
+		width: 30%;
+		margin: 10px;
+		background-color: white;
+		border-radius: 30px;
+		border-bottom-right-radius: 0px;
+		border-top-right-radius: 0px;
+		box-shadow: 1px 1px 3px rgb(116, 116, 116);
+		.contactListHeader {
+			padding-bottom: 10px;
+			border-bottom: 1px solid rgb(175, 175, 175);
+
+			height: 6%;
+		}
+		.contactList {
+			width: 100%;
+			margin-top: 20px;
+			.contact {
+				display: flex;
+				width: 100%;
+				justify-content: space-between;
+				padding: 10px 0;
+				border-bottom: 1px solid rgb(175, 175, 175);
+				.contactImg {
+					height: 50px;
+					width: 50px;
+					border-radius: 50px;
+					margin: 0 10px;
+					background-color: aqua;
+				}
+				.contactInfo {
+					width: 70%;
+					.contactName {
+						display: flex;
+						justify-content: space-between;
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
