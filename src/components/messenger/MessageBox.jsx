@@ -30,6 +30,7 @@ const MessageBox = () => {
 			if (message.length > 0) {
 				const data = {
 					message,
+					receiver_id: localStorage.getItem("pet2"),
 				};
 				socket.emit("sendMessage", data);
 				dispatch(addMessageAction(data));

@@ -1,4 +1,4 @@
-import { Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Messenger from "./pages/Messenger";
 import { useEffect } from "react";
 import { socket } from "./socket";
@@ -11,6 +11,7 @@ function App() {
 			const test = await axios.get("http://localhost:4000/test");
 			console.log(test);
 		})();
+		socket.emit("addUser", { user_id: localStorage.getItem("pet") });
 
 		return () => {
 			socket.disconnect();
@@ -18,11 +19,11 @@ function App() {
 	}, []);
 	return (
 		<div className="App">
-			<HashRouter>
+			<BrowserRouter>
 				<Routes>
 					<Route path="/messenger" element={<Messenger />} />
 				</Routes>
-			</HashRouter>
+			</BrowserRouter>
 		</div>
 	);
 }
