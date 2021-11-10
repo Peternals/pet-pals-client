@@ -1,15 +1,17 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Messenger from "./pages/Messenger";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function App() {
+	useEffect(() => {}, []);
 	return (
 		<div className="App">
-			<BrowserRouter>
+			<HashRouter>
 				<Routes>
-					<Route exact path="/messenger" element={<Messenger />} />
+					<Route path="/messenger" element={<Messenger />} />
 				</Routes>
-			</BrowserRouter>
+			</HashRouter>
 		</div>
 	);
 }
