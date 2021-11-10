@@ -13,7 +13,7 @@ const MessageBox = () => {
 		socket.on("receiveMessage", (data) => {
 			dispatch(addMessageAction(data));
 		});
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (messageList.length > 0)
