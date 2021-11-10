@@ -8,7 +8,7 @@ function App() {
 	useEffect(() => {
 		socket.connect();
 		(async () => {
-			const test = await axios.get("http://localhost:4000/test");
+			const test = await axios.get(`${process.env.REACT_APP_SERVER_URL}/test`);
 			console.log(test);
 		})();
 
