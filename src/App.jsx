@@ -1,22 +1,15 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Messenger from "./pages/Messenger";
 
 function App() {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/Apjs</code> and save to rd.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer">
-					Learn React
-				</a>
-			</header>
+			<BrowserRouter>
+				<Routes>
+					<Route exact path="/messenger" element={<Messenger />} />
+				</Routes>
+			</BrowserRouter>
 		</div>
 	);
 }
