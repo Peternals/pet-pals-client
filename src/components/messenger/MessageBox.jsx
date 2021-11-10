@@ -1,6 +1,44 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addMessageAction } from "../../slicers/messengerSlice";
+import { socket } from "../../socket";
 
 const MessageBox = () => {
+	const [message, setMessage] = useState("");
+	const dispatch = useDispatch();
+	const messageList = useSelector((state) => state.messenger.messages);
+	const scrollRef = useRef();
+
+	useEffect(() => {
+		socket.on("receiveMessage", (data) => {
+			dispatch(addMessageAction(data));
+		});
+	}, []);
+
+	useEffect(() => {
+		scrollRef.current.scrollIntoView({ behavior: "smooth" });
+	}, [messageList]);
+
+	const setMessageAction = (e) => {
+		setMessage(e.target.value);
+	};
+
+	const sendMessageSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			if (message.length > 0) {
+				const data = {
+					message,
+				};
+				socket.emit("sendMessage", data);
+				dispatch(addMessageAction(data));
+
+				setMessage("");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	return (
 		<section className="messageBoxContainer">
 			<div className="messageBoxHeader">
@@ -8,24 +46,16 @@ const MessageBox = () => {
 			</div>
 			<main className="messageBox">
 				<section className="messages">
-					<div className="receiver">
-						<p>
-							Deserunt est ad laboris sint. Do elit ipsum elit duis. Ut enim id
-							laboris aute irure. Aute labore et adipisicing nisi ut mollit
-							irure non incididunt nulla duis duis laboris.
-						</p>
-					</div>
-
-					<div className="sender">
-						<p>
-							Deserunt est ad laboris sint. Do elit ipsum elit duis. Ut enim id
-							laboris aute irure. Aute labore et adipisicing nisi ut mollit
-							irure non incididunt nulla duis duis laboris.
-						</p>
-					</div>
+					{messageList?.map((msg, i) => (
+						<div
+							className={i % 2 === 0 ? "receiver" : "sender"}
+							ref={scrollRef}>
+							<p>{msg.message}</p>
+						</div>
+					))}
 				</section>
-				<form className="messageForm">
-					<textarea></textarea>
+				<form className="messageForm" onSubmit={sendMessageSubmit}>
+					<textarea value={message} onChange={setMessageAction}></textarea>
 					<input type="submit" value="send" />
 				</form>
 			</main>

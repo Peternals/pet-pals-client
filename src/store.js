@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import socketReducer from "./slicers/socketSlicer";
+import messengerReducer from "./slicers/messengerSlice";
 
 const store = configureStore({
 	reducer: {
-		socket: socketReducer,
+		messenger: messengerReducer,
 	},
 });
 
