@@ -27,7 +27,12 @@ const ContactCard = (props) => {
 
 	const setCurrentChat = () => {
 		try {
-			dispatch(setCurrentChatAction(conversation._id));
+			dispatch(
+				setCurrentChatAction({
+					conversation: conversation._id,
+					chatUser: userinfo._id,
+				})
+			);
 		} catch (error) {
 			console.log(error);
 		}

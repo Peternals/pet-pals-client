@@ -2,23 +2,39 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addMessageAction } from "../../slicers/messengerSlice";
 import { socket } from "../../socket";
+import axios from "axios";
+import { getAllMessagesAction } from "../../slicers/actions/messageActions";
 
 const MessageBox = () => {
 	const [message, setMessage] = useState("");
 	const [senderTyping, setSenderTyping] = useState(false);
 	const dispatch = useDispatch();
 	const messageList = useSelector((state) => state.messenger.messages);
-	const currentChat = useSelector((state) => state.messenger.currentChat);
+	const currentConversation = useSelector(
+		(state) => state.messenger.currentConversation
+	);
+	const currentChatUser = useSelector(
+		(state) => state.messenger.currentChatUser
+	);
 	const scrollRef = useRef();
 
 	useEffect(() => {
 		socket.on("receiveMessage", (data) => {
-			dispatch(addMessageAction(data));
+			if (currentChatUser === data.sender_id) {
+				dispatch(addMessageAction(data));
+			}
 		});
 		socket.on("senderTyping", (data) => {
-			setSenderTyping(data.current);
+			if (currentChatUser === data.sender_id) {
+				setSenderTyping(data.current);
+			}
 		});
-	}, [dispatch]);
+	}, [dispatch, currentChatUser]);
+	useEffect(() => {
+		if (currentConversation !== "") {
+			dispatch(getAllMessagesAction(currentConversation));
+		}
+	}, [currentConversation, dispatch]);
 
 	useEffect(() => {
 		if (messageList.length > 0)
@@ -28,9 +44,10 @@ const MessageBox = () => {
 	useEffect(() => {
 		socket.emit("senderTyping", {
 			current: message.length ? true : false,
-			receiver_id: localStorage.getItem("pet2"),
+			receiver_id: currentChatUser,
+			sender_id: localStorage.getItem("pet"),
 		});
-	}, [message]);
+	}, [message, currentChatUser]);
 
 	const setMessageAction = (e) => {
 		setMessage(e.target.value);
@@ -41,9 +58,15 @@ const MessageBox = () => {
 		try {
 			if (message.length > 0) {
 				const data = {
-					message,
-					receiver_id: localStorage.getItem("pet2"),
+					text: message,
+					receiver_id: currentChatUser,
+					sender_id: localStorage.getItem("pet"),
 				};
+				await axios.post(`${process.env.REACT_APP_SERVER_URL}/messages`, {
+					conversation_id: currentConversation,
+					text: message,
+					sender_id: localStorage.getItem("pet"),
+				});
 				socket.emit("sendMessage", data);
 				dispatch(addMessageAction(data));
 
@@ -59,14 +82,19 @@ const MessageBox = () => {
 				<h1>Message</h1>
 			</div>
 			<main className="messageBox">
-				{currentChat !== "" && (
+				{currentConversation !== "" && (
 					<>
 						<section className="messages">
 							{messageList?.map((msg, i) => (
 								<div
-									className={i % 2 === 0 ? "receiver" : "sender"}
+									key={msg._id || i}
+									className={
+										msg.sender_id !== localStorage.getItem("pet")
+											? "sender"
+											: "receiver"
+									}
 									ref={scrollRef}>
-									<p>{msg.message}</p>
+									<p>{msg.text}</p>
 								</div>
 							))}
 							{senderTyping && <p>yu is typing...</p>}
