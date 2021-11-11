@@ -82,9 +82,9 @@ const MessageBox = () => {
 	};
 	return (
 		<section className="messageBoxContainer">
-			<div className="messageBoxHeader">
+			{/* <div className="messageBoxHeader">
 				<h1>Message</h1>
-			</div>
+			</div> */}
 			<main className="messageBox">
 				{currentConversation !== "" && (
 					<>

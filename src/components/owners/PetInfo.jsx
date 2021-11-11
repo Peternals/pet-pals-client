@@ -8,12 +8,15 @@ const PetInfo = () => {
 		<section className="homeSection">
 			<figure>
 				<img src={sampleDog} alt="dog"></img>
+				{/* <div className="petName">
+					<h1>Max</h1>
+				</div> */}
 			</figure>
 			<div className="petSchedule">
 				<section className="calendar">
 					<Calendar />
 				</section>
-				<section className="dogInfo">
+				<section className="petInfo">
 					<h1>This is Max</h1>
 					<p className="summaryTitle">Bio:</p>
 					<p className="summary">

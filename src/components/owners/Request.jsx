@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import sampleImg from "../../assets/sample.jpg";
 
 const Request = () => {
@@ -13,15 +12,20 @@ const Request = () => {
 	};
 	return (
 		<section className="requestSection">
+			<h1>Requests</h1>
 			<div className="gridRequest">
 				{[1, 2, 3, 4, 5, 6, 7].map(() => (
 					<div className="request">
 						<img src={sampleImg} alt="img" />
 						<div className="requestInfo">
-							<h1>Name</h1>
+							<h1>Andrew garfield</h1>
 							<p>Request for max</p>
-							<p>from: march 5</p>
-							<p>to: march 8</p>
+							<p>
+								<span>from:</span> march 5
+							</p>
+							<p>
+								<span>to:</span> a march 8
+							</p>
 							<button onClick={openAnswerForm}>Review</button>
 						</div>
 					</div>

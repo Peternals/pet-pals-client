@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/owners/ownerHome.scss";
 import sampleImg from "../../assets/sample.jpg";
 import PetInfo from "./PetInfo";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Request from "./Request";
 
 const OwnerHome = () => {

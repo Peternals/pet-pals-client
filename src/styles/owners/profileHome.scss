@@ -12,8 +12,26 @@
 			border-radius: 30px;
 			box-shadow: 1px 1px 5px $shadow;
 			margin-bottom: 10px;
+			position: relative;
 			img {
 				width: 100%;
+			}
+			.petName {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				padding: 20px;
+				display: flex;
+				align-items: flex-end;
+				height: 40%;
+				color: rgb(196, 196, 196);
+				background: rgb(255, 255, 255);
+				background: linear-gradient(
+					180deg,
+					rgba(255, 255, 255, 0) 7%,
+					rgba(6, 6, 6, 0.46011908181241246) 66%
+				);
 			}
 		}
 
@@ -42,7 +60,7 @@
 				}
 			}
 
-			.dogInfo {
+			.petInfo {
 				background-color: white;
 				height: 100%;
 				padding: 20px;

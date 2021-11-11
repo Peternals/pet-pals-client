@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import sample from "../../assets/sample.jpg";
 import { setCurrentChatAction } from "../../slicers/messengerSlice";
 
 const ContactCard = (props) => {
@@ -41,7 +42,9 @@ const ContactCard = (props) => {
 
 	return (
 		<article className="contact" onClick={setCurrentChat}>
-			<figure className="contactImg"></figure>
+			<figure className="contactImg">
+				<img src={sample} alt="user" />
+			</figure>
 			<div className="contactInfo">
 				<div className="contactName">
 					<p>{userInfo.username}</p>

@@ -5,8 +5,11 @@
 		width: 70%;
 		display: flex;
 		justify-content: flex-end;
+		flex-direction: column;
+		align-items: center;
 		.gridRequest {
 			width: 100%;
+			margin-top: 20px;
 			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
@@ -20,6 +23,9 @@
 				width: max-content;
 				height: max-content;
 				box-shadow: 1px 1px 5px $shadow;
+				span {
+					font-weight: bold;
+				}
 				img {
 					width: 70px;
 					height: 70px;
