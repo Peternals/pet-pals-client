@@ -8,10 +8,10 @@ const MessageBox = () => {
 	const [senderTyping, setSenderTyping] = useState(false);
 	const dispatch = useDispatch();
 	const messageList = useSelector((state) => state.messenger.messages);
+	const currentChat = useSelector((state) => state.messenger.currentChat);
 	const scrollRef = useRef();
 
 	useEffect(() => {
-		dispatch();
 		socket.on("receiveMessage", (data) => {
 			dispatch(addMessageAction(data));
 		});
@@ -59,20 +59,24 @@ const MessageBox = () => {
 				<h1>Message</h1>
 			</div>
 			<main className="messageBox">
-				<section className="messages">
-					{messageList?.map((msg, i) => (
-						<div
-							className={i % 2 === 0 ? "receiver" : "sender"}
-							ref={scrollRef}>
-							<p>{msg.message}</p>
-						</div>
-					))}
-					{senderTyping && <p>yu is typing...</p>}
-				</section>
-				<form className="messageForm" onSubmit={sendMessageSubmit}>
-					<textarea value={message} onChange={setMessageAction}></textarea>
-					<input type="submit" value="send" />
-				</form>
+				{currentChat !== "" && (
+					<>
+						<section className="messages">
+							{messageList?.map((msg, i) => (
+								<div
+									className={i % 2 === 0 ? "receiver" : "sender"}
+									ref={scrollRef}>
+									<p>{msg.message}</p>
+								</div>
+							))}
+							{senderTyping && <p>yu is typing...</p>}
+						</section>
+						<form className="messageForm" onSubmit={sendMessageSubmit}>
+							<textarea value={message} onChange={setMessageAction}></textarea>
+							<input type="submit" value="send" />
+						</form>
+					</>
+				)}
 			</main>
 		</section>
 	);

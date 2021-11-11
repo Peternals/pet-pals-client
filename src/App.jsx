@@ -1,4 +1,4 @@
-import { Routes, Route, HashRouter, Link } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Messenger from "./pages/Messenger";
 import { useEffect } from "react";
 import { socket } from "./socket";

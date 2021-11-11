@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getConversationsAction } from "./actions/messageActions";
 
 const initialState = {
+	pending: false,
 	messages: [],
 	conversations: [],
 	currentChat: "",
@@ -16,6 +18,14 @@ const messengerSlice = createSlice({
 
 		setCurrentChatAction: (state, action) => {
 			state.currentChat = action.payload;
+		},
+	},
+	extraReducers: {
+		[getConversationsAction.pending]: (state) => {
+			state.pending = false;
+		},
+		[getConversationsAction.fulfilled]: (state, action) => {
+			state.conversations = action.payload;
 		},
 	},
 });
