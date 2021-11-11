@@ -10,9 +10,11 @@ const Navbar = () => {
 					<h1>Pet Rental</h1>
 				</Link>
 				<ul className="mainOptions">
-					<li>
-						<i className="fa fa-bell"></i>
-					</li>
+					<Link to="/requests">
+						<li>
+							<i className="fa fa-bell"></i>
+						</li>
+					</Link>
 					<Link to="/messenger">
 						<li>
 							<i className="fa fa-wechat"></i>

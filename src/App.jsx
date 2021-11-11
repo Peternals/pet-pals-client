@@ -5,6 +5,8 @@ import { socket } from "./socket";
 import axios from "axios";
 import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
+import PetInfo from "./components/owners/PetInfo";
+import Request from "./components/owners/Request";
 
 function App() {
 	useEffect(() => {
@@ -24,7 +26,10 @@ function App() {
 			<HashRouter basename="/">
 				<Navbar />
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<Home />}>
+						<Route exact path="/" element={<PetInfo />} />
+						<Route exact path="/requests" element={<Request />} />
+					</Route>
 					<Route path="/messenger" element={<Messenger />} />
 				</Routes>
 			</HashRouter>
