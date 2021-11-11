@@ -4,6 +4,25 @@ const initialState = user
   ? { isLoggedIn: true, user }
   : { isLoggedIn: false, user: null };
 
+export const login = createAsyncThunk(
+  "auth/login",
+  async ({ username, password }, thunkAPI) => {
+    try {
+      const data = await AuthService.login(username, password);
+      return { user: data };
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,

@@ -1,3 +1,3 @@
 import io from "socket.io-client";
 
-export const socket = io("ws://localhost:4000", { autoConnect: false });
+export const socket = io(process.env.REACT_APP_WS, { autoConnect: false });
