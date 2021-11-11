@@ -1,0 +1,35 @@
+.navHeader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: rgb(243, 243, 243);
+	.navMain {
+		margin: auto;
+		padding: 10px;
+		max-width: 1080px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		h1 {
+			transition: 0.5s;
+			&:hover {
+				transform: scale(1.4);
+				cursor: pointer;
+			}
+		}
+		ul {
+			list-style-type: none;
+			display: flex;
+			li {
+				margin: 0 10px;
+				font-size: 1.2em;
+				transition: 0.5s;
+				&:hover {
+					transform: scale(1.4);
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}

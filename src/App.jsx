@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { socket } from "./socket";
 import axios from "axios";
 import Home from "./pages/Home";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
 	useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
 	return (
 		<div className="App">
 			<HashRouter basename="/">
+				<Navbar />
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/messenger" element={<Messenger />} />
