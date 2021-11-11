@@ -16,14 +16,28 @@ const PetGrid = () => {
         {
             name: "Simba",
             description: "Lion",
-        }
+        },
+        {
+            name: "Mizugocci",
+            description: "Mizugocci",
+        },
+        {
+            name: "Doraemon",
+            description: "???",
+        },
+        {
+            name: "Hachiko",
+            description: "Dog",
+        },
     ]
 
     return (
-        <div>
+        <div className="container" style={{marginTop : '50px' }}>
+        <div className="row">
             {pets.map((pet) => 
                 <PetCard />
             )}
+        </div>
         </div>
     )
 }
