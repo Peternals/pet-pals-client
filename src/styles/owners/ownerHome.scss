@@ -4,13 +4,32 @@
 	padding: 10px;
 	padding-top: 70px;
 	display: flex;
+	.summaryTitle {
+		margin-top: 10px;
+		font-weight: bolder;
+	}
+	.summary {
+		color: rgb(100, 100, 100);
+	}
 	.profileContainer {
+		width: 200px;
 		.profile {
-			img {
-				height: 200px;
-				width: 200px;
-				border-radius: 200px;
-				box-shadow: 1px 1px 5px $shadow;
+			position: fixed;
+			.profile2 {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				max-width: 250px;
+				img {
+					height: 200px;
+					width: 200px;
+					border-radius: 200px;
+					box-shadow: 1px 1px 5px $shadow;
+				}
+				.profileInfo {
+					max-height: 50vh;
+					overflow-y: auto;
+				}
 			}
 		}
 	}
@@ -24,7 +43,7 @@
 		figure {
 			overflow: hidden;
 			width: 80%;
-			max-height: 45vh;
+			max-height: 40vh;
 			border-radius: 30px;
 			box-shadow: 1px 1px 5px $shadow;
 			margin-bottom: 10px;
@@ -33,12 +52,39 @@
 			}
 		}
 
-		.calendar {
+		.petSchedule {
 			width: 80%;
-			background-color: white;
-			border-radius: 30px;
-			box-shadow: 1px 1px 5px $shadow;
+			display: flex;
 			min-height: 40vh;
+			justify-content: space-between;
+			.calendar {
+				background-color: white;
+				height: 100%;
+				width: 57%;
+				border-radius: 30px;
+				box-shadow: 1px 1px 5px $shadow;
+				padding: 10px;
+				display: flex;
+				justify-content: center;
+				.react-calendar {
+					border: none;
+					button {
+						border-radius: 100%;
+					}
+					abbr {
+						text-decoration: none;
+					}
+				}
+			}
+
+			.dogInfo {
+				background-color: white;
+				height: 100%;
+				padding: 20px;
+				width: 40%;
+				border-radius: 30px;
+				box-shadow: 1px 1px 5px $shadow;
+			}
 		}
 	}
 }
