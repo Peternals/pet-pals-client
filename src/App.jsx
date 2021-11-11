@@ -1,15 +1,28 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Messenger from "./pages/Messenger";
+import { useEffect } from "react";
+import { socket } from "./socket";
+import axios from "axios";
 
 function App() {
+	useEffect(() => {
+		socket.connect();
+		(async () => {
+			const test = await axios.get(`${process.env.REACT_APP_SERVER_URL}/test`);
+			console.log(test);
+		})();
+
+		return () => {
+			socket.disconnect();
+		};
+	}, []);
 	return (
 		<div className="App">
-			<BrowserRouter>
+			<HashRouter>
 				<Routes>
-					<Route exact path="/messenger" element={<Messenger />} />
+					<Route path="/messenger" element={<Messenger />} />
 				</Routes>
-			</BrowserRouter>
+			</HashRouter>
 		</div>
 	);
 }
