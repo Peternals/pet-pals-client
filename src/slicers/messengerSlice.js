@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	messages: [],
+	conversations: [],
+	currentChat: "",
 };
 
 const messengerSlice = createSlice({
@@ -11,10 +13,15 @@ const messengerSlice = createSlice({
 		addMessageAction: (state, action) => {
 			state.messages.push(action.payload);
 		},
+
+		setCurrentChatAction: (state, action) => {
+			state.currentChat = action.payload;
+		},
 	},
 });
 
-export const { addMessageAction } = messengerSlice.actions;
+export const { addMessageAction, setCurrentChatAction } =
+	messengerSlice.actions;
 const messengerReducer = messengerSlice.reducer;
 
 export default messengerReducer;

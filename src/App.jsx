@@ -1,8 +1,9 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter, Link } from "react-router-dom";
 import Messenger from "./pages/Messenger";
 import { useEffect } from "react";
 import { socket } from "./socket";
 import axios from "axios";
+import Home from "./pages/Home";
 
 function App() {
 	useEffect(() => {
@@ -19,11 +20,12 @@ function App() {
 	}, []);
 	return (
 		<div className="App">
-			<BrowserRouter>
+			<HashRouter basename="/">
 				<Routes>
+					<Route path="/" element={<Home />} />
 					<Route path="/messenger" element={<Messenger />} />
 				</Routes>
-			</BrowserRouter>
+			</HashRouter>
 		</div>
 	);
 }

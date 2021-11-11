@@ -5,13 +5,18 @@ import { socket } from "../../socket";
 
 const MessageBox = () => {
 	const [message, setMessage] = useState("");
+	const [senderTyping, setSenderTyping] = useState(false);
 	const dispatch = useDispatch();
 	const messageList = useSelector((state) => state.messenger.messages);
 	const scrollRef = useRef();
 
 	useEffect(() => {
+		dispatch();
 		socket.on("receiveMessage", (data) => {
 			dispatch(addMessageAction(data));
+		});
+		socket.on("senderTyping", (data) => {
+			setSenderTyping(data.current);
 		});
 	}, [dispatch]);
 
@@ -19,6 +24,13 @@ const MessageBox = () => {
 		if (messageList.length > 0)
 			scrollRef?.current.scrollIntoView({ behavior: "smooth" });
 	}, [messageList]);
+
+	useEffect(() => {
+		socket.emit("senderTyping", {
+			current: message.length ? true : false,
+			receiver_id: localStorage.getItem("pet2"),
+		});
+	}, [message]);
 
 	const setMessageAction = (e) => {
 		setMessage(e.target.value);
@@ -55,6 +67,7 @@ const MessageBox = () => {
 							<p>{msg.message}</p>
 						</div>
 					))}
+					{senderTyping && <p>yu is typing...</p>}
 				</section>
 				<form className="messageForm" onSubmit={sendMessageSubmit}>
 					<textarea value={message} onChange={setMessageAction}></textarea>
