@@ -17,15 +17,17 @@ const MessageBox = () => {
 		(state) => state.messenger.currentChatUser
 	);
 	const scrollRef = useRef();
+	const scrollRef2 = useRef();
 
 	useEffect(() => {
 		socket.on("receiveMessage", (data) => {
-			if (currentChatUser === data.sender_id) {
+			if (currentChatUser._id === data.sender_id) {
 				dispatch(addMessageAction(data));
 			}
 		});
 		socket.on("senderTyping", (data) => {
-			if (currentChatUser === data.sender_id) {
+			console.log(data);
+			if (currentChatUser._id === data.sender_id) {
 				setSenderTyping(data.current);
 			}
 		});
@@ -39,12 +41,14 @@ const MessageBox = () => {
 	useEffect(() => {
 		if (messageList.length > 0)
 			scrollRef?.current.scrollIntoView({ behavior: "smooth" });
-	}, [messageList]);
+		if (senderTyping)
+			scrollRef2?.current.scrollIntoView({ behavior: "smooth" });
+	}, [messageList, senderTyping]);
 
 	useEffect(() => {
 		socket.emit("senderTyping", {
 			current: message.length ? true : false,
-			receiver_id: currentChatUser,
+			receiver_id: currentChatUser._id,
 			sender_id: localStorage.getItem("pet"),
 		});
 	}, [message, currentChatUser]);
@@ -59,7 +63,7 @@ const MessageBox = () => {
 			if (message.length > 0) {
 				const data = {
 					text: message,
-					receiver_id: currentChatUser,
+					receiver_id: currentChatUser._id,
 					sender_id: localStorage.getItem("pet"),
 				};
 				await axios.post(`${process.env.REACT_APP_SERVER_URL}/messages`, {
@@ -97,7 +101,9 @@ const MessageBox = () => {
 									<p>{msg.text}</p>
 								</div>
 							))}
-							{senderTyping && <p>yu is typing...</p>}
+							{senderTyping && (
+								<p ref={scrollRef2}>{currentChatUser.username} is typing...</p>
+							)}
 						</section>
 						<form className="messageForm" onSubmit={sendMessageSubmit}>
 							<textarea value={message} onChange={setMessageAction}></textarea>

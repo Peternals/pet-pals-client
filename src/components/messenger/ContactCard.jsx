@@ -5,7 +5,7 @@ import { setCurrentChatAction } from "../../slicers/messengerSlice";
 
 const ContactCard = (props) => {
 	const { conversation } = props;
-	const [userinfo, setUserInfo] = useState({});
+	const [userInfo, setUserInfo] = useState({});
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -27,10 +27,11 @@ const ContactCard = (props) => {
 
 	const setCurrentChat = () => {
 		try {
+			console.log(userInfo);
 			dispatch(
 				setCurrentChatAction({
 					conversation: conversation._id,
-					chatUser: userinfo._id,
+					chatUser: userInfo,
 				})
 			);
 		} catch (error) {
@@ -43,7 +44,7 @@ const ContactCard = (props) => {
 			<figure className="contactImg"></figure>
 			<div className="contactInfo">
 				<div className="contactName">
-					<p>{userinfo.username}</p>
+					<p>{userInfo.username}</p>
 					<p>3 hrs ago</p>
 				</div>
 				<div className="contactMessageSummary">
