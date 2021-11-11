@@ -2,17 +2,17 @@
 @import "./messageBox.scss";
 
 .messengerPage {
-	width: 100%;
-	height: 100%;
-	padding-top: 50px;
-	padding-bottom: 20px;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 20px;
 
-	.messengerContainer {
-		display: flex;
-		height: 100%;
-		max-width: 1000px;
-		margin: auto;
-		@include contacts;
-		@include messageBox;
-	}
+  .messengerContainer {
+    display: flex;
+    height: 100%;
+    max-width: 1000px;
+    margin: auto;
+    @include contacts;
+    @include messageBox;
+  }
 }
