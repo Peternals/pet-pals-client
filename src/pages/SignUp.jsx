@@ -1,11 +1,10 @@
 import React, { createRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { validation } from "../slicers/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const dispatch = useDispatch();
-  const signUpInfo = useSelector((state) => state.user.email);
   const navigate = useNavigate();
   const email = createRef();
   const password = createRef();

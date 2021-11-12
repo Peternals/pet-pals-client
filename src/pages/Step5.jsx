@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
@@ -22,7 +22,7 @@ export default function Step5() {
         type: signUpInfo.type,
       })
     );
-    if (submitAction.payload === "Account is created successfully") {
+    if (submitAction.payload) {
       navigate("/complete");
     }
   };

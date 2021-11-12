@@ -1,7 +1,6 @@
 import React, { createRef } from "react";
 import { useDispatch } from "react-redux";
-import { signUp } from "../slicers/userSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   getUserName,
   getDescription,
@@ -10,7 +9,6 @@ import {
 
 export default function Step3Carer() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const username = createRef();
   const description = createRef();
   const profile_picture = createRef();
