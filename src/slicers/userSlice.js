@@ -45,6 +45,7 @@ export const userSlice = createSlice({
     getUserName: (state, action) => { state.username = action.payload.username },
     getDescription: (state, action) => { state.description = action.payload.description },
     getProfilePicture: (state, action) => { state.profile_picture = action.payload.profile_picture },
+    changeSuccessStatus: (state) => { state.isSuccess = true},
   },
   extraReducers: {
     [validation.fulfilled]: (state, action) => {
@@ -60,6 +61,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getUserName, getDescription, getProfilePicture, getType } = userSlice.actions;
+export const { getUserName, getDescription, getProfilePicture, getType, changeSuccessStatus } = userSlice.actions;
 export default userSlice.reducer;
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { signUp } from "../slicers/userSlice";
+import { signUp, changeSuccessStatus } from "../slicers/userSlice";
 
 export default function Step5() {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ export default function Step5() {
         type: signUpInfo.type,
       })
     );
+    dispatch(changeSuccessStatus());
     if (submitAction.payload) {
       navigate("/complete");
     }
