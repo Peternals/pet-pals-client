@@ -1,5 +1,5 @@
 import React from "react";
-import Carer from "../components/carer/Carer";
+// import Carer from "../components/carer/Carer";
 import OwnerHome from "../components/owners/OwnerHome";
 
 const Home = () => {

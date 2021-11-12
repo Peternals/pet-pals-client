@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "../components/DatePicker";
-import PetCard from "../components/carer/PetCard";
 import { Link, useParams } from "react-router-dom";
 import "../styles/carer/pet.scss";
-import axios from "axios";
 import samplePet from "../assets/sampleDog2.jpeg";
 
 // Component that represents the pet view for the carer
@@ -11,8 +9,8 @@ import samplePet from "../assets/sampleDog2.jpeg";
 // Has a date picker for choosing the dates for requested
 // Has the button to direct to the questionnaire page
 const Pet = () => {
-	const [petInfo, setPetInfo] = useState({});
-	const { id } = useParams();
+	// const [petInfo, setPetInfo] = useState({});
+	// const { id } = useParams();
 	useEffect(() => {
 		(async () => {
 			try {
