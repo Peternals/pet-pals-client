@@ -65,8 +65,10 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.password = action.payload.password;
     },
-    [signUp.fulfilled]: (state) => {
-      state.isSuccess = true;
+    [signUp.fulfilled]: (state, action) => {
+      if (action.payload.user) {
+        state.isSuccess = true;
+      }
     },
     [signIn.fulfilled]: (state, action) => {
       if (action.payload.user) {
