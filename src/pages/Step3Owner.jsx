@@ -1,7 +1,11 @@
 import React, { createRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getSecondInfo } from "../slicers/userSlice";
+import {
+  getUserName,
+  getDescription,
+  getProfilePicture,
+} from "../slicers/userSlice";
 
 export default function Step3Owner() {
   const dispatch = useDispatch();
@@ -10,24 +14,23 @@ export default function Step3Owner() {
   const description = createRef();
   const profile_picture = createRef();
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
-    dispatch(
-      getSecondInfo({
-        username: username.current.value,
-        description: description.current.value,
-        profile_picture: profile_picture.current.value,
-      })
-    );
+    const usernameVal = username.current.value;
+    const descriptionVal = description.current.value;
+    const profile_pictureVal = profile_picture.current.value;
+    await dispatch(getUserName({ username: usernameVal }));
+    await dispatch(getDescription({ description: descriptionVal }));
+    await dispatch(getProfilePicture({ profile_picture: profile_pictureVal }));
     navigate("/step4");
   };
 
   return (
     <>
-      <div>
+      <div style={{ marginTop: 200 }}>
         <form onSubmit={handleNext}>
           <input type="text" placeholder="Picture" ref={profile_picture} />
-          <input type="text" placeholder="Full Name" ref={username} />
+          <input type="text" placeholder="username" ref={username} />
           <input type="text" placeholder="Bio" ref={description} />
           <button>Next</button>
         </form>

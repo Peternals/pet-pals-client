@@ -2,7 +2,11 @@ import React, { createRef } from "react";
 import { useDispatch } from "react-redux";
 import { signUp } from "../slicers/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { getSecondInfo } from "../slicers/userSlice";
+import {
+  getUserName,
+  getDescription,
+  getProfilePicture,
+} from "../slicers/userSlice";
 
 export default function Step3Carer() {
   const dispatch = useDispatch();
@@ -13,13 +17,9 @@ export default function Step3Carer() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(
-      getSecondInfo({
-        username: username.current.value,
-        description: description.current.value,
-        profile_picture: profile_picture.current.value,
-      })
-    );
+    dispatch(getUserName(username.current.value));
+    dispatch(getDescription(description.current.value));
+    dispatch(getProfilePicture(profile_picture.current.value));
     // const secondInputAction = await dispatch(
     //   signUp({
     //     email: email.current.value,
@@ -31,7 +31,7 @@ export default function Step3Carer() {
   return (
     <>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ marginTop: 200 }}>
           <input type="text" placeholder="Picture" ref={profile_picture} />
           <input type="text" placeholder="Full Name" ref={username} />
           <input type="text" placeholder="Bio" ref={description} />

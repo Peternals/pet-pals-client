@@ -7,8 +7,18 @@ const Messenger = () => {
   return (
     <main className="messengerPage">
       <div className="messengerContainer">
-        <Contacts />
-        <MessageBox />
+        <div className="messengerHeader">
+          <div className="contactListHeader">
+            <h1>Contact</h1>
+          </div>
+          <div className="messageBoxHeader">
+            <h1>Message</h1>
+          </div>
+        </div>
+        <section className="messengerContent">
+          <Contacts />
+          <MessageBox />
+        </section>
       </div>
     </main>
   );

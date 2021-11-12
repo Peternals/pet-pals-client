@@ -9,12 +9,14 @@ export default function Step2() {
 
   const handleTypeUser = (e) => {
     dispatch(getType(e.target.value));
-    navigate("/step3");
+    const userType =
+      e.target.value === "Owner" ? "/step3/owner" : "/step3/carer";
+    navigate(userType);
   };
 
   return (
     <>
-      <div className="sign-up-container">
+      <div className="sign-up-container" style={{ marginTop: 200 }}>
         <h2>What are you?</h2>
         <button type="button" value="Owner" onClick={handleTypeUser}>
           Owner

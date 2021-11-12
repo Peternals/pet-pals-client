@@ -1,10 +1,11 @@
 import React, { createRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { validation } from "../slicers/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const signUpInfo = useSelector((state) => state.user.email);
   const navigate = useNavigate();
   const email = createRef();
   const password = createRef();
@@ -17,14 +18,15 @@ export default function SignUp() {
         password: password.current.value,
       })
     );
-    if (firstInputAction.payload === "Please Continue") {
+
+    if (firstInputAction.payload) {
       navigate("/step2");
     }
   };
 
   return (
     <>
-      <div className="sign-up-container">
+      <div className="sign-up-container" style={{ marginTop: 200 }}>
         <form onSubmit={handleContinue}>
           <h1>Sign Up</h1>
           <input type="text" placeholder="Email" ref={email} />
@@ -32,7 +34,7 @@ export default function SignUp() {
           <button>Continue</button>
         </form>
       </div>
-      <Link to="/">Have an account?</Link>
+      <Link to="/signin">Have an account?</Link>
     </>
   );
 }

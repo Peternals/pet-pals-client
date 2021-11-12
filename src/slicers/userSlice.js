@@ -4,7 +4,6 @@ const { REACT_APP_SERVER_URL } = process.env;
 
 const initialState = { 
   isSuccess: false, 
-  isError: false,
   username: null,
   email: null,
   password: null,
@@ -43,11 +42,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     getType: (state, action) => { state.type = action.payload },
-    getSecondInfo: (state, action) => {
-      state.username = action.payload.username;
-      state.description = action.payload.description;
-      state.profile_picture = action.payload.profile_picture;
-    },
+    getUserName: (state, action) => { state.username = action.payload.username },
+    getDescription: (state, action) => { state.description = action.payload.description },
+    getProfilePicture: (state, action) => { state.profile_picture = action.payload.profile_picture },
   },
   extraReducers: {
     [validation.fulfilled]: (state, action) => {
@@ -63,6 +60,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getSecondInfo, getType } = userSlice.actions;
+export const { getUserName, getDescription, getProfilePicture, getType } = userSlice.actions;
 export default userSlice.reducer;
 
