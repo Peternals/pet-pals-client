@@ -5,6 +5,7 @@
 	left: 0;
 	width: 100%;
 	background-color: $whiteBackground;
+	z-index: 100;
 	.navMain {
 		margin: auto;
 		padding: 10px;
@@ -12,7 +13,10 @@
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
-		h1 {
+		a {
+			text-decoration: none;
+		}
+		h2 {
 			transition: 0.5s;
 			&:hover {
 				transform: scale(1.4);

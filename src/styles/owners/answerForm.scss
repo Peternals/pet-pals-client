@@ -14,7 +14,8 @@
 		background-color: rgba($color: #000000, $alpha: 0.8);
 		justify-content: center;
 		align-items: center;
-		form {
+		z-index: 200;
+		.form {
 			width: 40%;
 			max-width: 1080px;
 			height: 90vh;
@@ -46,16 +47,20 @@
 				}
 			}
 
-			input[type="submit"] {
-				width: 50%;
-				outline: none;
-				border: none;
-				padding: 10px;
-				border-radius: 20px;
-				background-color: $primaryColor;
-				box-shadow: 1px 1px 5px $shadow;
-				margin-top: 10px;
-				color: $whiteBackground;
+			.answerFormButtons {
+				display: flex;
+				width: 100%;
+				button {
+					width: 50%;
+					outline: none;
+					border: none;
+					padding: 10px;
+					border-radius: 20px;
+					background-color: $primaryColor;
+					box-shadow: 1px 1px 5px $shadow;
+					margin: 10px;
+					color: $whiteBackground;
+				}
 			}
 		}
 	}

@@ -1,0 +1,43 @@
+@import "../variables.scss";
+.questionnaireMain {
+	padding-top: 70px;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+	form {
+		width: 50%;
+		padding: 20px;
+		background-color: white;
+		box-shadow: 1px 1px 5px $shadow;
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+		.input-group {
+			width: 100%;
+			label {
+				width: 100%;
+			}
+			textarea {
+				width: 100%;
+			}
+		}
+
+		input {
+			width: 100%;
+		}
+
+		button {
+			margin-top: 20px;
+			border: none;
+			padding: 10px 20px;
+			width: 50%;
+			align-self: center;
+			cursor: pointer;
+			background-color: $primaryColor;
+			color: white;
+			box-shadow: 1px 1px 5px $shadow;
+			border-radius: 13px;
+		}
+	}
+}
