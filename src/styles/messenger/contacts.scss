@@ -1,37 +1,37 @@
-@mixin contacts {
-	.contactsListContainer {
-		padding: 20px;
-		width: 30%;
-		margin: 10px;
-		background-color: white;
-		border-radius: 30px;
-		border-bottom-right-radius: 0px;
-		border-top-right-radius: 0px;
-		box-shadow: 1px 1px 3px rgb(116, 116, 116);
-		.contactListHeader {
-			padding-bottom: 10px;
-			border-bottom: 1px solid rgb(175, 175, 175);
+@import "../variables.scss";
 
-			height: 6%;
-		}
+@mixin contacts {
+	.contactsListContainer::-webkit-scrollbar {
+		width: 5px;
+	}
+
+	.contactsListContainer::-webkit-scrollbar-thumb {
+		background: rgb(212, 212, 212);
+	}
+	.contactsListContainer {
+		width: 30%;
+		height: 100%;
+		margin-right: 0;
+		overflow: auto;
+		box-shadow: 1px 1px 5px $shadow;
+		background-color: white;
 		.contactList {
 			width: 100%;
-			margin-top: 20px;
 			.contact {
 				display: flex;
 				width: 100%;
-				justify-content: space-between;
-				padding: 10px 0;
-				border-bottom: 1px solid rgb(175, 175, 175);
-				.contactImg {
+				padding: 10px;
+				margin-bottom: 5px;
+				border-bottom: 1px solid rgb(160, 160, 160);
+				.contactImg img {
 					height: 50px;
 					width: 50px;
 					border-radius: 50px;
-					margin: 0 10px;
-					background-color: aqua;
+					background-color: $primaryColor;
 				}
 				.contactInfo {
-					width: 70%;
+					width: 100%;
+					margin-left: 10px;
 					.contactName {
 						display: flex;
 						justify-content: space-between;

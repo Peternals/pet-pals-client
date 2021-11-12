@@ -1,38 +1,38 @@
 @mixin messageBox {
 	.messageBoxContainer {
 		width: 70%;
-		margin: 10px;
-		background-color: white;
-		border-radius: 30px;
-		border-bottom-left-radius: 0px;
-		border-top-left-radius: 0px;
-		padding: 20px;
-		box-shadow: 1px 1px 3px rgb(116, 116, 116);
-		.messageBoxHeader {
-			padding-bottom: 10px;
-			border-bottom: 1px solid rgb(175, 175, 175);
+		margin-left: 5px;
 
-			height: 6%;
-		}
 		.messageBox {
-			padding: 20px 0;
+			border-radius: 5px;
 			display: flex;
-			height: 96%;
+			height: 100%;
 			flex-direction: column;
+			.messages::-webkit-scrollbar {
+				width: 5px;
+			}
+
+			.messages::-webkit-scrollbar-thumb {
+				background: rgb(212, 212, 212);
+			}
 
 			.messages {
 				overflow-y: auto;
-				margin-bottom: 10px;
+				padding: 20px;
+				margin-bottom: 5px;
+				background-color: white;
+				box-shadow: 1px 1px 5px $shadow;
+				height: 100%;
 
 				div {
 					padding: 10px;
 					max-width: 70%;
 					border-radius: 30px;
 					margin: 5px;
-					// box-shadow: 1px 1px 1px gray;
 				}
 				.sender {
-					background-color: aqua;
+					color: $whiteBackground;
+					background-color: $primaryColor;
 				}
 
 				.receiver {
@@ -44,21 +44,28 @@
 			form {
 				margin-top: auto;
 				display: flex;
+				padding: 10px;
 				justify-content: space-between;
+				background-color: white;
+				box-shadow: 1px 1px 5px $shadow;
+
 				textarea {
 					width: 85%;
 					padding: 5px 10px;
 					resize: none;
 					border-radius: 30px;
 					outline: none;
-					box-shadow: 1px 1px 2px gray;
+					border: none;
+					// box-shadow: 1px 1px 2px $shadow;
+					background-color: rgb(235, 235, 235);
 				}
 				input {
 					width: 10%;
 					outline: none;
 					border-radius: 30px;
 					border: none;
-					background-color: aqua;
+					color: $whiteBackground;
+					background-color: $primaryColor;
 					box-shadow: 1px 1px 4px gray;
 				}
 			}

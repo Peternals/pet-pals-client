@@ -3,6 +3,10 @@ import Messenger from "./pages/Messenger";
 import { useEffect } from "react";
 import { socket } from "./socket";
 import axios from "axios";
+import Home from "./pages/Home";
+import Navbar from "./components/navbar/Navbar";
+import PetInfo from "./components/owners/PetInfo";
+import Request from "./components/owners/Request";
 
 function App() {
 	useEffect(() => {
@@ -11,6 +15,7 @@ function App() {
 			const test = await axios.get(`${process.env.REACT_APP_SERVER_URL}/test`);
 			console.log(test);
 		})();
+		socket.emit("addUser", { user_id: localStorage.getItem("pet") });
 
 		return () => {
 			socket.disconnect();
@@ -18,8 +23,13 @@ function App() {
 	}, []);
 	return (
 		<div className="App">
-			<HashRouter>
+			<HashRouter basename="/">
+				<Navbar />
 				<Routes>
+					<Route path="/" element={<Home />}>
+						<Route exact path="/" element={<PetInfo />} />
+						<Route exact path="/requests" element={<Request />} />
+					</Route>
 					<Route path="/messenger" element={<Messenger />} />
 				</Routes>
 			</HashRouter>

@@ -1,0 +1,62 @@
+@import "../variables.scss";
+
+@mixin answerForm {
+	.showAnswerForm {
+		display: flex !important;
+	}
+	.answerFormContainer {
+		position: fixed;
+		display: none;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba($color: #000000, $alpha: 0.8);
+		justify-content: center;
+		align-items: center;
+		form {
+			width: 40%;
+			max-width: 1080px;
+			height: 90vh;
+			background-color: white;
+			border-radius: 30px;
+			box-shadow: 1px 1px 5px black;
+			padding: 40px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			position: relative;
+
+			i {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				font-size: 1.3em;
+				color: rgb(204, 108, 108);
+			}
+
+			h1 {
+				font-size: 2em;
+			}
+			ol {
+				overflow: auto;
+				height: 85%;
+				li {
+					margin: 20px;
+				}
+			}
+
+			input[type="submit"] {
+				width: 50%;
+				outline: none;
+				border: none;
+				padding: 10px;
+				border-radius: 20px;
+				background-color: $primaryColor;
+				box-shadow: 1px 1px 5px $shadow;
+				margin-top: 10px;
+				color: $whiteBackground;
+			}
+		}
+	}
+}
