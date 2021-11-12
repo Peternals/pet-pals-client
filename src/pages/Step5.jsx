@@ -8,8 +8,6 @@ export default function Step5() {
   const signUpInfo = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  console.log(signUpInfo);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const submitAction = await dispatch(

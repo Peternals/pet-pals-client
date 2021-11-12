@@ -1,29 +1,44 @@
 import React, { createRef } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getUserName,
   getDescription,
   getProfilePicture,
 } from "../slicers/userSlice";
+import { signUp } from "../slicers/userSlice";
 
 export default function Step3Carer() {
   const dispatch = useDispatch();
+  const signUpInfo = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const username = createRef();
   const description = createRef();
   const profile_picture = createRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(getUserName(username.current.value));
-    dispatch(getDescription(description.current.value));
-    dispatch(getProfilePicture(profile_picture.current.value));
-    // const secondInputAction = await dispatch(
-    //   signUp({
-    //     email: email.current.value,
-    //     password: password.current.value,
-    //   })
-    // );
+    const usernameVal = username.current.value;
+    const descriptionVal = description.current.value;
+    const profile_pictureVal = profile_picture.current.value;
+    await dispatch(getUserName({ username: usernameVal }));
+    await dispatch(getDescription({ description: descriptionVal }));
+    await dispatch(getProfilePicture({ profile_picture: profile_pictureVal }));
+
+    console.log(signUpInfo);
+    const submitAction = await dispatch(
+      signUp({
+        username: signUpInfo.username,
+        email: signUpInfo.email,
+        password: signUpInfo.password,
+        description: signUpInfo.description,
+        profile_picture: signUpInfo.profile_picture,
+        type: signUpInfo.type,
+      })
+    );
+    if (submitAction.payload) {
+      navigate("/complete");
+    }
   };
 
   return (
