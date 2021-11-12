@@ -13,6 +13,10 @@ function DatePicker() {
     const updateEndDate = (date) => setEndDate(date)
     const changeFocus = (focusedInput) => setFocusedInput(focusedInput)
 
+    // TODO: Add time component
+    // TODO: Figure out how to pass start date and end date out.
+    // TODO: Block dates via https://github.com/airbnb/react-dates/issues/971
+    // Use isDayBlocked and isOutsideRange
     return (
         <div>
             <DateRangePicker
