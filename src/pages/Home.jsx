@@ -5,8 +5,8 @@ import OwnerHome from "../components/owners/OwnerHome";
 const Home = () => {
 	return (
 		<div>
-			{/* <OwnerHome /> */}
-			<Carer />
+			<OwnerHome />
+			{/* <Carer /> */}
 		</div>
 	);
 };
