@@ -1,6 +1,6 @@
 @import "../variables.scss";
 
-@mixin questionnaireForm {
+@mixin answerForm {
 	.showAnswerForm {
 		display: flex !important;
 	}
@@ -52,9 +52,10 @@
 				border: none;
 				padding: 10px;
 				border-radius: 20px;
-				background-color: rgb(89, 255, 255);
+				background-color: $primaryColor;
 				box-shadow: 1px 1px 5px $shadow;
 				margin-top: 10px;
+				color: $whiteBackground;
 			}
 		}
 	}

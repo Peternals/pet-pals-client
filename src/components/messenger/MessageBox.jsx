@@ -39,10 +39,8 @@ const MessageBox = () => {
 	}, [currentConversation, dispatch]);
 
 	useEffect(() => {
-		if (messageList.length > 0)
-			scrollRef?.current.scrollIntoView({ behavior: "smooth" });
-		if (senderTyping)
-			scrollRef2?.current.scrollIntoView({ behavior: "smooth" });
+		if (messageList.length > 0) scrollRef?.current.scrollIntoView();
+		if (senderTyping) scrollRef2?.current.scrollIntoView();
 	}, [messageList, senderTyping]);
 
 	useEffect(() => {

@@ -31,7 +31,8 @@
 					margin: 5px;
 				}
 				.sender {
-					background-color: aqua;
+					color: $whiteBackground;
+					background-color: $primaryColor;
 				}
 
 				.receiver {
@@ -63,7 +64,8 @@
 					outline: none;
 					border-radius: 30px;
 					border: none;
-					background-color: aqua;
+					color: $whiteBackground;
+					background-color: $primaryColor;
 					box-shadow: 1px 1px 4px gray;
 				}
 			}

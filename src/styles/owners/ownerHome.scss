@@ -1,7 +1,7 @@
 @import "../variables.scss";
 @import "./profileHome.scss";
 @import "./requestSection.scss";
-@import "./questionnaireForm.scss";
+@import "./answerForm.scss";
 
 .owner {
 	padding: 10px 20px;
@@ -40,5 +40,5 @@
 	}
 	@include homeSection;
 	@include requestSection;
-	@include questionnaireForm;
+	@include answerForm;
 }

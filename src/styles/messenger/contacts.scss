@@ -15,7 +15,6 @@
 		overflow: auto;
 		box-shadow: 1px 1px 5px $shadow;
 		background-color: white;
-
 		.contactList {
 			width: 100%;
 			.contact {
@@ -28,7 +27,7 @@
 					height: 50px;
 					width: 50px;
 					border-radius: 50px;
-					background-color: aqua;
+					background-color: $primaryColor;
 				}
 				.contactInfo {
 					width: 100%;
