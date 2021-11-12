@@ -17,7 +17,7 @@ const PetInfo = () => {
 					<Calendar />
 				</section>
 				<section className="petInfo">
-					<h1>This is Max</h1>
+					<h2>This is Max</h2>
 					<p className="summaryTitle">Bio:</p>
 					<p className="summary">
 						Sint mollit magna aliqua adipisicing ex consequat sit adipisicing

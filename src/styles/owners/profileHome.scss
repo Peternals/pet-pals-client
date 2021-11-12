@@ -5,6 +5,13 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
+		figure::-webkit-scrollbar {
+			width: 5px;
+		}
+
+		figure::-webkit-scrollbar-thumb {
+			background: rgb(212, 212, 212);
+		}
 		figure {
 			overflow: hidden;
 			width: 100%;
@@ -38,7 +45,7 @@
 		.petSchedule {
 			width: 100%;
 			display: flex;
-			min-height: 40vh;
+			height: max-content;
 			justify-content: space-between;
 			.calendar {
 				background-color: white;

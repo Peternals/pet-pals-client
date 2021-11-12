@@ -12,12 +12,21 @@ body {
 * {
 	padding: 0;
 	margin: 0;
-	box-sizing: border-box;
+	box-sizing: border-box !important;
 }
 
 a {
 	text-decoration: none;
 	color: rgb(46, 46, 46);
+}
+p {
+	font-size: 0.9em;
+	line-height: normal;
+	margin-bottom: 0;
+}
+
+article {
+	margin-bottom: 0;
 }
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

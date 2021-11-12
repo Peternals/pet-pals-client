@@ -10,6 +10,7 @@ const Request = () => {
 	const closeAnswerForm = () => {
 		answerFormRef.current.classList.remove("showAnswerForm");
 	};
+
 	return (
 		<section className="requestSection">
 			<h1>Requests</h1>
@@ -18,7 +19,7 @@ const Request = () => {
 					<div className="request">
 						<img src={sampleImg} alt="img" />
 						<div className="requestInfo">
-							<h1>Andrew garfield</h1>
+							<h3>Andrew</h3>
 							<p>Request for max</p>
 							<p>
 								<span>from:</span> march 5
@@ -32,7 +33,7 @@ const Request = () => {
 				))}
 			</div>
 			<div className="answerFormContainer" ref={answerFormRef}>
-				<form>
+				<div className="form">
 					<i className="fa fa-close" onClick={closeAnswerForm}></i>
 					<h1>Answers</h1>
 					<ol>
@@ -48,8 +49,11 @@ const Request = () => {
 							</li>
 						))}
 					</ol>
-					<input type="submit" />
-				</form>
+					<div className="answerFormButtons">
+						<button>Accept</button>
+						<button>Decline</button>
+					</div>
+				</div>
 			</div>
 		</section>
 	);

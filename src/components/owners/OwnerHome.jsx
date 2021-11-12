@@ -12,7 +12,7 @@ const OwnerHome = () => {
 				<div className="profile">
 					<div className="profile2">
 						<img src={sampleImg} alt="profile"></img>
-						<h1>Yu Takaki</h1>
+						<h2>Yu Takaki</h2>
 						<div className="profileInfo">
 							<p className="summaryTitle">Bio:</p>
 							<p className="summary">

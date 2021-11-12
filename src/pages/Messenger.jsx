@@ -9,10 +9,10 @@ const Messenger = () => {
 			<div className="messengerContainer">
 				<div className="messengerHeader">
 					<div className="contactListHeader">
-						<h1>Contact</h1>
+						<h2>Contact</h2>
 					</div>
 					<div className="messageBoxHeader">
-						<h1>Message</h1>
+						<h2>Message</h2>
 					</div>
 				</div>
 				<section className="messengerContent">

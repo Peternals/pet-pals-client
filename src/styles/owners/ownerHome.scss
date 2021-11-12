@@ -2,7 +2,16 @@
 @import "./profileHome.scss";
 @import "./requestSection.scss";
 @import "./answerForm.scss";
-
+button,
+input,
+optgroup,
+select,
+textarea {
+	margin: 0;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 0.9rem;
+	line-height: normal;
+}
 .owner {
 	padding: 10px 20px;
 	padding-top: 70px;

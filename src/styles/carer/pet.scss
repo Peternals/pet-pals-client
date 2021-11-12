@@ -1,0 +1,83 @@
+@import "../variables.scss";
+
+.petMain {
+	padding-top: 40px;
+	.petOptions {
+		display: flex;
+		margin: 20px 0;
+		align-items: center;
+		button {
+			margin-left: 20px;
+			border: none;
+			box-shadow: 1px 1px 5px $shadow;
+		}
+	}
+	.petFlexBox {
+		display: flex;
+		grid-gap: 10px;
+		height: 70vh;
+		figure {
+			width: 70%;
+			height: 100%;
+
+			display: flex;
+			flex-direction: column;
+			.listOfImages::-webkit-scrollbar {
+				width: 5px;
+				height: 5px;
+			}
+
+			.listOfImages::-webkit-scrollbar-thumb {
+				background: rgb(212, 212, 212);
+			}
+			.listOfImages {
+				padding-bottom: 10px;
+				height: 20%;
+				display: flex;
+				width: 100%;
+				overflow-x: auto;
+				grid-gap: 10px;
+				margin-top: 10px;
+				img {
+					height: 100%;
+					border-radius: 20px;
+					box-shadow: 1px 1px 5px $shadow;
+				}
+			}
+			.mainPic {
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				border-radius: 20px;
+				box-shadow: 1px 1px 5px $shadow;
+				img {
+					width: 100%;
+					min-height: 100%;
+				}
+			}
+		}
+		.petBio {
+			width: 40%;
+			padding: 20px;
+			background-color: white;
+			border-radius: 20px;
+			box-shadow: 1px 1px 5px $shadow;
+			overflow-y: auto;
+		}
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.petMain {
+		.petFlexBox {
+			flex-direction: column;
+			figure {
+				width: 100%;
+			}
+			.petBio {
+				width: 100%;
+				overflow: visible;
+			}
+		}
+	}
+}
