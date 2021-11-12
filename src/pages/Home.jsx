@@ -1,6 +1,5 @@
 import React from "react";
-import Carer from "../components/carer/Carer";
-import OwnerHome from "../components/owners/OwnerHome";
+import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -9,7 +8,13 @@ const Home = () => {
 	return (
 		<div>
 			{isLoggedIn === true ? (
-				<>{type === "Owner" ? <OwnerHome /> : <Carer />}</>
+				<>
+					{type === "Owner" ? (
+						<Navigate to="/owner" />
+					) : (
+						<Navigate to="/carer" />
+					)}
+				</>
 			) : (
 				<div>Nothing</div>
 			)}

@@ -20,10 +20,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { verifyTokenAction } from "./slicers/actions/userAction";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Page404 from "./pages/Page404";
+import Carer from "./components/carer/Carer";
+import OwnerHome from "./components/owners/OwnerHome";
 
 function App() {
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+	const type = useSelector((state) => state.user.type);
 
 	useEffect(() => {
 		(async () => {
@@ -45,27 +48,58 @@ function App() {
 	}, [isLoggedIn]);
 	return (
 		<div className="App">
-			<HashRouter basename="/">
+			<HashRouter>
 				<Navbar />
 				<Routes>
-					<Route
-						path="/"
-						element={
-							<PrivateRoute>
-								<Home />
-							</PrivateRoute>
-						}>
-						<Route exact path="/" element={<PetInfo />} />
-						<Route exact path="/requests" element={<Request />} />
-					</Route>
-					<Route exact path="/signin" element={<SignIn />} />
-					<Route exact path="/signup" element={<SignUp />} />
-					<Route exact path="/step2" element={<Step2 />} />
-					<Route exact path="/step3/owner" element={<Step3Owner />} />
-					<Route exact path="/step3/carer" element={<Step3Carer />} />
-					<Route exact path="/step4" element={<Step4 />} />
-					<Route exact path="/step5" element={<Step5 />} />
-					<Route exact path="/complete" element={<Complete />} />
+					<Route path="" element={<Home />} />
+
+					{/* owner pages only */}
+					{type === "Owner" && (
+						<Route
+							path="/owner"
+							element={
+								<PrivateRoute>
+									<OwnerHome />
+								</PrivateRoute>
+							}>
+							<Route exact path="/owner" element={<PetInfo />} />
+							<Route exact path="/owner/requests" element={<Request />} />
+						</Route>
+					)}
+
+					{/* carer pages only */}
+					{/* might be worng spelling */}
+					{type === "Carer" && (
+						<Route path="/carer">
+							<Route
+								path="/carer/"
+								element={
+									<PrivateRoute>
+										<Carer />
+									</PrivateRoute>
+								}
+							/>
+
+							<Route
+								path="/carer/pet/:id"
+								element={
+									<PrivateRoute>
+										<Pet />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/carer/questionnaire"
+								element={
+									<PrivateRoute>
+										<Questionnaire />
+									</PrivateRoute>
+								}
+							/>
+						</Route>
+					)}
+
+					{/* both user can access this */}
 
 					<Route
 						path="/messenger"
@@ -75,23 +109,15 @@ function App() {
 							</PrivateRoute>
 						}
 					/>
-					{/* <Route path="/carer" element={<Carer />} /> */}
-					<Route
-						path="/pet/:id"
-						element={
-							<PrivateRoute>
-								<Pet />
-							</PrivateRoute>
-						}
-					/>
-					<Route
-						path="/questionnaire"
-						element={
-							<PrivateRoute>
-								<Questionnaire />
-							</PrivateRoute>
-						}
-					/>
+					{/* anyone can access this */}
+					<Route exact path="/signin" element={<SignIn />} />
+					<Route exact path="/signup" element={<SignUp />} />
+					<Route exact path="/step2" element={<Step2 />} />
+					<Route exact path="/step3/owner" element={<Step3Owner />} />
+					<Route exact path="/step3/carer" element={<Step3Carer />} />
+					<Route exact path="/step4" element={<Step4 />} />
+					<Route exact path="/step5" element={<Step5 />} />
+					<Route exact path="/complete" element={<Complete />} />
 					<Route exact path="*" element={<Page404 />} />
 				</Routes>
 			</HashRouter>
