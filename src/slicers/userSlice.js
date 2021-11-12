@@ -1,49 +1,68 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+const { REACT_APP_SERVER_URL } = process.env;
 
-const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
+const initialState = { 
+  isSuccess: false, 
+  isError: false,
+  username: null,
+  email: null,
+  password: null,
+  description: null,
+  profile_picture: null,
+  type: null,
+};
 
-export const login = createAsyncThunk(
-  "auth/login",
-  async ({ username, password }, thunkAPI) => {
+export const validation = createAsyncThunk(
+  "signUp/validate",
+  async (firstInfo) => {
     try {
-      const data = await AuthService.login(username, password);
-      return { user: data };
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();
+      const response = await axios.post(`${REACT_APP_SERVER_URL}/auth/validation`, firstInfo);
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data };
     }
   }
 );
 
-const authSlice = createSlice({
-  name: "auth",
+export const signUp = createAsyncThunk(
+  "auth/signUp",
+  async (signUpInput) => {
+    try {
+      const response = await axios.post(`${REACT_APP_SERVER_URL}/auth/sign-up`, signUpInput);
+      localStorage.setItem('token', response.data.token);
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data };
+    }
+  }
+);
+
+export const userSlice = createSlice({
+  name: "user",
   initialState,
+  reducers: {
+    getType: (state, action) => { state.type = action.payload },
+    getSecondInfo: (state, action) => {
+      state.username = action.payload.username;
+      state.description = action.payload.description;
+      state.profile_picture = action.payload.profile_picture;
+    },
+  },
   extraReducers: {
-    [register.fulfilled]: (state, action) => {
+    [validation.fulfilled]: (state, action) => {
+      state.email = action.payload.email;
+      state.password = action.payload.password;
+    },
+    [signUp.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
     },
-    [register.rejected]: (state, action) => {
+    [signUp.rejected]: (state, action) => {
       state.isLoggedIn = false;
-    },
-    [login.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.user = action.payload.user;
-    },
-    [login.rejected]: (state, action) => {
-      state.isLoggedIn = false;
-      state.user = null;
-    },
-    [logout.fulfilled]: (state, action) => {
-      state.isLoggedIn = false;
-      state.user = null;
     },
   },
 });
+
+export const { getSecondInfo, getType } = userSlice.actions;
+export default userSlice.reducer;
+
