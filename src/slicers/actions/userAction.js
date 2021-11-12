@@ -19,8 +19,9 @@ export const verifyTokenAction = createAsyncThunk(
 				return { err: "token not available" };
 			}
 		} catch (error) {
-			//something wrong with token
 			console.log(error);
+			//something wrong with token
+			return { err: error.response.data };
 		}
 	}
 );

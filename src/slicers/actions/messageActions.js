@@ -7,7 +7,12 @@ export const getConversationsAction = createAsyncThunk(
 	async () => {
 		try {
 			const conversations = await axios.get(
-				`${REACT_APP_SERVER_URL}/messages/conversations`
+				`${REACT_APP_SERVER_URL}/messages/conversations`,
+				{
+					headers: {
+						"x-access-token": localStorage.getItem("token"),
+					},
+				}
 			);
 			return conversations.data;
 		} catch (error) {

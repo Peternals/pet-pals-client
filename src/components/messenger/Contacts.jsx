@@ -19,22 +19,6 @@ const Contacts = () => {
 				{conversations.map((conv) => (
 					<ContactCard key={conv._id} conversation={conv} />
 				))}
-				{[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => (
-					<article className="contact">
-						<figure className="contactImg">
-							<img src={sample} alt="user" />
-						</figure>
-						<div className="contactInfo">
-							<div className="contactName">
-								<p>Yu Takkai</p>
-								<p>3 hrs ago</p>
-							</div>
-							<div className="contactMessageSummary">
-								<p>Hello my name is you</p>
-							</div>
-						</div>
-					</article>
-				))}
 			</div>
 		</section>
 	);

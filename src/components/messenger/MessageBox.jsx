@@ -16,11 +16,13 @@ const MessageBox = () => {
 	const currentChatUser = useSelector(
 		(state) => state.messenger.currentChatUser
 	);
+	const id = useSelector((state) => state.user._id);
 	const scrollRef = useRef();
 	const scrollRef2 = useRef();
 
 	useEffect(() => {
 		socket.on("receiveMessage", (data) => {
+			console.log(data);
 			if (currentChatUser._id === data.sender_id) {
 				dispatch(addMessageAction(data));
 			}
@@ -47,9 +49,9 @@ const MessageBox = () => {
 		socket.emit("senderTyping", {
 			current: message.length ? true : false,
 			receiver_id: currentChatUser._id,
-			sender_id: localStorage.getItem("pet"),
+			sender_id: id,
 		});
-	}, [message, currentChatUser]);
+	}, [message, currentChatUser, id]);
 
 	const setMessageAction = (e) => {
 		setMessage(e.target.value);
@@ -62,12 +64,12 @@ const MessageBox = () => {
 				const data = {
 					text: message,
 					receiver_id: currentChatUser._id,
-					sender_id: localStorage.getItem("pet"),
+					sender_id: id,
 				};
 				await axios.post(`${process.env.REACT_APP_SERVER_URL}/messages`, {
 					conversation_id: currentConversation,
 					text: message,
-					sender_id: localStorage.getItem("pet"),
+					sender_id: id,
 				});
 				socket.emit("sendMessage", data);
 				dispatch(addMessageAction(data));
@@ -87,11 +89,7 @@ const MessageBox = () => {
 							{messageList?.map((msg, i) => (
 								<div
 									key={msg._id || i}
-									className={
-										msg.sender_id !== localStorage.getItem("pet")
-											? "sender"
-											: "receiver"
-									}
+									className={msg.sender_id !== id ? "sender" : "receiver"}
 									ref={scrollRef}>
 									<p>{msg.text}</p>
 								</div>

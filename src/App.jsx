@@ -27,6 +27,7 @@ function App() {
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 	const type = useSelector((state) => state.user.type);
+	const id = useSelector((state) => state.user._id);
 
 	useEffect(() => {
 		(async () => {
@@ -40,12 +41,12 @@ function App() {
 	useEffect(() => {
 		if (isLoggedIn === true) {
 			socket.connect();
-			socket.emit("addUser", { user_id: localStorage.getItem("pet") });
-			return () => {
-				socket.disconnect();
-			};
+			socket.emit("addUser", { user_id: id });
 		}
-	}, [isLoggedIn]);
+		return () => {
+			socket.disconnect();
+		};
+	}, [isLoggedIn, id]);
 	return (
 		<div className="App">
 			<HashRouter>
