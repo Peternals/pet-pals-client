@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import DatePicker from "../components/DatePicker";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/carer/pet.scss";
 import samplePet from "../assets/sampleDog2.jpeg";
 
