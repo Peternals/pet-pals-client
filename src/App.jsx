@@ -6,6 +6,10 @@ import { socket } from "./socket";
 import axios from "axios";
 import Pet from "./pages/Pet";
 import Questionnaire from "./pages/Questionnaire";
+import Home from "./pages/Home";
+import Navbar from "./components/navbar/Navbar";
+import PetInfo from "./components/owners/PetInfo";
+import Request from "./components/owners/Request";
 
 function App() {
 	useEffect(() => {
@@ -14,6 +18,7 @@ function App() {
 			const test = await axios.get(`${process.env.REACT_APP_SERVER_URL}/test`);
 			console.log(test);
 		})();
+		socket.emit("addUser", { user_id: localStorage.getItem("pet") });
 
 		return () => {
 			socket.disconnect();
@@ -28,8 +33,13 @@ function App() {
 				integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 				crossOrigin="anonymous"
 			/>
-			<HashRouter>
+			<HashRouter basename="/">
+				<Navbar />
 				<Routes>
+					<Route path="/" element={<Home />}>
+						<Route exact path="/" element={<PetInfo />} />
+						<Route exact path="/requests" element={<Request />} />
+					</Route>
 					<Route path="/messenger" element={<Messenger />} />
 					<Route path="/carer" element={<Carer />} />
 					<Route path="/pet" element={<Pet />} />

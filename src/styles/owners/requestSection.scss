@@ -1,0 +1,53 @@
+@import "../variables.scss";
+
+@mixin requestSection {
+	.requestSection {
+		width: 70%;
+		display: flex;
+		justify-content: flex-end;
+		flex-direction: column;
+		align-items: center;
+		.gridRequest {
+			width: 100%;
+			margin-top: 20px;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			grid-gap: 10px;
+			.request {
+				background-color: white;
+				display: flex;
+				align-items: center;
+				padding: 20px;
+				border-radius: 20px;
+				width: max-content;
+				height: max-content;
+				box-shadow: 1px 1px 5px $shadow;
+				span {
+					font-weight: bold;
+				}
+				img {
+					width: 70px;
+					height: 70px;
+					border-radius: 150px;
+					margin-right: 10px;
+				}
+				button {
+					outline: none;
+					padding: 10px;
+					background-color: $primaryColor;
+					border: none;
+					width: 100%;
+					border-radius: 30px;
+					margin-top: 10px;
+					transition: 0.5s;
+					cursor: pointer;
+					color: $whiteBackground;
+					&:hover {
+						transform: scale(1.1);
+					}
+				}
+			}
+		}
+	}
+}

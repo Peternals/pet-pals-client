@@ -1,0 +1,44 @@
+@import "../variables.scss";
+@import "./profileHome.scss";
+@import "./requestSection.scss";
+@import "./answerForm.scss";
+
+.owner {
+	padding: 10px 20px;
+	padding-top: 70px;
+	display: flex;
+	justify-content: space-between;
+	.summaryTitle {
+		margin-top: 10px;
+		font-weight: bolder;
+	}
+	.summary {
+		color: rgb(100, 100, 100);
+	}
+	.profileContainer {
+		width: 200px;
+		.profile {
+			position: fixed;
+			width: 200px;
+			.profile2 {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				max-width: 200px;
+				img {
+					height: 200px;
+					width: 200px;
+					border-radius: 200px;
+					box-shadow: 1px 1px 5px $shadow;
+				}
+				.profileInfo {
+					max-height: 50vh;
+					overflow-y: auto;
+				}
+			}
+		}
+	}
+	@include homeSection;
+	@include requestSection;
+	@include answerForm;
+}
