@@ -21,18 +21,17 @@ export default function Step3Carer() {
     const usernameVal = username.current.value;
     const descriptionVal = description.current.value;
     const profile_pictureVal = profile_picture.current.value;
-    await dispatch(getUserName({ username: usernameVal }));
-    await dispatch(getDescription({ description: descriptionVal }));
-    await dispatch(getProfilePicture({ profile_picture: profile_pictureVal }));
+    dispatch(getUserName({ username: usernameVal }));
+    dispatch(getDescription({ description: descriptionVal }));
+    dispatch(getProfilePicture({ profile_picture: profile_pictureVal }));
 
-    console.log(signUpInfo);
     const submitAction = await dispatch(
       signUp({
-        username: signUpInfo.username,
+        username: usernameVal,
         email: signUpInfo.email,
         password: signUpInfo.password,
-        description: signUpInfo.description,
-        profile_picture: signUpInfo.profile_picture,
+        description: descriptionVal,
+        profile_picture: profile_pictureVal,
         type: signUpInfo.type,
       })
     );
