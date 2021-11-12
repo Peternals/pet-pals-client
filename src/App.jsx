@@ -10,33 +10,51 @@ import Complete from "./pages/Complete";
 import Messenger from "./pages/Messenger";
 import { useEffect } from "react";
 import { socket } from "./socket";
-import axios from "axios";
 import Pet from "./pages/Pet";
 import Questionnaire from "./pages/Questionnaire";
 import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
 import PetInfo from "./components/owners/PetInfo";
 import Request from "./components/owners/Request";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyTokenAction } from "./slicers/actions/userAction";
+import PrivateRoute from "./hoc/PrivateRoute";
+import Page404 from "./pages/Page404";
 
 function App() {
-	useEffect(() => {
-		socket.connect();
-		(async () => {
-			const test = await axios.get(`${process.env.REACT_APP_SERVER_URL}/test`);
-			console.log(test);
-		})();
-		socket.emit("addUser", { user_id: localStorage.getItem("pet") });
+	const dispatch = useDispatch();
+	const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
-		return () => {
-			socket.disconnect();
-		};
+	useEffect(() => {
+		(async () => {
+			try {
+				dispatch(verifyTokenAction());
+			} catch (error) {
+				console.log(error);
+			}
+		})();
 	}, []);
+	useEffect(() => {
+		if (isLoggedIn === true) {
+			socket.connect();
+			socket.emit("addUser", { user_id: localStorage.getItem("pet") });
+			return () => {
+				socket.disconnect();
+			};
+		}
+	}, [isLoggedIn]);
 	return (
 		<div className="App">
 			<HashRouter basename="/">
 				<Navbar />
 				<Routes>
-					<Route path="/" element={<Home />}>
+					<Route
+						path="/"
+						element={
+							<PrivateRoute>
+								<Home />
+							</PrivateRoute>
+						}>
 						<Route exact path="/" element={<PetInfo />} />
 						<Route exact path="/requests" element={<Request />} />
 					</Route>
@@ -48,10 +66,33 @@ function App() {
 					<Route exact path="/step4" element={<Step4 />} />
 					<Route exact path="/step5" element={<Step5 />} />
 					<Route exact path="/complete" element={<Complete />} />
-					<Route path="/messenger" element={<Messenger />} />
+
+					<Route
+						path="/messenger"
+						element={
+							<PrivateRoute>
+								<Messenger />
+							</PrivateRoute>
+						}
+					/>
 					{/* <Route path="/carer" element={<Carer />} /> */}
-					<Route path="/pet/:id" element={<Pet />} />
-					<Route path="/questionnaire" element={<Questionnaire />} />
+					<Route
+						path="/pet/:id"
+						element={
+							<PrivateRoute>
+								<Pet />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/questionnaire"
+						element={
+							<PrivateRoute>
+								<Questionnaire />
+							</PrivateRoute>
+						}
+					/>
+					<Route exact path="*" element={<Page404 />} />
 				</Routes>
 			</HashRouter>
 		</div>
