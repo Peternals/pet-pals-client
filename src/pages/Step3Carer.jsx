@@ -37,7 +37,7 @@ export default function Step3Carer() {
       })
     );
     dispatch(changeSuccessStatus());
-    if (submitAction.payload) {
+    if (submitAction.payload.user) {
       navigate("/complete");
     }
   };

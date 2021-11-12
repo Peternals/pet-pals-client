@@ -21,7 +21,7 @@ export default function Step5() {
       })
     );
     dispatch(changeSuccessStatus());
-    if (submitAction.payload) {
+    if (submitAction.payload.user) {
       navigate("/complete");
     }
   };
