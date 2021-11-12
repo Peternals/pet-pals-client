@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getConversationsAction } from "../../slicers/actions/messageActions";
 import ContactCard from "./ContactCard";
-import sample from "../../assets/sample.jpg";
 
 const Contacts = () => {
 	const dispatch = useDispatch();

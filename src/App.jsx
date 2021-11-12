@@ -37,7 +37,7 @@ function App() {
 				console.log(error);
 			}
 		})();
-	}, []);
+	}, [dispatch]);
 	useEffect(() => {
 		if (isLoggedIn === true) {
 			socket.connect();

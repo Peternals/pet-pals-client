@@ -23,7 +23,7 @@ const ContactCard = (props) => {
 				console.log(error.response);
 			}
 		})();
-	}, [conversation]);
+	}, [conversation, id]);
 
 	const setCurrentChat = () => {
 		try {
