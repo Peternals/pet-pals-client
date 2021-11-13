@@ -80,6 +80,7 @@ export const userSlice = createSlice({
 		[signUp.fulfilled]: (state, action) => {
       if (action.payload.user) {
         state.isSuccess = true;
+        state.isLoggedIn = true;
 				state.password = null;
       }
 		},

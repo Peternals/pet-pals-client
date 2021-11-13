@@ -36,7 +36,7 @@ export default function Step3Carer() {
       })
     );
     if (submitAction.payload.user) {
-      navigate("/complete");
+      navigate("/");
     }
   };
 

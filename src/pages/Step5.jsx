@@ -21,7 +21,7 @@ export default function Step5() {
       })
     );
     if (submitAction.payload.user) {
-      navigate("/complete");
+      navigate("/");
     }
   };
 
