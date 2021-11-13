@@ -26,6 +26,7 @@ textarea {
 	}
 	.profileContainer {
 		width: 200px;
+		display: none;
 		.profile {
 			position: fixed;
 			width: 200px;
@@ -50,4 +51,12 @@ textarea {
 	@include homeSection;
 	@include requestSection;
 	@include answerForm;
+}
+
+@media only screen and (min-width: 730px) {
+	.owner {
+		.profileContainer {
+			display: block;
+		}
+	}
 }

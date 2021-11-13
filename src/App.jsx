@@ -6,7 +6,6 @@ import Step3Owner from "./pages/Step3Owner";
 import Step3Carer from "./pages/Step3Carer";
 import Step4 from "./pages/Step4";
 import Step5 from "./pages/Step5";
-import Complete from "./pages/Complete";
 import Messenger from "./pages/Messenger";
 import { useEffect } from "react";
 import { socket } from "./socket";
@@ -49,6 +48,7 @@ function App() {
 	}, [isLoggedIn, id]);
 	return (
 		<div className="App">
+			<div className="background"></div>
 			<HashRouter>
 				<Navbar />
 				<Routes>
@@ -118,7 +118,6 @@ function App() {
 					<Route exact path="/step3/carer" element={<Step3Carer />} />
 					<Route exact path="/step4" element={<Step4 />} />
 					<Route exact path="/step5" element={<Step5 />} />
-					<Route exact path="/complete" element={<Complete />} />
 					<Route exact path="*" element={<Page404 />} />
 				</Routes>
 			</HashRouter>

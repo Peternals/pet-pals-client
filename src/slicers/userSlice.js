@@ -71,6 +71,16 @@ export const userSlice = createSlice({
 		getProfilePicture: (state, action) => {
 			state.profile_picture = action.payload.profile_picture;
 		},
+		signOutCleanUp: (state) => {
+			state.isLoggedIn = false;
+			state.isSuccess = false;
+			state.username = null;
+			state.email = null;
+			state.password = null;
+			state.description = null;
+			state.profile_picture = null;
+			state.type = null;
+		},
 	},
 	extraReducers: {
 		[validation.fulfilled]: (state, action) => {
@@ -78,10 +88,21 @@ export const userSlice = createSlice({
 			state.password = action.payload.password;
 		},
 		[signUp.fulfilled]: (state, action) => {
-			state.isLoggedIn = true;
+			if (action.payload.user) {
+				state.isSuccess = true;
+				state.isLoggedIn = true;
+				state.password = null;
+			}
 		},
-		[signUp.rejected]: (state, action) => {
-			state.isLoggedIn = false;
+		[signIn.fulfilled]: (state, action) => {
+			if (action.payload.user) {
+				state.isLoggedIn = true;
+				state.username = action.payload.user.username;
+				state.email = action.payload.user.email;
+				state.description = action.payload.user.description;
+				state.profile_picture = action.payload.user.profile_picture;
+				state.type = action.payload.user.type;
+			}
 		},
 		[verifyTokenAction.fulfilled]: (state, action) => {
 			return {
@@ -98,5 +119,6 @@ export const {
 	getDescription,
 	getProfilePicture,
 	getType,
+	signOutCleanUp,
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -20,7 +20,7 @@ const PetInfo = () => {
 				console.log(error);
 			}
 		})();
-	}, []);
+	}, [user]);
 	return (
 		<section className="homeSection">
 			<figure>

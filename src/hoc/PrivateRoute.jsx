@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
 	return (
 		<>
 			{isLoggedIn === true && children}
-			{isLoggedIn === false && <Navigate to="/about" />}
+			{isLoggedIn === false && <Navigate to="/" />}
 		</>
 	);
 };

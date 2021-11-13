@@ -9,8 +9,10 @@ const Request = () => {
 	useEffect(() => {
 		try {
 			//get all request of the user
+			console.log(currentRequest);
 		} catch (error) {}
-	}, []);
+		//gonna remove this dependency
+	}, [currentRequest]);
 
 	const openAnswerForm = (id) => {
 		// const action = axios.get("")

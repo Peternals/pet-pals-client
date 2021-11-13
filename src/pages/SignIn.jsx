@@ -18,7 +18,7 @@ export default function SignIn() {
       })
     );
     if (signInAction.payload.user) {
-      navigate("/complete");
+      navigate("/");
     }
   };
 
