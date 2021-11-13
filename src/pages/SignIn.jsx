@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../slicers/userSlice";
@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 export default function SignIn() {
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,13 +29,17 @@ export default function SignIn() {
 
   // when the form is valid and submitted, this method is called
   const handleSignIn = async (data) => {
+    console.log(data);
     const signInAction = await dispatch(
       signIn({
         email: data.email,
         password: data.password,
       })
     );
-    if (signInAction.payload.user) {
+    console.log(signInAction.payload);
+    if (signInAction.payload.err === "Invalid Credentials") {
+      setErrorMessage("Invalid Credentials");
+    } else {
       navigate("/");
     }
   };
@@ -44,6 +49,7 @@ export default function SignIn() {
       <div className="sign-in-container" style={{ marginTop: 200 }}>
         <form onSubmit={handleSubmit(handleSignIn)}>
           <h1>Sign In</h1>
+          <div>{errorMessage}</div>
           <input
             name="email"
             type="text"
