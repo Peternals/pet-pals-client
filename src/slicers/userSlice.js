@@ -71,6 +71,16 @@ export const userSlice = createSlice({
 		getProfilePicture: (state, action) => {
 			state.profile_picture = action.payload.profile_picture;
 		},
+		signOutCleanUp: (state) => {
+			state.isLoggedIn = false;
+			state.isSuccess = false;
+			state.username = null;
+			state.email = null;
+			state.password = null;
+			state.description = null;
+			state.profile_picture = null;
+			state.type = null;
+		},
 	},
 	extraReducers: {
 		[validation.fulfilled]: (state, action) => {
@@ -109,5 +119,6 @@ export const {
 	getDescription,
 	getProfilePicture,
 	getType,
+	signOutCleanUp,
 } = userSlice.actions;
 export default userSlice.reducer;
