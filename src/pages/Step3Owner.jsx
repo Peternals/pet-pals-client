@@ -18,7 +18,7 @@ export default function Step3Owner() {
     e.preventDefault();
     const usernameVal = username.current.value;
     const descriptionVal = description.current.value;
-    const profile_pictureVal = profile_picture.current.value;
+    const profile_pictureVal = profile_picture.current.files[0];
     await dispatch(getUserName({ username: usernameVal }));
     await dispatch(getDescription({ description: descriptionVal }));
     await dispatch(getProfilePicture({ profile_picture: profile_pictureVal }));
@@ -29,7 +29,7 @@ export default function Step3Owner() {
     <>
       <div style={{ marginTop: 200 }}>
         <form onSubmit={handleNext}>
-          <input type="text" placeholder="Picture" ref={profile_picture} />
+          <input type="file" placeholder="Picture" ref={profile_picture} />
           <input type="text" placeholder="username" ref={username} />
           <input type="text" placeholder="Bio" ref={description} />
           <button>Next</button>
