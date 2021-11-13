@@ -1,14 +1,36 @@
-import React, { useRef } from "react";
+// import axios from "axios";
+import React, { useRef, useState, useEffect } from "react";
 import sampleImg from "../../assets/sample.jpg";
 
 const Request = () => {
 	const answerFormRef = useRef();
+	// const [requests, setrequests] = useState([]);
+	const [currentRequest, setCurrentRequest] = useState({});
+	useEffect(() => {
+		try {
+			//get all request of the user
+		} catch (error) {}
+	}, []);
 
-	const openAnswerForm = () => {
+	const openAnswerForm = (id) => {
+		// const action = axios.get("")
+		// setCurrentRequest(action.data);
 		answerFormRef.current.classList.add("showAnswerForm");
 	};
 	const closeAnswerForm = () => {
+		setCurrentRequest({});
 		answerFormRef.current.classList.remove("showAnswerForm");
+	};
+
+	const requestAction = async (action) => {
+		try {
+			// const action = await axios.post("")
+			// const filterRequest = requests.filter(req => req._id !== id)
+			// setRequest(filterRequest)
+			closeAnswerForm();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -27,7 +49,9 @@ const Request = () => {
 							<p>
 								<span>to:</span> a march 8
 							</p>
-							<button onClick={openAnswerForm}>Review</button>
+							<button onClick={() => openAnswerForm("should be an id")}>
+								Review
+							</button>
 						</div>
 					</div>
 				))}
@@ -37,7 +61,7 @@ const Request = () => {
 					<i className="fa fa-close" onClick={closeAnswerForm}></i>
 					<h1>Answers</h1>
 					<ol>
-						{[1, 2, 3, 4, 5, 6, 7, 9].map(() => (
+						{[1, 2, 3, 4, 5, 6, 7, 9].map((_, i) => (
 							<li>
 								<h2>How would you feed my dog</h2>
 								<p>
@@ -50,8 +74,8 @@ const Request = () => {
 						))}
 					</ol>
 					<div className="answerFormButtons">
-						<button>Accept</button>
-						<button>Decline</button>
+						<button onClick={() => requestAction("accept")}>Accept</button>
+						<button onClick={() => requestAction("reject")}>Decline</button>
 					</div>
 				</div>
 			</div>

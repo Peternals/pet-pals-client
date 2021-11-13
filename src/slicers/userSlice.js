@@ -42,18 +42,18 @@ export const signUp = createAsyncThunk("auth/signUp", async (signUpInput) => {
 	}
 });
 
-export const signIn = createAsyncThunk(
-  "auth/signIn",
-  async (signInInput) => {
-    try {
-      const response = await axios.post(`${REACT_APP_SERVER_URL}/auth/sign-in`, signInInput);
-      localStorage.setItem('token', response.data.token);
-      return response.data;
-    } catch (err) {
-      return { err: err.response.data };
-    }
-  }
-);
+export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
+	try {
+		const response = await axios.post(
+			`${REACT_APP_SERVER_URL}/auth/sign-in`,
+			signInInput
+		);
+		localStorage.setItem("token", response.data.token);
+		return response.data;
+	} catch (err) {
+		return { err: err.response.data };
+	}
+});
 
 export const userSlice = createSlice({
 	name: "user",
@@ -78,7 +78,7 @@ export const userSlice = createSlice({
 			state.password = action.payload.password;
 		},
 		[signUp.fulfilled]: (state, action) => {
-			state.isLoggedIn = false;
+			state.isLoggedIn = true;
 		},
 		[signUp.rejected]: (state, action) => {
 			state.isLoggedIn = false;
