@@ -1,17 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { createRef } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { signIn } from "../slicers/userSlice";
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const email = createRef();
+  const password = createRef();
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    const signInAction = await dispatch(
+      signIn({
+        email: email.current.value,
+        password: password.current.value,
+      })
+    );
+    if (signInAction.payload.user) {
+      navigate("/complete");
+    }
+  };
+
   return (
     <>
       <div className="sign-in-container" style={{ marginTop: 200 }}>
-        <form>
+        <form onSubmit={handleSignIn}>
           <h1>Sign In</h1>
-          <div>Hi there! Nice to see you again.</div>
-          <label>Email: </label>
-          <input type="text" />
-          <label>Password: </label>
-          <input type="password" />
+          <input type="text" placeholder="Email" ref={email} />
+          <input type="password" placeholder="Password" ref={password} />
           <button>Sign In</button>
         </form>
       </div>
