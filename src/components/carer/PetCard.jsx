@@ -14,7 +14,7 @@ const PetCard = () => {
 				<div className="card-text">
 					Max is a beautiful two year old schnauzer
 				</div>
-				<Link to="/pet/hiashfskfbakshfs">
+				<Link to="/carer/pet/hiashfskfbakshfs">
 					<button className="card-button"> Request</button>
 				</Link>
 			</div>

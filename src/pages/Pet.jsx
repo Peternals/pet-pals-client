@@ -28,7 +28,7 @@ const Pet = () => {
 				{/** TODO: Replace PetCard with the actual PetInfo component */}
 				<section className="petOptions">
 					<DatePicker />
-					<Link to="/questionnaire">
+					<Link to="/carer/questionnaire">
 						<button className="card-button">Book Date</button>
 					</Link>
 				</section>

@@ -10,36 +10,107 @@ import Complete from "./pages/Complete";
 import Messenger from "./pages/Messenger";
 import { useEffect } from "react";
 import { socket } from "./socket";
-import axios from "axios";
 import Pet from "./pages/Pet";
 import Questionnaire from "./pages/Questionnaire";
 import Home from "./pages/Home";
 import Navbar from "./components/navbar/Navbar";
 import PetInfo from "./components/owners/PetInfo";
 import Request from "./components/owners/Request";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyTokenAction } from "./slicers/actions/userAction";
+import PrivateRoute from "./hoc/PrivateRoute";
+import Page404 from "./pages/Page404";
+import Carer from "./components/carer/Carer";
+import OwnerHome from "./components/owners/OwnerHome";
 
 function App() {
-	useEffect(() => {
-		socket.connect();
-		(async () => {
-			const test = await axios.get(`${process.env.REACT_APP_SERVER_URL}/test`);
-			console.log(test);
-		})();
-		socket.emit("addUser", { user_id: localStorage.getItem("pet") });
+	const dispatch = useDispatch();
+	const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+	const type = useSelector((state) => state.user.type);
+	const id = useSelector((state) => state.user._id);
 
+	useEffect(() => {
+		(async () => {
+			try {
+				dispatch(verifyTokenAction());
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	}, [dispatch]);
+	useEffect(() => {
+		if (isLoggedIn === true) {
+			socket.connect();
+			socket.emit("addUser", { user_id: id });
+		}
 		return () => {
 			socket.disconnect();
 		};
-	}, []);
+	}, [isLoggedIn, id]);
 	return (
 		<div className="App">
-			<HashRouter basename="/">
+			<HashRouter>
 				<Navbar />
 				<Routes>
-					<Route path="/" element={<Home />}>
-						<Route exact path="/" element={<PetInfo />} />
-						<Route exact path="/requests" element={<Request />} />
-					</Route>
+					<Route path="" element={<Home />} />
+
+					{/* owner pages only */}
+					{type === "Owner" && (
+						<Route
+							path="/owner"
+							element={
+								<PrivateRoute>
+									<OwnerHome />
+								</PrivateRoute>
+							}>
+							<Route exact path="/owner" element={<PetInfo />} />
+							<Route exact path="/owner/requests" element={<Request />} />
+						</Route>
+					)}
+
+					{/* carer pages only */}
+					{/* might be worng spelling */}
+					{type === "Carer" && (
+						<Route path="/carer">
+							<Route
+								path="/carer/"
+								element={
+									<PrivateRoute>
+										<Carer />
+									</PrivateRoute>
+								}
+							/>
+
+							<Route
+								path="/carer/pet/:id"
+								element={
+									<PrivateRoute>
+										<Pet />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/carer/questionnaire"
+								element={
+									<PrivateRoute>
+										<Questionnaire />
+									</PrivateRoute>
+								}
+							/>
+						</Route>
+					)}
+
+					{/* both user can access this */}
+
+					<Route
+						path="/messenger"
+						element={
+							<PrivateRoute>
+								<Messenger />
+							</PrivateRoute>
+						}
+					/>
+					{/* anyone can access this */}
 					<Route exact path="/signin" element={<SignIn />} />
 					<Route exact path="/signup" element={<SignUp />} />
 					<Route exact path="/step2" element={<Step2 />} />
@@ -48,10 +119,7 @@ function App() {
 					<Route exact path="/step4" element={<Step4 />} />
 					<Route exact path="/step5" element={<Step5 />} />
 					<Route exact path="/complete" element={<Complete />} />
-					<Route path="/messenger" element={<Messenger />} />
-					{/* <Route path="/carer" element={<Carer />} /> */}
-					<Route path="/pet/:id" element={<Pet />} />
-					<Route path="/questionnaire" element={<Questionnaire />} />
+					<Route exact path="*" element={<Page404 />} />
 				</Routes>
 			</HashRouter>
 		</div>
