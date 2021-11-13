@@ -17,10 +17,8 @@ export default function SignIn() {
         password: password.current.value,
       })
     );
-    const userType =
-      signInAction.payload.user.type === "Owner" ? "/owner" : "/carer/";
     if (signInAction.payload.user) {
-      navigate(userType);
+      navigate("/");
     }
   };
 
