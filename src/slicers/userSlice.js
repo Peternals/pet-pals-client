@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
 
-const initialState = { 
+const initialState = {
+  isLoggedIn: false,
   isSuccess: false, 
   username: null,
   email: null,
@@ -37,6 +38,19 @@ export const signUp = createAsyncThunk(
   }
 );
 
+export const signIn = createAsyncThunk(
+  "auth/signIn",
+  async (signInInput) => {
+    try {
+      const response = await axios.post(`${REACT_APP_SERVER_URL}/auth/sign-in`, signInInput);
+      localStorage.setItem('token', response.data.token);
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data };
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -45,7 +59,6 @@ export const userSlice = createSlice({
     getUserName: (state, action) => { state.username = action.payload.username },
     getDescription: (state, action) => { state.description = action.payload.description },
     getProfilePicture: (state, action) => { state.profile_picture = action.payload.profile_picture },
-    changeSuccessStatus: (state) => { state.isSuccess = true},
   },
   extraReducers: {
     [validation.fulfilled]: (state, action) => {
@@ -53,14 +66,18 @@ export const userSlice = createSlice({
       state.password = action.payload.password;
     },
     [signUp.fulfilled]: (state, action) => {
-      state.isLoggedIn = false;
+      if (action.payload.user) {
+        state.isSuccess = true;
+      }
     },
-    [signUp.rejected]: (state, action) => {
-      state.isLoggedIn = false;
+    [signIn.fulfilled]: (state, action) => {
+      if (action.payload.user) {
+        state.isLoggedIn = true;
+      }
     },
   },
 });
 
-export const { getUserName, getDescription, getProfilePicture, getType, changeSuccessStatus } = userSlice.actions;
+export const { getUserName, getDescription, getProfilePicture, getType } = userSlice.actions;
 export default userSlice.reducer;
 

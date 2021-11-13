@@ -5,7 +5,6 @@ import {
   getUserName,
   getDescription,
   getProfilePicture,
-  changeSuccessStatus,
 } from "../slicers/userSlice";
 import { signUp } from "../slicers/userSlice";
 
@@ -36,7 +35,6 @@ export default function Step3Carer() {
         type: signUpInfo.type,
       })
     );
-    dispatch(changeSuccessStatus());
     if (submitAction.payload.user) {
       navigate("/complete");
     }

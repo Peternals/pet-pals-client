@@ -18,7 +18,7 @@ export default function SignUp() {
       })
     );
 
-    if (firstInputAction.payload) {
+    if (firstInputAction.payload.email) {
       navigate("/step2");
     }
   };
