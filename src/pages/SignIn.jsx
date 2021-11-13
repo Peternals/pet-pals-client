@@ -8,6 +8,7 @@ import * as Yup from "yup";
 
 export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,9 +37,8 @@ export default function SignIn() {
         password: data.password,
       })
     );
-    console.log(signInAction.payload);
     if (signInAction.payload.err === "Invalid Credentials") {
-      setErrorMessage("Invalid Credentials");
+      setErrorMessage(signInAction.payload.err);
     } else {
       navigate("/");
     }
