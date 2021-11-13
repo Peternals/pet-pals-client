@@ -4,7 +4,7 @@ import { verifyTokenAction } from "./actions/userAction";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const initialState = {
-	isLoggedIn: null,
+	isLoggedIn: false,
 	isSuccess: false,
 	username: null,
 	email: null,
@@ -78,11 +78,22 @@ export const userSlice = createSlice({
 			state.password = action.payload.password;
 		},
 		[signUp.fulfilled]: (state, action) => {
-			state.isLoggedIn = false;
+      if (action.payload.user) {
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+				state.password = null;
+      }
 		},
-		[signUp.rejected]: (state, action) => {
-			state.isLoggedIn = false;
-		},
+    [signIn.fulfilled]: (state, action) => {
+      if (action.payload.user) {
+        state.isLoggedIn = true;
+				state.username = action.payload.user.username;
+				state.email = action.payload.user.email;
+				state.description = action.payload.user.description;
+				state.profile_picture = action.payload.user.profile_picture;
+				state.type = action.payload.user.type;
+      }
+    },
 		[verifyTokenAction.fulfilled]: (state, action) => {
 			return {
 				...state,
