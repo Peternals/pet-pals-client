@@ -36,6 +36,7 @@ export const signUp = createAsyncThunk("auth/signUp", async (signUpInput) => {
 			signUpInput
 		);
 		localStorage.setItem("token", response.data.token);
+		console.log(response.data)
 		return response.data;
 	} catch (err) {
 		return { err: err.response.data };
@@ -43,18 +44,17 @@ export const signUp = createAsyncThunk("auth/signUp", async (signUpInput) => {
 });
 
 export const signIn = createAsyncThunk(
-  "auth/signIn",
-  async (signInInput) => {
-    try {
-      const response = await axios.post(`${REACT_APP_SERVER_URL}/auth/sign-in`, signInInput);
-      localStorage.setItem('token', response.data.token);
-      return response.data;
-    } catch (err) {
-      return { err: err.response.data };
-    }
-  }
+	"auth/signIn",
+	async (signInInput) => {
+		try {
+			const response = await axios.post(`${REACT_APP_SERVER_URL}/auth/sign-in`, signInInput);
+			localStorage.setItem('token', response.data.token);
+			return response.data;
+		} catch (err) {
+			return { err: err.response.data };
+		}
+	}
 );
-
 export const userSlice = createSlice({
 	name: "user",
 	initialState,
@@ -88,22 +88,27 @@ export const userSlice = createSlice({
 			state.password = action.payload.password;
 		},
 		[signUp.fulfilled]: (state, action) => {
-      if (action.payload.user) {
-        state.isSuccess = true;
-        state.isLoggedIn = true;
+			if (action.payload.user) {
+				state.isSuccess = true;
+				state.isLoggedIn = true;
 				state.password = null;
-      }
-		},
-    [signIn.fulfilled]: (state, action) => {
-      if (action.payload.user) {
-        state.isLoggedIn = true;
 				state.username = action.payload.user.username;
 				state.email = action.payload.user.email;
 				state.description = action.payload.user.description;
 				state.profile_picture = action.payload.user.profile_picture;
 				state.type = action.payload.user.type;
-      }
-    },
+			}
+		},
+		[signIn.fulfilled]: (state, action) => {
+			if (action.payload.user) {
+				state.isLoggedIn = true;
+				state.username = action.payload.user.username;
+				state.email = action.payload.user.email;
+				state.description = action.payload.user.description;
+				state.profile_picture = action.payload.user.profile_picture;
+				state.type = action.payload.user.type;
+			}
+		},
 		[verifyTokenAction.fulfilled]: (state, action) => {
 			return {
 				...state,
