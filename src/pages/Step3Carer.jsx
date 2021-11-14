@@ -20,10 +20,7 @@ export default function Step3Carer() {
     e.preventDefault();
     const usernameVal = username.current.value;
     const descriptionVal = description.current.value;
-    const profile_pictureVal = profile_picture.current.value;
-    dispatch(getUserName({ username: usernameVal }));
-    dispatch(getDescription({ description: descriptionVal }));
-    dispatch(getProfilePicture({ profile_picture: profile_pictureVal }));
+    const profile_pictureVal = profile_picture.current.files[0];
 
     const submitAction = await dispatch(
       signUp({
@@ -44,7 +41,7 @@ export default function Step3Carer() {
     <>
       <div>
         <form onSubmit={handleSubmit} style={{ marginTop: 200 }}>
-          <input type="text" placeholder="Picture" ref={profile_picture} />
+          <input type="file" placeholder="Picture" ref={profile_picture} />
           <input type="text" placeholder="Full Name" ref={username} />
           <input type="text" placeholder="Bio" ref={description} />
           <button>Submit</button>
