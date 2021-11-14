@@ -23,106 +23,106 @@ import Carer from "./components/carer/Carer";
 import OwnerHome from "./components/owners/OwnerHome";
 
 function App() {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const type = useSelector((state) => state.user.type);
-  const id = useSelector((state) => state.user._id);
+	const dispatch = useDispatch();
+	const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+	const type = useSelector((state) => state.user.type);
+	const id = useSelector((state) => state.user._id);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        dispatch(verifyTokenAction());
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [dispatch]);
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      socket.connect();
-      socket.emit("addUser", { user_id: id });
-    }
-    return () => {
-      socket.disconnect();
-    };
-  }, [isLoggedIn, id]);
-  return (
-    <div className="App">
-      <HashRouter>
-        <Navbar />
-        <Routes>
-          <Route path="" element={<Home />} />
+	useEffect(() => {
+		(async () => {
+			try {
+				dispatch(verifyTokenAction());
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	}, [dispatch]);
+	useEffect(() => {
+		if (isLoggedIn === true) {
+			socket.connect();
+			socket.emit("addUser", { user_id: id });
+		}
+		return () => {
+			socket.disconnect();
+		};
+	}, [isLoggedIn, id]);
+	return (
+		<div className="App">
+			<div className="background"></div>
+			<HashRouter>
+				<Navbar />
+				<Routes>
+					<Route path="" element={<Home />} />
 
-          {/* owner pages only */}
-          {type === "Owner" && (
-            <Route
-              path="/owner"
-              element={
-                <PrivateRoute>
-                  <OwnerHome />
-                </PrivateRoute>
-              }
-            >
-              <Route exact path="/owner" element={<PetInfo />} />
-              <Route exact path="/owner/requests" element={<Request />} />
-            </Route>
-          )}
+					{/* owner pages only */}
+					{type === "Owner" && (
+						<Route
+							path="/owner"
+							element={
+								<PrivateRoute>
+									<OwnerHome />
+								</PrivateRoute>
+							}>
+							<Route exact path="/owner" element={<PetInfo />} />
+							<Route exact path="/owner/requests" element={<Request />} />
+						</Route>
+					)}
 
-          {/* carer pages only */}
-          {/* might be worng spelling */}
-          {type === "Carer" && (
-            <Route path="/carer">
-              <Route
-                path="/carer/"
-                element={
-                  <PrivateRoute>
-                    <Carer />
-                  </PrivateRoute>
-                }
-              />
+					{/* carer pages only */}
+					{/* might be worng spelling */}
+					{type === "Carer" && (
+						<Route path="/carer">
+							<Route
+								path="/carer/"
+								element={
+									<PrivateRoute>
+										<Carer />
+									</PrivateRoute>
+								}
+							/>
 
-              <Route
-                path="/carer/pet/:id"
-                element={
-                  <PrivateRoute>
-                    <Pet />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/questionnaire"
-                element={
-                  <PrivateRoute>
-                    <Questionnaire />
-                  </PrivateRoute>
-                }
-              />
-            </Route>
-          )}
+							<Route
+								path="/carer/pet/:id"
+								element={
+									<PrivateRoute>
+										<Pet />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/carer/questionnaire"
+								element={
+									<PrivateRoute>
+										<Questionnaire />
+									</PrivateRoute>
+								}
+							/>
+						</Route>
+					)}
 
-          {/* both user can access this */}
+					{/* both user can access this */}
 
-          <Route
-            path="/messenger"
-            element={
-              <PrivateRoute>
-                <Messenger />
-              </PrivateRoute>
-            }
-          />
-          {/* anyone can access this */}
-          <Route exact path="/signin" element={<SignIn />} />
-          <Route exact path="/signup" element={<SignUp />} />
-          <Route exact path="/step2" element={<Step2 />} />
-          <Route exact path="/step3/owner" element={<Step3Owner />} />
-          <Route exact path="/step3/carer" element={<Step3Carer />} />
-          <Route exact path="/step4" element={<Step4 />} />
-          <Route exact path="/step5" element={<Step5 />} />
-          <Route exact path="*" element={<Page404 />} />
-        </Routes>
-      </HashRouter>
-    </div>
-  );
+					<Route
+						path="/messenger"
+						element={
+							<PrivateRoute>
+								<Messenger />
+							</PrivateRoute>
+						}
+					/>
+					{/* anyone can access this */}
+					<Route exact path="/signin" element={<SignIn />} />
+					<Route exact path="/signup" element={<SignUp />} />
+					<Route exact path="/step2" element={<Step2 />} />
+					<Route exact path="/step3/owner" element={<Step3Owner />} />
+					<Route exact path="/step3/carer" element={<Step3Carer />} />
+					<Route exact path="/step4" element={<Step4 />} />
+					<Route exact path="/step5" element={<Step5 />} />
+					<Route exact path="*" element={<Page404 />} />
+				</Routes>
+			</HashRouter>
+		</div>
+	);
 }
 
 export default App;

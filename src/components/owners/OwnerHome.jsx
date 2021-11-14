@@ -7,26 +7,24 @@ import { useSelector } from "react-redux";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const OwnerHome = () => {
-	const user = useSelector(state => state.user);
+	const user = useSelector((state) => state.user);
 
 	return (
 		<main className="owner">
 			<div className="profileContainer">
 				<div className="profile">
 					<div className="profile2">
-						<img src={`${REACT_APP_SERVER_URL}/pic/${user.profile_picture}`} alt="profile"></img>
+						<figure>
+							<img
+								src={`${REACT_APP_SERVER_URL}/pic/${user.profile_picture}`}
+								alt="profile"></img>
+						</figure>
 						<h2>Yu Takaki</h2>
 						<div className="profileInfo">
 							<p className="summaryTitle">Bio:</p>
-							<p className="summary">
-								Sint mollit magna aliqua adipisicing ex consequat sit
-								adipisicing in. Sunt cillum do est est et tempor et eiusmod enim
-								aute incididunt veniam sit. Deserunt anim commodo laborum dolor.
-								Occaecat consequat laboris laboris aliquip sit tempor et ex
-								fugiat commodo aliqua consectetur.
-							</p>
+							<p className="summary">{user.description}</p>
 							<p className="summaryTitle">Email:</p>
-							<p className="summary">user@gmail.com</p>
+							<p className="summary">{user.email}</p>
 						</div>
 					</div>
 				</div>
