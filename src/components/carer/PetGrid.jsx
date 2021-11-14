@@ -7,32 +7,7 @@ import PetCard from "./PetCard";
 
 const PetGrid = () => {
 	// TEST DATA - TO BE REMOVED
-	const [pets, setPets] = useState([
-		{
-			name: "Fido",
-			description: "Doggy",
-		},
-		{
-			name: "Ollie",
-			description: "Otter",
-		},
-		{
-			name: "Simba",
-			description: "Lion",
-		},
-		{
-			name: "Mizugocci",
-			description: "Mizugocci",
-		},
-		{
-			name: "Doraemon",
-			description: "???",
-		},
-		{
-			name: "Hachiko",
-			description: "Dog",
-		},
-	]);
+	const [pets, setPets] = useState();
 
 	useEffect(() => {
 		(async () => {
@@ -43,6 +18,32 @@ const PetGrid = () => {
 				// 	},
 				// });
 				// console.log(action);
+				setPets([
+					{
+						name: "Fido",
+						description: "Doggy",
+					},
+					{
+						name: "Ollie",
+						description: "Otter",
+					},
+					{
+						name: "Simba",
+						description: "Lion",
+					},
+					{
+						name: "Mizugocci",
+						description: "Mizugocci",
+					},
+					{
+						name: "Doraemon",
+						description: "???",
+					},
+					{
+						name: "Hachiko",
+						description: "Dog",
+					},
+				]);
 			} catch (error) {
 				console.log(error);
 			}
