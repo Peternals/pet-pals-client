@@ -11,6 +11,7 @@ const Navbar = () => {
 
   const handleSignOut = (e) => {
     dispatch(signOutCleanUp());
+    window.localStorage.removeItem("token");
   };
 
   return (
