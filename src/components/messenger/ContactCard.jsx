@@ -9,16 +9,21 @@ const ContactCard = (props) => {
 	const [userInfo, setUserInfo] = useState({});
 	const dispatch = useDispatch();
 	const id = useSelector((state) => state.user._id);
+	const currentChatUser = useSelector(
+		(state) => state.messenger.currentChatUser
+	);
 
 	useEffect(() => {
 		const receiver = conversation.members.filter((member) => member !== id);
 
 		(async () => {
 			try {
-				const userRequest = await axios.get(
-					`${process.env.REACT_APP_SERVER_URL}/user/${receiver}`
-				);
-				setUserInfo(userRequest.data);
+				if (receiver.length === 1) {
+					const userRequest = await axios.get(
+						`${process.env.REACT_APP_SERVER_URL}/user/${receiver[0]}`
+					);
+					setUserInfo(userRequest.data);
+				}
 			} catch (error) {
 				console.log(error.response);
 			}
@@ -51,7 +56,9 @@ const ContactCard = (props) => {
 	};
 
 	return (
-		<article className="contact" onClick={setCurrentChat}>
+		<article
+			className={`contact ${userInfo._id === currentChatUser._id && `current`}`}
+			onClick={setCurrentChat}>
 			<figure className="contactImg">
 				<img src={sample} alt="user" />
 			</figure>

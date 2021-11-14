@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Contacts from "../components/messenger/Contacts";
 import MessageBox from "../components/messenger/MessageBox";
 import "../styles/messenger/messenger.scss";

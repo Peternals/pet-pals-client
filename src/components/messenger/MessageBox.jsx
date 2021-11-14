@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { addMessageAction } from "../../slicers/messengerSlice";
 import { socket } from "../../socket";
 import axios from "axios";
-import { getAllMessagesAction } from "../../slicers/actions/messageActions";
+import {
+	getAllMessagesAction,
+	getConversationsAction,
+} from "../../slicers/actions/messageActions";
+import moment from "moment";
 
 const MessageBox = () => {
 	const [message, setMessage] = useState("");
@@ -22,17 +26,20 @@ const MessageBox = () => {
 
 	useEffect(() => {
 		socket.on("receiveMessage", (data) => {
-			console.log(data);
+			dispatch(getConversationsAction());
 			if (currentChatUser._id === data.sender_id) {
 				dispatch(addMessageAction(data));
 			}
 		});
 		socket.on("senderTyping", (data) => {
-			console.log(data);
 			if (currentChatUser._id === data.sender_id) {
 				setSenderTyping(data.current);
 			}
 		});
+		return () => {
+			socket.off("receiveMessage");
+			socket.off("senderTyping");
+		};
 	}, [dispatch, currentChatUser]);
 	useEffect(() => {
 		if (currentConversation !== "") {
@@ -66,11 +73,19 @@ const MessageBox = () => {
 					receiver_id: currentChatUser._id,
 					sender_id: id,
 				};
-				await axios.post(`${process.env.REACT_APP_SERVER_URL}/messages`, {
-					conversation_id: currentConversation,
-					text: message,
-					sender_id: id,
-				});
+				await axios.post(
+					`${process.env.REACT_APP_SERVER_URL}/messages`,
+					{
+						conversation_id: currentConversation,
+						text: message,
+						sender_id: id,
+					},
+					{
+						headers: {
+							"x-access-token": localStorage.getItem("token"),
+						},
+					}
+				);
 				socket.emit("sendMessage", data);
 				dispatch(addMessageAction(data));
 
@@ -91,7 +106,8 @@ const MessageBox = () => {
 									key={msg._id || i}
 									className={msg.sender_id !== id ? "sender" : "receiver"}
 									ref={scrollRef}>
-									<p>{msg.text}</p>
+									<p className="msgBody">{msg.text}</p>
+									<p className="date">{moment(msg.createdAt).fromNow()}</p>
 								</div>
 							))}
 							{senderTyping && (
@@ -99,7 +115,10 @@ const MessageBox = () => {
 							)}
 						</section>
 						<form className="messageForm" onSubmit={sendMessageSubmit}>
-							<textarea value={message} onChange={setMessageAction}></textarea>
+							<textarea
+								placeholder="message..."
+								value={message}
+								onChange={setMessageAction}></textarea>
 							<input type="submit" value="send" />
 						</form>
 					</>

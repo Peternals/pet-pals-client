@@ -7,7 +7,7 @@ import PetCard from "./PetCard";
 
 const PetGrid = () => {
 	// TEST DATA - TO BE REMOVED
-	const [pets, setPets] = useState();
+	const [pets, setPets] = useState([]);
 
 	useEffect(() => {
 		(async () => {
