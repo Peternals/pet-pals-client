@@ -12,9 +12,11 @@ const PetInfo = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const pet = await axios.get(
-					`${REACT_APP_SERVER_URL}/pet/owner/${user._id}`
-				);
+				const pet = await axios.get(`${REACT_APP_SERVER_URL}/pet/owner`, {
+					headers: {
+						"x-access-token": localStorage.getItem("token"),
+					},
+				});
 				setOwnersPet(pet.data);
 			} catch (error) {
 				console.log(error);
