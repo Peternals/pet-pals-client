@@ -30,7 +30,6 @@ export default function SignIn() {
 
   // when the form is valid and submitted, this method is called
   const handleSignIn = async (data) => {
-    console.log(data);
     const signInAction = await dispatch(
       signIn({
         email: data.email,

@@ -36,8 +36,6 @@ export default function Step3Carer() {
     const inputFile = document.querySelector("#file");
     const usernameVal = e.username;
     const descriptionVal = e.description;
-    console.log(inputFile.files[0]);
-    // const profile_pictureVal = profile_picture.current.files[0];
     const profile_pictureVal = inputFile.files[0];
 
     const submitPic = async (imageInput) => {
