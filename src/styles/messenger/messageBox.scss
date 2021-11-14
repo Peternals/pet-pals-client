@@ -1,7 +1,6 @@
 @mixin messageBox {
 	.messageBoxContainer {
-		width: 70%;
-		margin-left: 5px;
+		width: 100%;
 
 		.messageBox {
 			border-radius: 5px;
@@ -70,6 +69,12 @@
 					box-shadow: 1px 1px 4px gray;
 				}
 			}
+		}
+	}
+	@media only screen and (min-width: 700px) {
+		.messageBoxContainer {
+			margin-left: 5px;
+			width: 70%;
 		}
 	}
 }
