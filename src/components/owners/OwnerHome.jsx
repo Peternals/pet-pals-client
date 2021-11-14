@@ -1,10 +1,10 @@
 import React from "react";
 import "../../styles/owners/ownerHome.scss";
-import sampleImg from "../../assets/sample.jpg";
 import PetInfo from "./PetInfo";
 import { Routes, Route } from "react-router-dom";
 import Request from "./Request";
 import { useSelector } from "react-redux";
+const { REACT_APP_SERVER_URL } = process.env;
 
 const OwnerHome = () => {
 	const user = useSelector((state) => state.user);
@@ -14,8 +14,12 @@ const OwnerHome = () => {
 			<div className="profileContainer">
 				<div className="profile">
 					<div className="profile2">
-						<img src={sampleImg} alt="profile"></img>
-						<h2>{user.username}</h2>
+						<figure>
+							<img
+								src={`${REACT_APP_SERVER_URL}/pic/${user.profile_picture}`}
+								alt="profile"></img>
+						</figure>
+						<h2>Yu Takaki</h2>
 						<div className="profileInfo">
 							<p className="summaryTitle">Bio:</p>
 							<p className="summary">{user.description}</p>
