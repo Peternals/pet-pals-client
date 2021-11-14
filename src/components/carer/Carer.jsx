@@ -18,7 +18,12 @@ const Carer = () => {
   useEffect(() => {
     const fetchAllPets = async () => {
       try {
-        const pets = await axios.get(`${REACT_APP_SERVER_URL}/pet`);
+        const token = localStorage.getItem("token");
+        const pets = await axios.get(`${REACT_APP_SERVER_URL}/pet`, {
+          headers: {
+            "x-access-token": token,
+          },
+        });
         console.log(pets.data);
         setAll(pets.data);
       } catch (err) {
@@ -26,7 +31,7 @@ const Carer = () => {
       }
     };
     fetchAllPets();
-  }, [all]);
+  }, []);
 
   useEffect(() => {
     if (type) {
