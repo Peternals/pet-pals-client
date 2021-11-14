@@ -81,7 +81,7 @@ const MessageBox = () => {
 		}
 	};
 	return (
-		<section className="messageBoxContainer">
+		<section className="messageBoxContainer hideMessenger">
 			<main className="messageBox">
 				{currentConversation !== "" && (
 					<>

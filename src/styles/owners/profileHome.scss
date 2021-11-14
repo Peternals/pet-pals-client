@@ -1,6 +1,6 @@
 @mixin homeSection {
 	.homeSection {
-		width: 70%;
+		width: 100%;
 		margin-left: auto;
 		display: flex;
 		flex-direction: column;
@@ -45,12 +45,14 @@
 		.petSchedule {
 			width: 100%;
 			display: flex;
+			flex-direction: column-reverse;
 			height: max-content;
+			grid-gap: 10px;
 			justify-content: space-between;
 			.calendar {
 				background-color: white;
 				height: 100%;
-				width: 57%;
+				width: 100%;
 				border-radius: 30px;
 				box-shadow: 1px 1px 5px $shadow;
 				padding: 10px;
@@ -71,10 +73,29 @@
 				background-color: white;
 				height: 100%;
 				padding: 20px;
-				width: 40%;
+				width: 100%;
 				border-radius: 30px;
 				box-shadow: 1px 1px 5px $shadow;
 			}
+		}
+	}
+
+	@media only screen and (min-width: 480px) {
+		.homeSection {
+			.petSchedule {
+				flex-direction: row;
+				.calendar {
+					width: 57%;
+				}
+				.petInfo {
+					width: 40%;
+				}
+			}
+		}
+	}
+	@media only screen and (min-width: 730px) {
+		.homeSection {
+			width: 70%;
 		}
 	}
 }

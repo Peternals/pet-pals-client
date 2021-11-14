@@ -27,13 +27,24 @@ const ContactCard = (props) => {
 
 	const setCurrentChat = () => {
 		try {
-			console.log(userInfo);
 			dispatch(
 				setCurrentChatAction({
 					conversation: conversation._id,
 					chatUser: userInfo,
 				})
 			);
+
+			document
+				.querySelector(".messageBoxContainer")
+				.classList.remove("hideMessenger");
+			document
+				.querySelector(".contactsListContainer")
+				.classList.add("hideMessenger");
+
+			document
+				.querySelector(".messageBoxHeader")
+				.classList.remove("hideHeader");
+			document.querySelector(".contactListHeader").classList.add("hideHeader");
 		} catch (error) {
 			console.log(error);
 		}

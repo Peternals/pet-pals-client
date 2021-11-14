@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, isFulfilled } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
 

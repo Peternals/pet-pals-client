@@ -2,7 +2,7 @@
 
 @mixin requestSection {
 	.requestSection {
-		width: 70%;
+		width: 100%;
 		display: flex;
 		justify-content: flex-end;
 		flex-direction: column;
@@ -20,9 +20,13 @@
 				align-items: center;
 				padding: 20px;
 				border-radius: 20px;
-				width: max-content;
+				width: 100%;
 				height: max-content;
 				box-shadow: 1px 1px 5px $shadow;
+				.requestInfo {
+					width: 100%;
+					margin-left: 10px;
+				}
 				span {
 					font-weight: bold;
 				}
@@ -48,6 +52,22 @@
 					}
 				}
 			}
+		}
+	}
+
+	@media only screen and (min-width: 540px) {
+		.requestSection {
+			.gridRequest {
+				.request {
+					width: max-content;
+				}
+			}
+		}
+	}
+
+	@media only screen and (min-width: 730px) {
+		.requestSection {
+			width: 70%;
 		}
 	}
 }

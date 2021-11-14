@@ -7,7 +7,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: rgb(245, 245, 245);
 	width: 100%;
-	color: rgb(46, 46, 46);
+	color: black;
 }
 * {
 	padding: 0;
@@ -37,4 +37,16 @@ code {
 	margin: auto;
 	height: 100vh;
 	width: 100%;
+}
+
+.background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	background-color: aquamarine;
+	z-index: -1;
+	background: url("./assets/background.jpg");
+	opacity: 0.07;
 }
