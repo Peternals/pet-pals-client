@@ -12,6 +12,7 @@ const initialState = {
 	description: null,
 	profile_picture: null,
 	type: null,
+	_id: null,
 };
 
 export const validation = createAsyncThunk(
@@ -79,6 +80,7 @@ export const userSlice = createSlice({
 			state.description = null;
 			state.profile_picture = null;
 			state.type = null;
+			state._id = null;
 		},
 	},
 	extraReducers: {
@@ -96,6 +98,7 @@ export const userSlice = createSlice({
 				state.description = action.payload.user.description;
 				state.profile_picture = action.payload.user.profile_picture;
 				state.type = action.payload.user.type;
+				state._id = action.payload.user._id;
 			}
 		},
 		[signIn.fulfilled]: (state, action) => {
@@ -106,6 +109,7 @@ export const userSlice = createSlice({
 				state.description = action.payload.user.description;
 				state.profile_picture = action.payload.user.profile_picture;
 				state.type = action.payload.user.type;
+				state._id = action.payload.user._id;
 			}
 		},
 		[verifyTokenAction.fulfilled]: (state, action) => {

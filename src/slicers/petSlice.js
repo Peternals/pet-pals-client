@@ -5,15 +5,22 @@ const { REACT_APP_SERVER_URL } = process.env;
 const initialState = {
 	type: null,
 	name: null,
+  owner_id: null,
 	description: null,
 	pet_picture: null,
 };
 
 export const petDataStore = createAsyncThunk("pet/signUp", async(petDataInput) => {
   try {
+    const token = localStorage.getItem("token");
     const response = await axios.post(
 			`${REACT_APP_SERVER_URL}/pet/`,
-			petDataInput
+      petDataInput,
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      },
 		);
     return response.data;
   } catch (err) {
@@ -37,7 +44,15 @@ export const petSlice = createSlice({
     getPetPicture: (state, action) => {
       state.pet_picture = action.payload;
     },
+    getOwnerId: (state, action) => {
+      state.owner_id = action.payload;
+    },
   },
+  extraReducers: {
+    [petDataStore.fulfilled]: (state, action) => {
+			state.owner_id = action.payload.owner_id;
+		},
+  }
 })
 
 export const {

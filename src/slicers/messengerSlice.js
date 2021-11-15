@@ -24,6 +24,25 @@ const messengerSlice = createSlice({
 			state.currentConversation = action.payload.conversation;
 			state.currentChatUser = action.payload.chatUser;
 		},
+
+		setSeenStateAction: (state, action) => {
+			const user_id = action.payload.user_id;
+			const conversation_id = action.payload.conversation_id;
+			const conversations = state.conversations.map((conv) => {
+				if (conversation_id === conv._id) {
+					const seen = conv.seen.map((seen) => {
+						if (seen.userId === user_id) {
+							seen.state = true;
+						}
+						return seen;
+					});
+					conv.seen = seen;
+				}
+				return conv;
+			});
+
+			state.conversations = conversations;
+		},
 	},
 	extraReducers: {
 		[getConversationsAction.pending]: (state) => {
@@ -42,8 +61,11 @@ const messengerSlice = createSlice({
 	},
 });
 
-export const { addMessageAction, setCurrentChatAction } =
-	messengerSlice.actions;
+export const {
+	addMessageAction,
+	setCurrentChatAction,
+	setSeenStateAction,
+} = messengerSlice.actions;
 const messengerReducer = messengerSlice.reducer;
 
 export default messengerReducer;
