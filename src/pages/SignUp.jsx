@@ -1,24 +1,41 @@
-import React, { createRef } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { validation } from "../slicers/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function SignUp() {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const email = createRef();
-  const password = createRef();
 
-  const handleContinue = async (e) => {
-    e.preventDefault();
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Emai is required").email("Email is invalid"),
+    password: Yup.string().min(6, "Min is 6").required("Password is required"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const handleContinue = async (data) => {
     const firstInputAction = await dispatch(
       validation({
-        email: email.current.value,
-        password: password.current.value,
+        email: data.email,
+        password: data.password,
       })
     );
 
-    if (firstInputAction.payload.email) {
+    if (firstInputAction.payload.err === "User already exists. Please Login") {
+      setErrorMessage(firstInputAction.payload.err);
+    } else {
       navigate("/step2");
     }
   };
@@ -26,10 +43,23 @@ export default function SignUp() {
   return (
     <>
       <div className="sign-up-container" style={{ marginTop: 200 }}>
-        <form onSubmit={handleContinue}>
+        <form onSubmit={handleSubmit(handleContinue)}>
           <h1>Sign Up</h1>
-          <input type="text" placeholder="Email" ref={email} />
-          <input type="password" placeholder="Password" ref={password} />
+          <div>{errorMessage}</div>
+          <input
+            name="email"
+            type="text"
+            placeholder="Email"
+            {...register("email")}
+          />
+          <div>{errors.email?.message}</div>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            {...register("password")}
+          />
+          <div>{errors.password?.message}</div>
           <button>Continue</button>
         </form>
       </div>
