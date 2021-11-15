@@ -21,6 +21,7 @@ import PrivateRoute from "./hoc/PrivateRoute";
 import Page404 from "./pages/Page404";
 import Carer from "./components/carer/Carer";
 import OwnerHome from "./components/owners/OwnerHome";
+import GalleryPage from "./pages/GalleryPage";
 
 function App() {
 	const dispatch = useDispatch();
@@ -107,6 +108,14 @@ function App() {
 						element={
 							<PrivateRoute>
 								<Messenger />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/gallery/:id"
+						element={
+							<PrivateRoute>
+								<GalleryPage />
 							</PrivateRoute>
 						}
 					/>
