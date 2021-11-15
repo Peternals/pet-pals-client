@@ -39,8 +39,8 @@ export default function Step5() {
         type: signUpInfo.type,
       })
     );
-
     if (submitAction.payload.user) {
+      console.log(signUpInfo);
       navigate("/");
     }
   };
