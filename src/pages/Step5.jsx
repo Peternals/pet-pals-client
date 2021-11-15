@@ -18,15 +18,17 @@ export default function Step5() {
         const formData = new FormData();
         formData.append("name", Date.now() + imageInput.name);
         formData.append("file", imageInput);
-        const response = await axios.post(`${REACT_APP_SERVER_URL}/pic/upload`, formData);
+        const response = await axios.post(
+          `${REACT_APP_SERVER_URL}/pic/upload`,
+          formData
+        );
 
         return response.data.filename;
-
       } catch (err) {
         console.log(err);
       }
-    }
-    const img = await submitPic(signUpInfo.profile_picture)
+    };
+    const img = await submitPic(signUpInfo.profile_picture);
     const submitAction = await dispatch(
       signUp({
         username: signUpInfo.username,
