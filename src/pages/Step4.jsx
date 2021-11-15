@@ -39,7 +39,7 @@ export default function Step4() {
     const petTypeVal = e.petType;
     const petDescriptionVal = e.petDescription;
     const inputFile = document.querySelector("#file");
-    const pet_pictureVal = inputFile.files[0];
+    const pet_pictureVal = inputFile.files;
     await dispatch(getPetType(petTypeVal));
     await dispatch(getPetName(peNameVal));
     await dispatch(getPetDescription(petDescriptionVal));
@@ -54,6 +54,7 @@ export default function Step4() {
           <input
             type="file"
             id="file"
+            multiple
             placeholder="Picture"
             {...register("pet_picture")}
           />
