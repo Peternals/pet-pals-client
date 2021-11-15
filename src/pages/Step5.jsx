@@ -1,8 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
+import { petQuestionStore } from "../slicers/petSlice";
 import axios from "axios";
+import QuestionForm from "../components/owners/QuestionForm";
+
 const { REACT_APP_SERVER_URL } = process.env;
 
 export default function Step5() {
@@ -12,6 +16,12 @@ export default function Step5() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Handle questions
+    const questions = Array.from(e.target.elements)
+      .filter((input) => input.type === "text")
+      .map((input) => input.value);
+
     console.log(signUpInfo);
     const submitPic = async (imageInput) => {
       try {
@@ -40,7 +50,15 @@ export default function Step5() {
       })
     );
 
-    if (submitAction.payload.user) {
+    // Not completed yet.
+    const saveQuestionnaire = await dispatch(
+      petQuestionStore({
+        questions: questions,
+      }) // Need pet ID
+    );
+
+    if (submitAction.payload.user && saveQuestionnaire.payload) {
+      console.log(saveQuestionnaire.payload);
       navigate("/");
     }
   };
@@ -50,7 +68,7 @@ export default function Step5() {
       <div>
         <form onSubmit={handleSubmit} style={{ marginTop: 200 }}>
           <h2>Questionnaire</h2>
-          <input type="text" placeholder="Question" />
+          <QuestionForm />
           <button>Submit</button>
         </form>
       </div>
