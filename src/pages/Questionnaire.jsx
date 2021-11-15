@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate, useLocation, useState } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/carer/questionnaire.scss";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -10,14 +11,21 @@ const Questionnaire = () => {
   const location = useLocation();
   const user_id = useSelector((state) => state.user._id);
   const { pet, start, end } = location.state;
-  const { qa, setQa } = useState(
-    pet.questionnaire.map((question) => {
-      return {
-        question: question,
-        answer: "",
-      };
-    })
-  );
+  const [qa, setQa] = useState([{ question: "Test", answer: "Test answer" }]);
+
+  useEffect(() => {
+    if (pet) {
+      const arr = pet.questionnaire.map((question) => {
+        return {
+          question: question,
+          answer: "",
+        };
+      });
+      setQa(arr);
+    }
+  }, [pet, setQa]);
+
+  //   console.log(`Pet is ${JSON.stringify(pet)}`);
   // TODO: Get User Id from the store.
 
   // Assumption that we pass our date in also
@@ -57,7 +65,15 @@ const Questionnaire = () => {
     };
     // TODO: Use the controller to update - To avoid data deletion.
     // TODO: Provide auth token in headers
-    await axios.patch(`/user/${user_id}`, payload);
+    try {
+      await axios.patch(`/user/${user_id}`, payload, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
     navigate("/");
   }
 
@@ -86,7 +102,9 @@ const Questionnaire = () => {
                 <textarea
                   type="text"
                   className="form-control"
-                  onChange={handleInput(index)}
+                  onChange={(e) => {
+                    handleInput(e, index);
+                  }}
                 ></textarea>
               </label>
             </div>
