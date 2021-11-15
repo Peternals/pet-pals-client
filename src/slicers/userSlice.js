@@ -36,7 +36,6 @@ export const signUp = createAsyncThunk("auth/signUp", async (signUpInput) => {
 			signUpInput
 		);
 		localStorage.setItem("token", response.data.token);
-		console.log(response.data);
 		return response.data;
 	} catch (err) {
 		return { err: err.response.data };
