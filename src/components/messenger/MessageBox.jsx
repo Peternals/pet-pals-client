@@ -88,8 +88,8 @@ const MessageBox = () => {
 					}
 				);
 				socket.emit("sendMessage", data);
-				dispatch(addMessageAction(data));
-
+				await dispatch(addMessageAction(data));
+				await dispatch(getConversationsAction());
 				setMessage("");
 			}
 		} catch (error) {
