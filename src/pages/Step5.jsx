@@ -12,7 +12,6 @@ export default function Step5() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(signUpInfo);
     const submitPic = async (imageInput) => {
       try {
         const formData = new FormData();
@@ -40,7 +39,6 @@ export default function Step5() {
       })
     );
     if (submitAction.payload.user) {
-      console.log(signUpInfo);
       navigate("/");
     }
   };

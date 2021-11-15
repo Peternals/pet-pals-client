@@ -66,7 +66,6 @@ export default function Step3Carer() {
       })
     );
     if (submitAction.payload.user) {
-      console.log(signUpInfo);
       navigate("/");
     }
   };

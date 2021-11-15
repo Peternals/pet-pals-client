@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../slicers/userSlice";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
+  const signUpInfo = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   // this code is for validation
