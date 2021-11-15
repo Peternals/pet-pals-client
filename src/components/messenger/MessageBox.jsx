@@ -79,6 +79,7 @@ const MessageBox = () => {
 						conversation_id: currentConversation,
 						text: message,
 						sender_id: id,
+						receiver_id: currentChatUser._id,
 					},
 					{
 						headers: {
