@@ -10,25 +10,33 @@ import img3 from "../assets/sampleDog2.jpeg";
 import img4 from "../assets/sampleDog3.jpg";
 import img5 from "../assets/sampleDog4.jpg";
 import img6 from "../assets/sampleDog5.jpg";
+// import axios from "axios"
+// const { REACT_APP_SERVER_URL } = process.env;
 
 // Component that represents the pet view for the carer
 // Has the more detailed view of the pet
 // Has a date picker for choosing the dates for requested
 // Has the button to direct to the questionnaire page
+
 const Pet = () => {
 	// const [petInfo, setPetInfo] = useState({});
 	// const { id } = useParams();
 	useEffect(() => {
-		(async () => {
-			try {
-				// just setting the info of the pet
-				// const action = await axios.get()
-				// setPetInfo(action.data)
-			} catch (error) {
-				console.log(error);
-			}
-		})();
+		// (async () => {
+		// 	try {
+		// 		// just setting the info of the pet
+		// 		const pet = await axios.get(`${REACT_APP_SERVER_URL}/pet/${id}`, {
+		// 			headers: {
+		// 				"x-access-token": localStorage.getItem("token"),
+		// 			},
+		// 		});
+		// 		setPetInfo(pet.data)
+		// 	} catch (error) {
+		// 		console.log(error);
+		// 	}
+		// })();
 	}, []);
+
 	/// sample pet imgae. replace this one by the actual data
 	const petImg = [
 		img1,
