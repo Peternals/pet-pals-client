@@ -6,7 +6,6 @@ import {
 	setSeenStateAction,
 } from "../../slicers/messengerSlice";
 import moment from "moment";
-import sample from "../../assets/sample.jpg";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const ContactCard = (props) => {
