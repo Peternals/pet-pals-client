@@ -17,17 +17,29 @@
 		background-color: white;
 		.contactList {
 			width: 100%;
+			.current {
+				background-color: rgb(235, 235, 235);
+			}
+			.notSeen {
+				font-weight: bolder;
+			}
 			.contact {
 				display: flex;
+				cursor: pointer;
 				width: 100%;
 				padding: 10px;
-				margin-bottom: 5px;
 				border-bottom: 1px solid rgb(160, 160, 160);
-				.contactImg img {
+				.contactImg {
 					height: 50px;
 					width: 50px;
 					border-radius: 50px;
 					background-color: $primaryColor;
+					overflow: hidden;
+					margin: auto;
+				}
+				.contactImg img {
+					width: 100%;
+					min-height: 100%;
 				}
 				.contactInfo {
 					width: 100%;
@@ -36,6 +48,9 @@
 						display: flex;
 						justify-content: space-between;
 						width: 100%;
+					}
+					.username {
+						font-weight: 900;
 					}
 				}
 			}
