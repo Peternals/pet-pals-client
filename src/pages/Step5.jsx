@@ -17,36 +17,57 @@ export default function Step5() {
     const submitPic = async (imageInput) => {
       try {
         const formData = new FormData();
-        formData.append("name", Date.now() + imageInput.name);
         formData.append("file", imageInput);
+        console.log("image input:", imageInput.name);
+        const response = await axios.post(
+          `${REACT_APP_SERVER_URL}/pic/upload`,
+          formData
+        );
+        return response.data[0].filename;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const submitPicForPet = async (imageInput) => {
+      console.log(imageInput);
+      try {
+        const formData = new FormData();
+        [...imageInput].forEach((image) => {
+          formData.append("file", image);
+          formData.append("name", Date.now() + image.name);
+        });
         const response = await axios.post(
           `${REACT_APP_SERVER_URL}/pic/upload`,
           formData
         );
 
-        return response.data.filename;
+        return response.data.map((res) => res.filename);
       } catch (err) {
         console.log(err);
       }
     };
-    const img = await submitPic(userSignUpInfo.profile_picture);
+
+    const userProfilePic = await submitPic(userSignUpInfo.profile_picture);
     const submitAction = await dispatch(
       signUp({
         username: userSignUpInfo.username,
         email: userSignUpInfo.email,
         password: userSignUpInfo.password,
         description: userSignUpInfo.description,
-        profile_picture: img,
+        profile_picture: userProfilePic,
         type: userSignUpInfo.type,
       })
     );
+
+    const petPic = await submitPicForPet(petSignUpInfo.pet_pictures);
     const petDataStoreAction = await dispatch(
       petDataStore({
         type: petSignUpInfo.type,
         name: petSignUpInfo.name,
         owner_id: submitAction.payload.user._id,
         description: petSignUpInfo.description,
-        pet_picture: petSignUpInfo.pet_picture,
+        pet_pictures: petPic,
       })
     );
     if (submitAction.payload.user) {
