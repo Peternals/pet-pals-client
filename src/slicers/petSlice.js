@@ -7,13 +7,14 @@ const initialState = {
   name: null,
   owner_id: null,
   description: null,
-  pet_picture: null,
+  pet_pictures: [],
 };
 
 export const petDataStore = createAsyncThunk(
   "pet/signUp",
   async (petDataInput) => {
     try {
+      console.log("petdata input:", petDataInput);
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${REACT_APP_SERVER_URL}/pet/`,
@@ -60,7 +61,7 @@ export const petSlice = createSlice({
       state.description = action.payload;
     },
     getPetPicture: (state, action) => {
-      state.pet_picture = action.payload;
+      state.pet_pictures = action.payload;
     },
     getPetQuestions: (state, action) => {
       state.pet_questions = action.payload;
