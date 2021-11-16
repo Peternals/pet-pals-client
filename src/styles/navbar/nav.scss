@@ -21,6 +21,7 @@
 			&:hover {
 				transform: scale(1.4);
 				cursor: pointer;
+				color: $tertiaryColor;
 			}
 		}
 		ul {
@@ -30,9 +31,11 @@
 				margin: 0 10px;
 				font-size: 1.2em;
 				transition: 0.5s;
+				color: $primaryColor;
 				&:hover {
 					transform: scale(1.4);
 					cursor: pointer;
+					color: $tertiaryColor;
 				}
 			}
 		}

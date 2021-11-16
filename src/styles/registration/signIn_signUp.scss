@@ -1,0 +1,100 @@
+@import "../variables.scss";
+
+.sign-in-container,
+.sign-up-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	form {
+		width: 90%;
+		max-width: 400px;
+		background-color: white;
+		padding: 20px;
+		border-radius: 20px;
+		box-shadow: 1px 1px 5px 2px $shadow;
+
+		transition: 0.5s;
+		&:hover {
+			transform: scale(1.05);
+		}
+
+		input {
+			width: 100%;
+			border: none;
+			background-color: transparent;
+			outline: none;
+			margin: 10px 0;
+			padding: 5px 0;
+			color: white;
+		}
+		button {
+			margin-top: 20px;
+
+			box-shadow: 1px 1px 3px $shadow;
+			border: none;
+			padding: 10px;
+
+			border-radius: 30px;
+			width: 100%;
+		}
+		.sign-up-navigator {
+			display: flex;
+			justify-content: center;
+			margin-top: 20px;
+		}
+		a {
+			text-align: center;
+			width: 100%;
+
+			text-decoration: underline;
+			padding: 5px;
+		}
+	}
+}
+.sign-in-container {
+	form {
+		background-color: $secondaryColor;
+		input {
+			border-bottom: 1px solid #90ffd3;
+		}
+		button {
+			background-color: #90ffd3;
+			color: $secondaryColor;
+		}
+	}
+	a {
+		color: #90ffd3;
+	}
+	h1 {
+		color: #90ffd3;
+	}
+	input::placeholder {
+		color: #90ffd3;
+	}
+}
+
+.sign-up-container {
+	form {
+		background-color: $tertiaryColor;
+		input {
+			border-bottom: 1px solid #ffd6dc;
+		}
+		button {
+			background-color: #ffd6dc;
+			color: $tertiaryColor;
+		}
+	}
+	a {
+		color: #ffd6dc;
+	}
+	h1 {
+		color: #ffd6dc;
+	}
+	input::placeholder {
+		color: #ffd6dc;
+	}
+}
