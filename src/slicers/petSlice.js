@@ -3,23 +3,34 @@ import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const initialState = {
-	type: null,
-	name: null,
-	description: null,
-	pet_picture: null,
+  type: null,
+  name: null,
+  owner_id: null,
+  description: null,
+  pet_pictures: [],
 };
 
-export const petDataStore = createAsyncThunk("pet/signUp", async(petDataInput) => {
-  try {
-    const response = await axios.post(
-			`${REACT_APP_SERVER_URL}/pet/`,
-			petDataInput
-		);
-    return response.data;
-  } catch (err) {
-		return { err: err.response.data };
-	}
-})
+export const petDataStore = createAsyncThunk(
+  "pet/signUp",
+  async (petDataInput) => {
+    try {
+      console.log("petdata input:", petDataInput);
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${REACT_APP_SERVER_URL}/pet/`,
+        petDataInput,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data };
+    }
+  }
+);
 
 export const petSlice = createSlice({
   name: "pet",
@@ -35,12 +46,23 @@ export const petSlice = createSlice({
       state.description = action.payload;
     },
     getPetPicture: (state, action) => {
-      state.pet_picture = action.payload;
+      state.pet_pictures = action.payload;
+    },
+    getOwnerId: (state, action) => {
+      state.owner_id = action.payload;
     },
   },
-})
+  extraReducers: {
+    [petDataStore.fulfilled]: (state, action) => {
+      state.owner_id = action.payload.owner_id;
+    },
+  },
+});
 
 export const {
-  getPetType, getPetName, getPetDescription, getPetPicture
+  getPetType,
+  getPetName,
+  getPetDescription,
+  getPetPicture,
 } = petSlice.actions;
 export default petSlice.reducer;

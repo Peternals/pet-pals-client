@@ -80,6 +80,7 @@ export const userSlice = createSlice({
 			state.description = null;
 			state.profile_picture = null;
 			state.type = null;
+			state._id = null;
 		},
 	},
 	extraReducers: {

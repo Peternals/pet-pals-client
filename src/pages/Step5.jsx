@@ -2,12 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
+import { petDataStore } from "../slicers/petSlice";
 import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
 
 export default function Step5() {
   const dispatch = useDispatch();
-  const signUpInfo = useSelector((state) => state.user);
+  const userSignUpInfo = useSelector((state) => state.user);
+  const petSignUpInfo = useSelector((state) => state.pet);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -15,31 +17,63 @@ export default function Step5() {
     const submitPic = async (imageInput) => {
       try {
         const formData = new FormData();
-        formData.append("name", Date.now() + imageInput.name);
         formData.append("file", imageInput);
+        console.log("image input:", imageInput.name);
+        const response = await axios.post(
+          `${REACT_APP_SERVER_URL}/pic/upload`,
+          formData
+        );
+        return response.data[0].filename;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const submitPicForPet = async (imageInput) => {
+      console.log(imageInput);
+      try {
+        const formData = new FormData();
+        [...imageInput].forEach((image) => {
+          formData.append("file", image);
+          formData.append("name", Date.now() + image.name);
+        });
         const response = await axios.post(
           `${REACT_APP_SERVER_URL}/pic/upload`,
           formData
         );
 
-        return response.data.filename;
+        return response.data.map((res) => res.filename);
       } catch (err) {
         console.log(err);
       }
     };
-    const img = await submitPic(signUpInfo.profile_picture);
+
+    const userProfilePic = await submitPic(userSignUpInfo.profile_picture);
     const submitAction = await dispatch(
       signUp({
-        username: signUpInfo.username,
-        email: signUpInfo.email,
-        password: signUpInfo.password,
-        description: signUpInfo.description,
-        profile_picture: img,
-        type: signUpInfo.type,
+        username: userSignUpInfo.username,
+        email: userSignUpInfo.email,
+        password: userSignUpInfo.password,
+        description: userSignUpInfo.description,
+        profile_picture: userProfilePic,
+        type: userSignUpInfo.type,
+      })
+    );
+
+    const petPic = await submitPicForPet(petSignUpInfo.pet_pictures);
+    const petDataStoreAction = await dispatch(
+      petDataStore({
+        type: petSignUpInfo.type,
+        name: petSignUpInfo.name,
+        owner_id: submitAction.payload.user._id,
+        description: petSignUpInfo.description,
+        pet_pictures: petPic,
       })
     );
     if (submitAction.payload.user) {
-      navigate("/");
+      if (!petDataStoreAction.payload.err) {
+        navigate("/");
+      }
     }
   };
 
