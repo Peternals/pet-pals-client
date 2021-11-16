@@ -22,7 +22,6 @@ const Pet = () => {
   // const { id } = useParams();
   const location = useLocation();
   const { pet } = location.state;
-
   /// sample pet imgae. replace this one by the actual data
   const petImg = [
     img1,
