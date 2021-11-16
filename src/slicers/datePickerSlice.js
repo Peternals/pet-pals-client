@@ -13,9 +13,14 @@ const datePickerSlice = createSlice({
 		updateDate: (state, action) => {
 			state[action.payload.key] = action.payload.data;
 		},
+		signOutDateCleanUp: (state) => {
+			state.startDate = null;
+			state.endDate = null;
+			state.focusedInput = null;
+		}
 	},
 });
 
-export const { updateDate } = datePickerSlice.actions;
+export const { updateDate, signOutDateCleanUp } = datePickerSlice.actions;
 const dateReducer = datePickerSlice.reducer;
 export default dateReducer;

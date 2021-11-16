@@ -43,6 +43,15 @@ const messengerSlice = createSlice({
 
 			state.conversations = conversations;
 		},
+
+		signOutMessengerCleanUp: (state) => {
+			state.pending = false;
+			state.messages = [];
+			state.conversations = [];
+			state.currentConversation = "";
+			state.currentChatUser = "";
+		},
+
 	},
 	extraReducers: {
 		[getConversationsAction.pending]: (state) => {
@@ -65,6 +74,7 @@ export const {
 	addMessageAction,
 	setCurrentChatAction,
 	setSeenStateAction,
+	signOutMessengerCleanUp,
 } = messengerSlice.actions;
 const messengerReducer = messengerSlice.reducer;
 
