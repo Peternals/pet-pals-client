@@ -13,6 +13,7 @@ const Questionnaire = () => {
   const user_id = useSelector((state) => state.user._id);
   const { pet, start, end } = location.state;
   const [qa, setQa] = useState([{ question: "Test", answer: "Test answer" }]);
+  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     if (pet) {
@@ -26,11 +27,32 @@ const Questionnaire = () => {
     }
   }, [pet, setQa]);
 
+  useEffect(() => {
+    // Get all requests for the pet ID.
+    (async () => {
+      try {
+        console.log("pet: ", pet);
+        const token = localStorage.getItem("token");
+        const { data: response } = await axios.get(
+          `${REACT_APP_SERVER_URL}/pet/requests/${pet._id}`,
+          {
+            headers: {
+              "x-access-token": token,
+            },
+          }
+        );
+        setRequests(response);
+      } catch (err) {
+        return { err: err.response.data };
+      }
+    })();
+  }, [REACT_APP_SERVER_URL, pet]);
+
   async function onSubmit(data) {
     data.preventDefault();
 
     const request = {
-      pet_id: pet.id,
+      pet_id: pet._id,
       start: start ?? "2021-01",
       end: end ?? "2021-12-09",
       status: "Pending",
@@ -51,7 +73,7 @@ const Questionnaire = () => {
     // TODO: Do I need all existing requests for Patch?
     const payload = {
       Carer: {
-        requests: [request],
+        requests: [...requests, request],
       },
     };
     try {
