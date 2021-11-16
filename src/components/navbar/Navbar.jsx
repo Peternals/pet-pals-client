@@ -3,6 +3,9 @@ import "../../styles/navbar/nav.scss";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutCleanUp } from "../../slicers/userSlice";
+import { signOutPetCleanUp } from "../../slicers/petSlice";
+import { signOutMessengerCleanUp } from "../../slicers/messengerSlice";
+import { signOutDateCleanUp } from "../../slicers/datePickerSlice";
 
 const Navbar = () => {
   const type = useSelector((state) => state.user.type);
@@ -11,6 +14,9 @@ const Navbar = () => {
 
   const handleSignOut = (e) => {
     dispatch(signOutCleanUp());
+    dispatch(signOutPetCleanUp());
+    dispatch(signOutMessengerCleanUp());
+    dispatch(signOutDateCleanUp());
     window.localStorage.removeItem("token");
   };
 

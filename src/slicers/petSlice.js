@@ -119,6 +119,17 @@ export const petSlice = createSlice({
       state.filteredPets = state.initialPets;
       state.isFiltered = false;
     },
+    signOutPetCleanUp: (state) => {
+			state.info.type = null;
+			state.info.name = null;
+			state.info.owner_id = null;
+			state.info.description = null;
+			state.info.pet_pictures = [];
+      state.pet_questions = [];
+      state.initialPets = [];
+      state.filteredPets = [];
+      state.isFiltered = false;
+		},
   },
   extraReducers: {
     [petDataStore.fulfilled]: (state, action) => {
@@ -142,5 +153,6 @@ export const {
   getPetPicture,
   getPetQuestions,
   resetFilter,
+  signOutPetCleanUp,
 } = petSlice.actions;
 export default petSlice.reducer;
