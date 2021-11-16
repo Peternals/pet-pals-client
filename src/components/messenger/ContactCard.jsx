@@ -76,8 +76,10 @@ const ContactCard = (props) => {
 	};
 
 	const checkSeen = () => {
-		console.log(conversation);
 		const seen = conversation.seen.find((seen) => seen.userId === id);
+		if (seen === undefined) {
+			return `contact ${userInfo._id === currentChatUser._id && `current`}`;
+		}
 		return `contact ${userInfo._id === currentChatUser._id && `current`} ${
 			!seen.state && "notSeen"
 		}`;

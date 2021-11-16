@@ -1,0 +1,50 @@
+@import "../variables.scss";
+@import "./main.scss";
+
+.sign-in-container,
+.sign-up-container {
+	@include mainRegistration;
+
+	.sign-up-navigator {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+	a {
+		text-align: center;
+		width: 100%;
+
+		text-decoration: underline;
+		padding: 5px;
+	}
+}
+//signin
+.sign-in-container {
+	@include green;
+}
+//signup
+.sign-up-container {
+	@include red;
+	button {
+		margin-top: 10px;
+
+		box-shadow: 1px 1px 3px $shadow;
+		border: none;
+		padding: 10px;
+
+		border-radius: 30px;
+		width: 30%;
+		color: white;
+	}
+	.CarerBtn {
+		background-color: $tertiaryColor;
+	}
+
+	.OwnerBtn {
+		background-color: $secondaryColor;
+	}
+	.backBtn {
+		color: $primaryColor;
+		margin-top: 20px;
+	}
+}

@@ -1,0 +1,13 @@
+@import "../variables.scss";
+@import "./main.scss";
+
+.step3Owner,
+.step4 {
+	@include mainRegistration;
+	@include green;
+}
+
+.step3Carer {
+	@include mainRegistration;
+	@include red;
+}

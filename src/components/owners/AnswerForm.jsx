@@ -1,15 +1,45 @@
 import React from "react";
+import axios from "axios";
+const { REACT_APP_SERVER_URL } = process.env;
 
-const AnswerForm = ({ answerFormRef, setCurrentRequest }) => {
+const AnswerForm = ({
+	answerFormRef,
+	setCurrentRequest,
+	currentRequest,
+	getRequests,
+}) => {
+	console.log(currentRequest);
 	const closeAnswerForm = () => {
 		setCurrentRequest({});
 		answerFormRef.current.classList.remove("showAnswerForm");
 	};
 	const requestAction = async (action) => {
 		try {
-			// const action = await axios.post("")
-			// const filterRequest = requests.filter(req => req._id !== id)
-			// setRequest(filterRequest)
+			await axios.patch(
+				`${REACT_APP_SERVER_URL}/requests/${action}`,
+				{
+					user_id: currentRequest._id,
+					request_id: currentRequest.request._id,
+					action,
+				},
+				{
+					headers: {
+						"x-access-token": localStorage.getItem("token"),
+					},
+				}
+			);
+			if (action === "accept") {
+				await axios.post(
+					`${REACT_APP_SERVER_URL}/messages/conversations`,
+					{ user_id: currentRequest._id },
+					{
+						headers: {
+							"x-access-token": localStorage.getItem("token"),
+						},
+					}
+				);
+			}
+			await getRequests();
 			closeAnswerForm();
 		} catch (error) {
 			console.log(error);
@@ -21,17 +51,13 @@ const AnswerForm = ({ answerFormRef, setCurrentRequest }) => {
 				<i className="fa fa-close" onClick={closeAnswerForm}></i>
 				<h1>Answers</h1>
 				<ol>
-					{[1, 2, 3, 4, 5, 6, 7, 9].map((_, i) => (
-						<li>
-							<h2>How would you feed my dog</h2>
-							<p>
-								Ad duis sunt sunt est et. Minim ullamco ipsum nisi nulla. Dolor
-								minim nisi cupidatat proident commodo proident dolore aliqua
-								amet ipsum voluptate sint cupidatat minim. Eiusmod eiusmod minim
-								consequat occaecat duis laboris.
-							</p>
-						</li>
-					))}
+					{currentRequest.request &&
+						currentRequest.request.questionnaire.map((qa, i) => (
+							<li>
+								<h2>{qa.question}</h2>
+								<p>{qa.answer}</p>
+							</li>
+						))}
 				</ol>
 				<div className="answerFormButtons">
 					<button onClick={() => requestAction("accept")}>Accept</button>
