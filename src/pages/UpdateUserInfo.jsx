@@ -29,30 +29,18 @@ const UpdateUserInfo = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(isDirty);
-    console.log(dirtyFields);
-
     const modifyData = () => {
       const dirtyKeys = Object.keys(dirtyFields);
-      console.log(dirtyKeys);
       const originalKeys = Object.keys(data);
-      console.log(originalKeys);
       const deleteKeys = originalKeys.filter(
         (originalKey) => !dirtyKeys.includes(originalKey)
       );
-      console.log(deleteKeys);
       for (let key of deleteKeys) {
-        console.log(key);
         delete data[key];
-        console.log(data);
       }
       return data;
     };
-    const modifiedData = modifyData();
-    console.log(modifiedData);
-    console.log(data);
-    console.log(typeof modifiedData);
-    console.log(typeof data);
+    modifyData();
 
     const updateUserAction = await dispatch(updateUserInfo({ _id, data }));
     if (updateUserAction.payload.err) {

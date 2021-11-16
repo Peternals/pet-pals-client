@@ -60,13 +60,10 @@ export const updateUserInfo = createAsyncThunk(
   "user/update",
   async ({ _id, data }) => {
     try {
-			console.log(_id);
-			console.log(JSON.stringify(data));
       const response = await axios.patch(
         `${REACT_APP_SERVER_URL}/user/${_id}`,
         { _id, data }
       );
-			console.log(response);
       return response.data;
     } catch (err) {
       return { err: err.response.data };
@@ -140,7 +137,6 @@ export const userSlice = createSlice({
 		},
 		[updateUserInfo.fulfilled]: (state, action) => {
       if (!action.payload.err) {
-				console.log(action.payload.username);
         state.username = action.payload.username;
         state.email = action.payload.email;
         state.description = action.payload.description;
