@@ -23,7 +23,7 @@ const UpdateUserInfo = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, dirtyFields },
+    formState: { errors, dirtyFields },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });

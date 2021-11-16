@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "../components/DatePicker";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/carer/pet.scss";
 import samplePet from "../assets/sampleDog2.jpeg";
 import { useLocation } from "react-router-dom";
