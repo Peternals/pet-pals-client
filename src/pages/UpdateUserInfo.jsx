@@ -16,7 +16,6 @@ const UpdateUserInfo = () => {
   const validationSchema = Yup.object().shape({
     username: Yup.string(),
     email: Yup.string().email("Email is invalid"),
-    password: Yup.string().min(6, "Min is 6"),
     description: Yup.string(),
   });
 

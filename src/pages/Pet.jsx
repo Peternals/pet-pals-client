@@ -5,12 +5,12 @@ import "../styles/carer/pet.scss";
 import samplePet from "../assets/sampleDog2.jpeg";
 import { useLocation } from "react-router-dom";
 import Gallery from "../components/gallery/Gallery";
-import img1 from "../assets/sample.jpg";
-import img2 from "../assets/sampleDog.jpg";
-import img3 from "../assets/sampleDog2.jpeg";
-import img4 from "../assets/sampleDog3.jpg";
-import img5 from "../assets/sampleDog4.jpg";
-import img6 from "../assets/sampleDog5.jpg";
+// import img1 from "../assets/sample.jpg";
+// import img2 from "../assets/sampleDog.jpg";
+// import img3 from "../assets/sampleDog2.jpeg";
+// import img4 from "../assets/sampleDog3.jpg";
+// import img5 from "../assets/sampleDog4.jpg";
+// import img6 from "../assets/sampleDog5.jpg";
 const { REACT_APP_SERVER_URL } = process.env;
 
 // Component that represents the pet view for the carer
@@ -22,29 +22,7 @@ const Pet = () => {
   // const { id } = useParams();
   const location = useLocation();
   const { pet } = location.state;
-  /// sample pet imgae. replace this one by the actual data
-  const petImg = [
-    img1,
-    img2,
-    img3,
-    img3,
-    img4,
-    img5,
-    img6,
-    img2,
-    img3,
-    img2,
-    img3,
-    img4,
-    img5,
-    img6,
-    img1,
-    img2,
-    img3,
-    img4,
-    img5,
-    img6,
-  ];
+  const petImg = pet.pet_pictures;
   return (
     <main className="petMain">
       <div className="container-fluid p-3 align-items-center">
