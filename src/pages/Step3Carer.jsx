@@ -47,7 +47,8 @@ export default function Step3Carer() {
           `${REACT_APP_SERVER_URL}/pic/upload`,
           formData
         );
-        return response.data.filename;
+
+        return response.data[0].filename;
       } catch (err) {
         console.log(err);
       }
