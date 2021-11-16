@@ -10,8 +10,10 @@ const initialState = {
     description: null,
     pet_pictures: [],
   },
+  pet_questions: [],
   initialPets: [],
   filteredPets: [],
+  isFiltered: false,
 };
 
 export const petDataStore = createAsyncThunk(
@@ -115,6 +117,7 @@ export const petSlice = createSlice({
     },
     resetFilter: (state, action) => {
       state.filteredPets = state.initialPets;
+      state.isFiltered = false;
     },
   },
   extraReducers: {
@@ -123,9 +126,11 @@ export const petSlice = createSlice({
     },
     [fetchAllPets.fulfilled]: (state, action) => {
       state.initialPets = action.payload;
+      state.isFiltered = false;
     },
     [fetchPetsByType.fulfilled]: (state, action) => {
       state.filteredPets = action.payload;
+      state.isFiltered = true;
     },
   },
 });
