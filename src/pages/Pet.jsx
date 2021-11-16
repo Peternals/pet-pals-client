@@ -16,7 +16,12 @@ const Pet = () => {
   useEffect(() => {
     (async () => {
       try {
-        const pet = await axios.get(`${REACT_APP_SERVER_URL}/pet/${id}`);
+        const token = localStorage.getItem("token");
+        const pet = await axios.get(`${REACT_APP_SERVER_URL}/pet/${id}`, {
+          headers: {
+            "x-access-token": token,
+          },
+        });
         setPetInfo(pet.data);
       } catch (error) {
         console.log(error);
@@ -36,9 +41,9 @@ const Pet = () => {
         <section className="petFlexBox">
           <figure>
             <div className="mainPic">
-              {petInfo.pet_pictures ? (
+              {petInfo.pet_pictures && petInfo.pet_pictures.length >= 1 ? (
                 <img
-                  src={`${REACT_APP_SERVER_URL}/pic/${petInfo.pet_pictures}`}
+                  src={`${REACT_APP_SERVER_URL}/pic/${petInfo.pet_pictures[0]}`}
                   alt="pet pic"
                 />
               ) : (

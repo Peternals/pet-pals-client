@@ -1,77 +1,18 @@
-// import React from "react";
-// import PetCard from "./PetCard";
-
-// const PetGrid = ({ pets }) => {
-//   return (
-//     <div className="container" style={{ marginTop: "50px" }}>
-//       <div className="row">
-//         {pets.map((pet, i) => (
-//           <PetCard pet={pet} key={i} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default PetGrid;
-import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import React from "react";
 import PetCard from "./PetCard";
 
-// uncomment this out
-// import axios from "axios";
-// const { REACT_APP_SERVER_URL } = process.env;
-
 const PetGrid = () => {
-  // TEST DATA - TO BE REMOVED
-  const [pets, setPets] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        // const action = await axios.get(`${REACT_APP_SERVER_URL}/pet`, {
-        // 	headers: {
-        // 		"x-access-token": localStorage.getItem("token"),
-        // 	},
-        // });
-        // console.log(action);
-        setPets([
-          {
-            name: "Fido",
-            description: "Doggy",
-          },
-          {
-            name: "Ollie",
-            description: "Otter",
-          },
-          {
-            name: "Simba",
-            description: "Lion",
-          },
-          {
-            name: "Mizugocci",
-            description: "Mizugocci",
-          },
-          {
-            name: "Doraemon",
-            description: "???",
-          },
-          {
-            name: "Hachiko",
-            description: "Dog",
-          },
-        ]);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
+  const allPets = useSelector((state) => state.pet.initialPets);
+  const filteredPets = useSelector((state) => state.pet.filteredPets);
+  console.log(allPets);
+  console.log(filteredPets);
   return (
     <div className="container" style={{ marginTop: "50px" }}>
       <div className="row">
-        {pets.map((pet) => (
-          <PetCard />
-        ))}
+        {filteredPets.length === 0
+          ? allPets.map((pet, i) => <PetCard pet={pet} key={i} />)
+          : filteredPets.map((pet, i) => <PetCard pet={pet} key={i} />)}
       </div>
     </div>
   );

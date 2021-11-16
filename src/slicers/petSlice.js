@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
 
-// need to change to implement filter like below
 const initialState = {
   info: {
     type: null,
@@ -14,14 +13,6 @@ const initialState = {
   initialPets: [],
   filteredPets: [],
 };
-
-// const initialState = {
-//   type: null,
-//   name: null,
-//   owner_id: null,
-//   description: null,
-//   pet_pictures: [],
-// };
 
 export const petDataStore = createAsyncThunk(
   "pet/signUp",
@@ -62,8 +53,14 @@ export const fetchPetsByType = createAsyncThunk(
   "pet/fetchPetsByType",
   async (type) => {
     try {
+      const token = localStorage.getItem("token");
       const { data: response } = await axios.get(
-        `${REACT_APP_SERVER_URL}/pet/type/${type}`
+        `${REACT_APP_SERVER_URL}/pet/type/${type}`,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
       );
       return response;
     } catch (err) {

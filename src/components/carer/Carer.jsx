@@ -1,69 +1,59 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PetGrid from "./PetGrid";
 import "../../styles/carer/carer.scss";
-import axios from "axios";
-const { REACT_APP_SERVER_URL } = process.env;
+import {
+  fetchAllPets,
+  fetchPetsByType,
+  resetFilter,
+} from "../../slicers/petSlice";
 
 // Grid of cards for web view, column for phone view
-
-//TODO: if type is not selected, append all pets
 const Carer = () => {
-  const [all, setAll] = useState([]);
-  const [view, setView] = useState("All");
   const [type, setType] = useState("");
-  const [pets, setPets] = useState([]);
+  const allPets = useSelector((state) => state.pet.initialPets);
+  const dispatch = useDispatch();
   const types = ["Dog", "Cat", "Otter", "Snake"];
   const typeRef = useRef();
 
   useEffect(() => {
-    const fetchAllPets = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const pets = await axios.get(`${REACT_APP_SERVER_URL}/pet`, {
-          headers: {
-            "x-access-token": token,
-          },
-        });
-        console.log(pets.data);
-        setAll(pets.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchAllPets();
+    if (allPets.length === 0) {
+      dispatch(fetchAllPets());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (type) {
-      const fetchPets = async () => {
-        const pets = await axios.get(
-          `${REACT_APP_SERVER_URL}/pet/type/${type}`
-        );
-        setPets(pets.data);
-        setView("Type");
-      };
-      fetchPets();
-    }
-  }, [type]);
+  const submit = (e) => {
+    e.preventDefault();
+    dispatch(fetchPetsByType(type));
+  };
+
+  const resetView = () => {
+    dispatch(resetFilter());
+  };
 
   return (
     <main className="carerMain">
       <section>
-        <select
-          name="type"
-          defaultValue=""
-          ref={typeRef}
-          onChange={(e) => setType(e.target.value)}
-        >
-          <option value="">Select pet type</option>
-          {types.map((type, i) => (
-            <option key={i} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+        <form onSubmit={submit}>
+          <select
+            name="type"
+            defaultValue=""
+            ref={typeRef}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value="">Select pet type</option>
+            {types.map((type, i) => (
+              <option key={i} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+          <button>Search Pets</button>
+          <button onClick={resetView}>Reset</button>
+        </form>
       </section>
-      <PetGrid pets={pets} />
+      <PetGrid />
     </main>
   );
 };
