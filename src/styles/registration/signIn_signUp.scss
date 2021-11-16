@@ -1,100 +1,50 @@
 @import "../variables.scss";
+@import "./main.scss";
 
 .sign-in-container,
 .sign-up-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
-	form {
-		width: 90%;
-		max-width: 400px;
-		background-color: white;
-		padding: 20px;
-		border-radius: 20px;
-		box-shadow: 1px 1px 5px 2px $shadow;
+	@include mainRegistration;
 
-		transition: 0.5s;
-		&:hover {
-			transform: scale(1.05);
-		}
+	.sign-up-navigator {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+	a {
+		text-align: center;
+		width: 100%;
 
-		input {
-			width: 100%;
-			border: none;
-			background-color: transparent;
-			outline: none;
-			margin: 10px 0;
-			padding: 5px 0;
-			color: white;
-		}
-		button {
-			margin-top: 20px;
-
-			box-shadow: 1px 1px 3px $shadow;
-			border: none;
-			padding: 10px;
-
-			border-radius: 30px;
-			width: 100%;
-		}
-		.sign-up-navigator {
-			display: flex;
-			justify-content: center;
-			margin-top: 20px;
-		}
-		a {
-			text-align: center;
-			width: 100%;
-
-			text-decoration: underline;
-			padding: 5px;
-		}
+		text-decoration: underline;
+		padding: 5px;
 	}
 }
+//signin
 .sign-in-container {
-	form {
-		background-color: $secondaryColor;
-		input {
-			border-bottom: 1px solid #90ffd3;
-		}
-		button {
-			background-color: #90ffd3;
-			color: $secondaryColor;
-		}
-	}
-	a {
-		color: #90ffd3;
-	}
-	h1 {
-		color: #90ffd3;
-	}
-	input::placeholder {
-		color: #90ffd3;
-	}
+	@include green;
 }
-
+//signup
 .sign-up-container {
-	form {
+	@include red;
+	button {
+		margin-top: 10px;
+
+		box-shadow: 1px 1px 3px $shadow;
+		border: none;
+		padding: 10px;
+
+		border-radius: 30px;
+		width: 30%;
+		color: white;
+	}
+	.CarerBtn {
 		background-color: $tertiaryColor;
-		input {
-			border-bottom: 1px solid #ffd6dc;
-		}
-		button {
-			background-color: #ffd6dc;
-			color: $tertiaryColor;
-		}
 	}
-	a {
-		color: #ffd6dc;
+
+	.OwnerBtn {
+		background-color: $secondaryColor;
 	}
-	h1 {
-		color: #ffd6dc;
-	}
-	input::placeholder {
-		color: #ffd6dc;
+	.backBtn {
+		color: $primaryColor;
+		margin-top: 20px;
 	}
 }

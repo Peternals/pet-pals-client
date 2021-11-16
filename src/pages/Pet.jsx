@@ -96,7 +96,6 @@ const Pet = () => {
 					</div>
 				</section>
 				<h1>Gallery</h1>
-
 				<Gallery petImg={petImg} />
 			</div>
 		</main>

@@ -28,7 +28,7 @@ const Home = () => {
 								<button className="signin">Sign in</button>
 							</Link>
 							<Link to="/signup">
-								<button className="signup">Register</button>
+								<button className="signup">Sign up</button>
 							</Link>
 						</section>
 						<figure>
