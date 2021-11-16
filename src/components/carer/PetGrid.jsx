@@ -5,8 +5,6 @@ import PetCard from "./PetCard";
 const PetGrid = () => {
   const allPets = useSelector((state) => state.pet.initialPets);
   const filteredPets = useSelector((state) => state.pet.filteredPets);
-  console.log(allPets);
-  console.log(filteredPets);
   return (
     <div className="container" style={{ marginTop: "50px" }}>
       <div className="row">

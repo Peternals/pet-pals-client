@@ -35,6 +35,27 @@ export const petDataStore = createAsyncThunk(
   }
 );
 
+export const petQuestionStore = createAsyncThunk(
+  "pet/questions",
+  async (petDataInput) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.patch(
+        `${REACT_APP_SERVER_URL}/pet/${petDataInput.pet_id}`,
+        petDataInput.questionnaire,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data };
+    }
+  }
+);
+
 export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
   try {
     const token = localStorage.getItem("token");
@@ -85,6 +106,10 @@ export const petSlice = createSlice({
     getPetPicture: (state, action) => {
       state.info.pet_pictures = action.payload;
     },
+    getPetQuestions: (state, action) => {
+      state.pet_questions = action.payload;
+    },
+
     getOwnerId: (state, action) => {
       state.info.owner_id = action.payload;
     },
@@ -110,6 +135,7 @@ export const {
   getPetName,
   getPetDescription,
   getPetPicture,
+  getPetQuestions,
   resetFilter,
 } = petSlice.actions;
 export default petSlice.reducer;

@@ -1,9 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
+import { petQuestionStore } from "../slicers/petSlice";
 import { petDataStore } from "../slicers/petSlice";
 import axios from "axios";
+import QuestionForm from "../components/owners/QuestionForm";
+
 const { REACT_APP_SERVER_URL } = process.env;
 
 export default function Step5() {
@@ -11,6 +15,11 @@ export default function Step5() {
   const userSignUpInfo = useSelector((state) => state.user);
   const petSignUpInfo = useSelector((state) => state.pet.info);
   const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+
+  const updateQuestions = (newQuestions) => {
+    setQuestions(newQuestions);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,10 +78,19 @@ export default function Step5() {
         pet_pictures: petPic,
       })
     );
-    if (submitAction.payload.user) {
-      if (!petDataStoreAction.payload.err) {
-        navigate("/");
-      }
+
+    const questionPayload = {
+      questionnaire: questions.map((obj) => obj.text),
+    };
+    const saveQuestionnaire = await dispatch(
+      petQuestionStore({
+        questionnaire: questionPayload,
+        pet_id: petDataStoreAction.payload._id,
+      })
+    );
+
+    if (submitAction.payload.user && saveQuestionnaire.payload) {
+      navigate("/");
     }
   };
 
@@ -81,7 +99,10 @@ export default function Step5() {
       <div>
         <form onSubmit={handleSubmit} style={{ marginTop: 200 }}>
           <h2>Questionnaire</h2>
-          <input type="text" placeholder="Question" />
+          <QuestionForm
+            questions={questions}
+            updateQuestions={updateQuestions}
+          />
           <button>Submit</button>
         </form>
       </div>

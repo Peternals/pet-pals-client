@@ -19,7 +19,7 @@ const PetCard = ({ pet }) => {
         </div>
         <div className="card-heading">{pet.name}</div>
         <div className="card-text">{pet.description}</div>
-        <Link to={`/carer/pet/${pet._id}`}>
+        <Link to={`/carer/pet/${pet._id}`} state={{ pet: pet }}>
           <button className="card-button"> Request</button>
         </Link>
       </div>
