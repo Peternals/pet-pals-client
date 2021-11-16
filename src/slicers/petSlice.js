@@ -88,7 +88,7 @@ export const petSlice = createSlice({
     getOwnerId: (state, action) => {
       state.info.owner_id = action.payload;
     },
-    resetFilter: (action, state) => {
+    resetFilter: (state, action) => {
       state.filteredPets = state.initialPets;
     },
   },

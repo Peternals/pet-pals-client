@@ -30,6 +30,7 @@ const Carer = () => {
 
   const resetView = () => {
     dispatch(resetFilter());
+    typeRef.current.value = "";
   };
 
   return (
@@ -50,8 +51,8 @@ const Carer = () => {
             ))}
           </select>
           <button>Search Pets</button>
-          <button onClick={resetView}>Reset</button>
         </form>
+        <button onClick={resetView}>Reset</button>
       </section>
       <PetGrid />
     </main>
