@@ -15,15 +15,14 @@ export default function Step5() {
   const userSignUpInfo = useSelector((state) => state.user);
   const petSignUpInfo = useSelector((state) => state.pet);
   const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+
+  const updateQuestions = (newQuestions) => {
+    setQuestions(newQuestions);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Handle questions
-    const questions = Array.from(e.target.elements)
-      .filter((input) => input.type === "text")
-      .map((input) => input.value);
-
     const submitPic = async (imageInput) => {
       try {
         const formData = new FormData();
@@ -81,15 +80,17 @@ export default function Step5() {
       })
     );
 
-    // Not completed yet.
+    const questionPayload = {
+      questionnaire: questions.map((obj) => obj.text),
+    };
     const saveQuestionnaire = await dispatch(
       petQuestionStore({
-        questions: questions,
-      }) // Need pet ID
+        questionnaire: questionPayload,
+        pet_id: petDataStoreAction.payload._id,
+      })
     );
 
     if (submitAction.payload.user && saveQuestionnaire.payload) {
-      console.log(saveQuestionnaire.payload);
       navigate("/");
     }
   };
@@ -99,7 +100,10 @@ export default function Step5() {
       <div>
         <form onSubmit={handleSubmit} style={{ marginTop: 200 }}>
           <h2>Questionnaire</h2>
-          <QuestionForm />
+          <QuestionForm
+            questions={questions}
+            updateQuestions={updateQuestions}
+          />
           <button>Submit</button>
         </form>
       </div>

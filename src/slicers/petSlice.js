@@ -14,7 +14,6 @@ export const petDataStore = createAsyncThunk(
   "pet/signUp",
   async (petDataInput) => {
     try {
-      console.log("petdata input:", petDataInput);
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${REACT_APP_SERVER_URL}/pet/`,
@@ -34,11 +33,17 @@ export const petDataStore = createAsyncThunk(
 
 export const petQuestionStore = createAsyncThunk(
   "pet/questions",
-  async (petDataInput, pet_Id) => {
+  async (petDataInput) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.patch(
-        `${REACT_APP_SERVER_URL}/pet/${pet_Id}`,
-        petDataInput
+        `${REACT_APP_SERVER_URL}/pet/${petDataInput.pet_id}`,
+        petDataInput.questionnaire,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
       );
       return response.data;
     } catch (err) {

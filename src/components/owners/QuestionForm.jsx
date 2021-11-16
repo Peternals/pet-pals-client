@@ -23,7 +23,7 @@ function QForm({ addQuestion }) {
   };
 
   return (
-    <div>
+    <li>
       <input
         type="text"
         className="input"
@@ -31,34 +31,34 @@ function QForm({ addQuestion }) {
         onChange={(e) => setValue(e.target.value)}
       />
       <button onClick={handleClick}>+</button>
-    </div>
+    </li>
   );
 }
 
-function QuestionForm() {
-  const [questions, setQuestions] = useState([]);
-
+function QuestionForm(props) {
   const addQuestion = (text) => {
-    const newQuestions = [...questions, { text }];
-    setQuestions(newQuestions);
+    const newQuestions = [...props.questions, { text }];
+    props.updateQuestions(newQuestions);
   };
 
   const removeQuestion = (index) => {
-    const newQuestions = [...questions];
-    questions.splice(index, 1);
-    setQuestions(newQuestions);
+    const newQuestions = [...props.questions];
+    props.questions.splice(index, 1);
+    props.updateQuestions(newQuestions);
   };
 
   return (
     <div>
-      {questions.map((question, index) => (
-        <Question
-          key={index}
-          index={index}
-          question={question}
-          removeQuestion={removeQuestion}
-        />
-      ))}
+      <ul>
+        {props.questions.map((question, index) => (
+          <Question
+            key={index}
+            index={index}
+            question={question}
+            removeQuestion={removeQuestion}
+          />
+        ))}
+      </ul>
       <QForm addQuestion={addQuestion} />
     </div>
   );
