@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 // TODO: Questionnaire receives the questionnaire for the pet.
 const Questionnaire = () => {
+  const { REACT_APP_SERVER_URL } = process.env;
   const navigate = useNavigate();
   const location = useLocation();
   const user_id = useSelector((state) => state.user._id);
@@ -25,18 +26,8 @@ const Questionnaire = () => {
     }
   }, [pet, setQa]);
 
-  //   console.log(`Pet is ${JSON.stringify(pet)}`);
-  // TODO: Get User Id from the store.
-
-  // Assumption that we pass our date in also
   async function onSubmit(data) {
     data.preventDefault();
-    // const results = data.target; //.value;
-    // console.log(results);
-    // for (let input of results) {
-    //   // TODO: How are we going to use inputs?
-    //   console.log("input:", input.value);
-    // }
 
     const request = {
       pet_id: pet.id,
@@ -63,16 +54,14 @@ const Questionnaire = () => {
         requests: [request],
       },
     };
-    // TODO: Use the controller to update - To avoid data deletion.
-    // TODO: Provide auth token in headers
     try {
-      await axios.patch(`/user/${user_id}`, payload, {
+      await axios.patch(`${REACT_APP_SERVER_URL}/user/${user_id}`, payload, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
       });
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
     }
     navigate("/");
   }
