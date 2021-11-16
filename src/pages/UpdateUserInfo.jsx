@@ -29,6 +29,8 @@ const UpdateUserInfo = () => {
   });
 
   const onSubmit = async (data) => {
+    console.log(_id, data);
+
     const modifyData = () => {
       const dirtyKeys = Object.keys(dirtyFields);
       const originalKeys = Object.keys(data);
@@ -44,7 +46,6 @@ const UpdateUserInfo = () => {
 
     const updateUserAction = await dispatch(updateUserInfo({ _id, data }));
     console.log(updateUserAction);
-    console.log(_id, data);
     if (updateUserAction.payload.err) {
       setErrorMessage("Accout update is falied");
     } else {
