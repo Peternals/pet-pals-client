@@ -27,26 +27,26 @@ const Questionnaire = () => {
     }
   }, [pet, setQa]);
 
+  // TODO - Replace this with Store, temporary approach for MVP demo
   useEffect(() => {
     // Get all requests for the pet ID.
     (async () => {
       try {
-        console.log("pet: ", pet);
         const token = localStorage.getItem("token");
         const { data: response } = await axios.get(
-          `${REACT_APP_SERVER_URL}/pet/requests/${pet._id}`,
+          `${REACT_APP_SERVER_URL}/user/${user_id}`,
           {
             headers: {
               "x-access-token": token,
             },
           }
         );
-        setRequests(response);
+        setRequests(response.Carer.requests);
       } catch (err) {
         return { err: err.response.data };
       }
     })();
-  }, [REACT_APP_SERVER_URL, pet]);
+  }, [REACT_APP_SERVER_URL, user_id]);
 
   async function onSubmit(data) {
     data.preventDefault();
