@@ -9,7 +9,7 @@ const { REACT_APP_SERVER_URL } = process.env;
 export default function Step5() {
   const dispatch = useDispatch();
   const userSignUpInfo = useSelector((state) => state.user);
-  const petSignUpInfo = useSelector((state) => state.pet);
+  const petSignUpInfo = useSelector((state) => state.pet.info);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,7 +18,7 @@ export default function Step5() {
       try {
         const formData = new FormData();
         formData.append("file", imageInput);
-        console.log("image input:", imageInput.name);
+
         const response = await axios.post(
           `${REACT_APP_SERVER_URL}/pic/upload`,
           formData
@@ -30,7 +30,6 @@ export default function Step5() {
     };
 
     const submitPicForPet = async (imageInput) => {
-      console.log(imageInput);
       try {
         const formData = new FormData();
         [...imageInput].forEach((image) => {
