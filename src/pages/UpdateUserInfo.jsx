@@ -43,6 +43,8 @@ const UpdateUserInfo = () => {
     modifyData();
 
     const updateUserAction = await dispatch(updateUserInfo({ _id, data }));
+    console.log(updateUserAction);
+    console.log(_id, data);
     if (updateUserAction.payload.err) {
       setErrorMessage("Accout update is falied");
     } else {
@@ -72,11 +74,11 @@ const UpdateUserInfo = () => {
           />
           <div>{errors.password?.message}</div>
           <input type="type" placeholder="Bio" {...register("description")} />
-          {/* <input
+          <input
             type="file"
             placeholder="profile picture"
             {...register("profile_picture")}
-          /> */}
+          />
           <button>Save</button>
         </form>
       </div>
