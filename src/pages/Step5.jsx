@@ -20,7 +20,7 @@ export default function Step5() {
   const updateQuestions = (newQuestions) => {
     setQuestions(newQuestions);
   };
-  console.log(userSignUpInfo);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const submitPic = async (imageInput) => {

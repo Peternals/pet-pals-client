@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import axios from "axios";
+const { REACT_APP_SERVER_URL } = process.env;
 
 const UpdateUserInfo = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,7 +18,6 @@ const UpdateUserInfo = () => {
   const validationSchema = Yup.object().shape({
     username: Yup.string(),
     email: Yup.string().email("Email is invalid"),
-    password: Yup.string().min(6, "Min is 6"),
     description: Yup.string(),
   });
 
@@ -29,6 +30,27 @@ const UpdateUserInfo = () => {
   });
 
   const onSubmit = async (data) => {
+    console.log(_id, data);
+    const submitPic = async (imageInput) => {
+      try {
+        const formData = new FormData();
+        formData.append("file", imageInput);
+
+        const response = await axios.post(
+          `${REACT_APP_SERVER_URL}/pic/upload`,
+          formData
+        );
+        return response.data[0].filename;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    let img;
+    if (data.profile_picture[0] !== undefined) {
+      img = await submitPic(data.profile_picture[0]);
+    }
+
     const modifyData = () => {
       const dirtyKeys = Object.keys(dirtyFields);
       const originalKeys = Object.keys(data);
@@ -38,11 +60,13 @@ const UpdateUserInfo = () => {
       for (let key of deleteKeys) {
         delete data[key];
       }
+      data.profile_picture = img;
       return data;
     };
     modifyData();
 
     const updateUserAction = await dispatch(updateUserInfo({ _id, data }));
+    console.log(updateUserAction);
     if (updateUserAction.payload.err) {
       setErrorMessage("Accout update is falied");
     } else {
@@ -72,11 +96,11 @@ const UpdateUserInfo = () => {
           />
           <div>{errors.password?.message}</div>
           <input type="type" placeholder="Bio" {...register("description")} />
-          {/* <input
+          <input
             type="file"
             placeholder="profile picture"
             {...register("profile_picture")}
-          /> */}
+          />
           <button>Save</button>
         </form>
       </div>

@@ -4,15 +4,15 @@ import { verifyTokenAction } from "./actions/userAction";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const initialState = {
-	isLoggedIn: null,
-	isSuccess: false,
-	username: null,
-	email: null,
-	password: null,
-	description: null,
-	profile_picture: null,
-	type: null,
-	_id: null,
+  isLoggedIn: null,
+  isSuccess: false,
+  username: null,
+  email: null,
+  password: null,
+  description: null,
+  profile_picture: null,
+  type: null,
+  _id: null,
 };
 
 export const validation = createAsyncThunk(
@@ -72,70 +72,70 @@ export const updateUserInfo = createAsyncThunk(
 );
 
 export const userSlice = createSlice({
-	name: "user",
-	initialState,
-	reducers: {
-		getType: (state, action) => {
-			state.type = action.payload;
-		},
-		getUserName: (state, action) => {
-			state.username = action.payload.username;
-		},
-		getDescription: (state, action) => {
-			state.description = action.payload.description;
-		},
-		getProfilePicture: (state, action) => {
-			state.profile_picture = action.payload.profile_picture;
-		},
-		signOutCleanUp: (state) => {
-			state.isLoggedIn = false;
-			state.isSuccess = false;
-			state.username = null;
-			state.email = null;
-			state.password = null;
-			state.description = null;
-			state.profile_picture = null;
-			state.type = null;
-			state._id = null;
-		},
-	},
-	extraReducers: {
-		[validation.fulfilled]: (state, action) => {
-			state.email = action.payload.email;
-			state.password = action.payload.password;
-		},
-		[signUp.fulfilled]: (state, action) => {
-			if (action.payload.user) {
-				state.isSuccess = true;
-				state.isLoggedIn = true;
-				state.password = null;
-				state.username = action.payload.user.username;
-				state.email = action.payload.user.email;
-				state.description = action.payload.user.description;
-				state.profile_picture = action.payload.user.profile_picture;
-				state.type = action.payload.user.type;
-				state._id = action.payload.user._id;
-			}
-		},
-		[signIn.fulfilled]: (state, action) => {
-			if (action.payload.user) {
-				state.isLoggedIn = true;
-				state.username = action.payload.user.username;
-				state.email = action.payload.user.email;
-				state.description = action.payload.user.description;
-				state.profile_picture = action.payload.user.profile_picture;
-				state.type = action.payload.user.type;
-				state._id = action.payload.user._id;
-			}
-		},
-		[verifyTokenAction.fulfilled]: (state, action) => {
-			return {
-				...state,
-				...action.payload,
-				isLoggedIn: "err" in action.payload ? false : true,
-			};
-		},
-		[updateUserInfo.fulfilled]: (state, action) => {
+  name: "user",
+  initialState,
+  reducers: {
+    getType: (state, action) => {
+      state.type = action.payload;
+    },
+    getUserName: (state, action) => {
+      state.username = action.payload.username;
+    },
+    getDescription: (state, action) => {
+      state.description = action.payload.description;
+    },
+    getProfilePicture: (state, action) => {
+      state.profile_picture = action.payload.profile_picture;
+    },
+    signOutCleanUp: (state) => {
+      state.isLoggedIn = false;
+      state.isSuccess = false;
+      state.username = null;
+      state.email = null;
+      state.password = null;
+      state.description = null;
+      state.profile_picture = null;
+      state.type = null;
+      state._id = null;
+    },
+  },
+  extraReducers: {
+    [validation.fulfilled]: (state, action) => {
+      state.email = action.payload.email;
+      state.password = action.payload.password;
+    },
+    [signUp.fulfilled]: (state, action) => {
+      if (action.payload.user) {
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.password = null;
+        state.username = action.payload.user.username;
+        state.email = action.payload.user.email;
+        state.description = action.payload.user.description;
+        state.profile_picture = action.payload.user.profile_picture;
+        state.type = action.payload.user.type;
+        state._id = action.payload.user._id;
+      }
+    },
+    [signIn.fulfilled]: (state, action) => {
+      if (action.payload.user) {
+        state.isLoggedIn = true;
+        state.username = action.payload.user.username;
+        state.email = action.payload.user.email;
+        state.description = action.payload.user.description;
+        state.profile_picture = action.payload.user.profile_picture;
+        state.type = action.payload.user.type;
+        state._id = action.payload.user._id;
+      }
+    },
+    [verifyTokenAction.fulfilled]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+        isLoggedIn: "err" in action.payload ? false : true,
+      };
+    },
+    [updateUserInfo.fulfilled]: (state, action) => {
       if (!action.payload.err) {
         state.username = action.payload.username;
         state.email = action.payload.email;
@@ -143,7 +143,7 @@ export const userSlice = createSlice({
         state.profile_picture = action.payload.profile_picture;
       }
     },
-	},
+  },
 });
 
 export const {
