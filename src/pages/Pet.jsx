@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import DatePicker from "../components/DatePicker";
 import { Link } from "react-router-dom";
 import "../styles/carer/pet.scss";
 import samplePet from "../assets/sampleDog2.jpeg";
+import { useLocation } from "react-router-dom";
 import Gallery from "../components/gallery/Gallery";
 import img1 from "../assets/sample.jpg";
 import img2 from "../assets/sampleDog.jpg";
@@ -10,7 +11,7 @@ import img3 from "../assets/sampleDog2.jpeg";
 import img4 from "../assets/sampleDog3.jpg";
 import img5 from "../assets/sampleDog4.jpg";
 import img6 from "../assets/sampleDog5.jpg";
-import { useLocation } from "react-router-dom";
+const { REACT_APP_SERVER_URL } = process.env;
 
 // Component that represents the pet view for the carer
 // Has the more detailed view of the pet
@@ -22,17 +23,6 @@ const Pet = () => {
   const location = useLocation();
   const { pet } = location.state;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        // just setting the info of the pet
-        // const action = await axios.get()
-        // setPetInfo(action.data)
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
   /// sample pet imgae. replace this one by the actual data
   const petImg = [
     img1,
@@ -70,7 +60,14 @@ const Pet = () => {
         <section className="petFlexBox">
           <figure>
             <div className="mainPic">
-              <img src={samplePet} alt="pet" />
+              {pet.pet_pictures && pet.pet_pictures.length >= 1 ? (
+                <img
+                  src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
+                  alt="pet pic"
+                />
+              ) : (
+                <img src={samplePet} alt="pet" />
+              )}
             </div>
           </figure>
 

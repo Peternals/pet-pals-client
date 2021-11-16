@@ -1,37 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import React from "react";
 import PetCard from "./PetCard";
 
-// uncomment this out
-import axios from "axios";
-const { REACT_APP_SERVER_URL } = process.env;
-
-// TEST DATA - TO BE REMOVED
-
 const PetGrid = () => {
-  const [pets, setPets] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get(`${REACT_APP_SERVER_URL}/pet`, {
-          headers: {
-            "x-access-token": localStorage.getItem("token"),
-          },
-        });
-
-        setPets(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
+  const allPets = useSelector((state) => state.pet.initialPets);
+  const filteredPets = useSelector((state) => state.pet.filteredPets);
   return (
     <div className="container" style={{ marginTop: "50px" }}>
       <div className="row">
-        {pets.map((pet) => (
-          <PetCard pet={pet} key={pet._id} />
-        ))}
+        {filteredPets.length === 0
+          ? allPets.map((pet, i) => <PetCard pet={pet} key={i} />)
+          : filteredPets.map((pet, i) => <PetCard pet={pet} key={i} />)}
       </div>
     </div>
   );
