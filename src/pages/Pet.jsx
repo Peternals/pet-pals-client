@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import DatePicker from "../components/DatePicker";
 import { Link } from "react-router-dom";
 import "../styles/carer/pet.scss";
 import samplePet from "../assets/sampleDog2.jpeg";
+import { useLocation } from "react-router-dom";
 import Gallery from "../components/gallery/Gallery";
 import img1 from "../assets/sample.jpg";
 import img2 from "../assets/sampleDog.jpg";
@@ -10,8 +11,7 @@ import img3 from "../assets/sampleDog2.jpeg";
 import img4 from "../assets/sampleDog3.jpg";
 import img5 from "../assets/sampleDog4.jpg";
 import img6 from "../assets/sampleDog5.jpg";
-// import axios from "axios"
-// const { REACT_APP_SERVER_URL } = process.env;
+const { REACT_APP_SERVER_URL } = process.env;
 
 // Component that represents the pet view for the carer
 // Has the more detailed view of the pet
@@ -21,21 +21,8 @@ import img6 from "../assets/sampleDog5.jpg";
 const Pet = () => {
 	// const [petInfo, setPetInfo] = useState({});
 	// const { id } = useParams();
-	useEffect(() => {
-		// (async () => {
-		// 	try {
-		// 		// just setting the info of the pet
-		// 		const pet = await axios.get(`${REACT_APP_SERVER_URL}/pet/${id}`, {
-		// 			headers: {
-		// 				"x-access-token": localStorage.getItem("token"),
-		// 			},
-		// 		});
-		// 		setPetInfo(pet.data)
-		// 	} catch (error) {
-		// 		console.log(error);
-		// 	}
-		// })();
-	}, []);
+	const location = useLocation();
+	const { pet } = location.state;
 
 	/// sample pet imgae. replace this one by the actual data
 	const petImg = [
@@ -66,36 +53,33 @@ const Pet = () => {
 				{/** TODO: Replace PetCard with the actual PetInfo component */}
 				<section className="petOptions">
 					<DatePicker />
-					<Link to="/carer/questionnaire">
+					{/*TODO: Pet , Pet Questions, selected dates required to the Link*/}
+					<Link to="/carer/questionnaire" state={{ pet: pet }}>
 						<button className="card-button">Book Date</button>
 					</Link>
 				</section>
 				<section className="petFlexBox">
 					<figure>
 						<div className="mainPic">
-							<img src={samplePet} alt="pet" />
+							{pet.pet_pictures && pet.pet_pictures.length >= 1 ? (
+								<img
+									src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
+									alt="pet pic"
+								/>
+							) : (
+								<img src={samplePet} alt="pet" />
+							)}
 						</div>
 					</figure>
 
 					<div className="petBio">
-						<h1>This is Max</h1>
+						<h1>This is {pet.name}</h1>
 						<h3>Bio</h3>
-						<p>
-							Dolor ex incididunt dolor qui ad. Veniam amet nisi dolor velit
-							nulla aliqua ad fugiat pariatur dolor ex. Ad proident commodo
-							dolore ut ut. Deserunt in sint ea voluptate eu ad tempor mollit
-							enim. Dolor ex incididunt dolor qui ad. Veniam amet nisi dolor
-							velit nulla aliqua ad fugiat pariatur dolor ex. Ad proident
-							commodo dolore ut ut. Deserunt in sint ea voluptate eu ad tempor
-							mollit enim. Dolor ex incididunt dolor qui ad. Veniam amet nisi
-							dolor velit nulla aliqua ad fugiat pariatur dolor ex. Ad proident
-							commodo dolore ut ut. Deserunt in sint ea voluptate eu ad tempor
-							mollit enim.Dolor ex incididunt dolor qui ad. Veniam amet nisi
-							dolor velit nulla aliqua ad fugiat pariatur dolor ex. Ad proident
-						</p>
+						<p>{pet.description}</p>
 					</div>
 				</section>
 				<h1>Gallery</h1>
+
 				<Gallery petImg={petImg} />
 			</div>
 		</main>
