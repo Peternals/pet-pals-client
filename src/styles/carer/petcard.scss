@@ -3,92 +3,122 @@
 /* Card Styles */
 
 .card-sl {
-	border-radius: 8px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	margin-bottom: 20px;
-	button {
-		border: none;
-		box-shadow: 1px 1px 5px $shadow;
-	}
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 20px;
+  transition: 0.5s;
+  &:hover {
+    transform: scale(1.05);
+  }
+  button {
+    border: none;
+    box-shadow: 1px 1px 5px $shadow;
+  }
+}
+
+.card-image {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
 }
 
 .card-image img {
-	max-height: 100%;
-	max-width: 100%;
-	border-radius: 8px 8px 0px 0;
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%;
+  border-radius: 8px 8px 0px 0;
 }
 
 .card-action {
-	position: relative;
-	float: right;
-	margin-top: -25px;
-	margin-right: 20px;
-	z-index: 2;
-	color: #e26d5c;
-	background: #fff;
-	border-radius: 100%;
-	padding: 15px;
-	font-size: 15px;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  float: right;
+  margin-top: -25px;
+  margin-right: 20px;
+  z-index: 2;
+  color: #e26d5c;
+  background: #fff;
+  border-radius: 100%;
+  padding: 15px;
+  font-size: 15px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card-action:hover {
-	color: #fff;
-	background: #e26d5c;
-	animation: pulse 1.5s infinite;
+  color: #fff;
+  background: #e26d5c;
+  animation: pulse 1.5s infinite;
 }
 
+// .card-heading {
+//   font-size: 18px;
+//   font-weight: bold;
+//   background: #fff;
+//   padding: 10px 15px;
+// }
 .card-heading {
-	font-size: 18px;
-	font-weight: bold;
-	background: #fff;
-	padding: 10px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  height: 30%;
+  display: flex;
+  align-items: flex-end;
+  background: rgb(29, 29, 29);
+  background: linear-gradient(
+    0deg,
+    rgba(29, 29, 29, 0.8690826672465861) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding: 10px 15px;
+  position: absolute;
+  color: white;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 .card-text {
-	padding: 10px 15px;
-	background: #fff;
-	font-size: 14px;
-	color: #636262;
+  padding: 10px 15px;
+  background: #fff;
+  font-size: 14px;
+  color: #636262;
 }
 
 .card-button {
-	display: flex;
-	justify-content: center;
-	padding: 10px 0;
-	width: 100%;
-	background-color: #1f487e;
-	color: #fff;
-	border-radius: 0 0 8px 8px;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  width: 100%;
+  background-color: #1f487e;
+  color: #fff;
+  border-radius: 0 0 8px 8px;
 }
 
 .card-button:hover {
-	text-decoration: none;
-	background-color: #1d3461;
-	color: #fff;
+  text-decoration: none;
+  background-color: #1d3461;
+  color: #fff;
 }
 
 @keyframes pulse {
-	0% {
-		-moz-transform: scale(0.9);
-		-ms-transform: scale(0.9);
-		-webkit-transform: scale(0.9);
-		transform: scale(0.9);
-	}
+  0% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
 
-	70% {
-		-moz-transform: scale(1);
-		-ms-transform: scale(1);
-		-webkit-transform: scale(1);
-		transform: scale(1);
-		box-shadow: 0 0 0 50px rgba(90, 153, 212, 0);
-	}
+  70% {
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    box-shadow: 0 0 0 50px rgba(90, 153, 212, 0);
+  }
 
-	100% {
-		-moz-transform: scale(0.9);
-		-ms-transform: scale(0.9);
-		-webkit-transform: scale(0.9);
-		transform: scale(0.9);
-		box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
-	}
+  100% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
+  }
 }

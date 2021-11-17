@@ -28,14 +28,9 @@ const PetInfo = () => {
   return (
     <section className="homeSection">
       <figure className="petPic">
-        {ownersPet.pet_pictures ? (
-          <img
-            src={`${REACT_APP_SERVER_URL}/pic/${ownersPet.pet_pictures[0]}`}
-            alt="Pet"
-          ></img>
-        ) : (
-          <img src={sampleDog} alt="dog"></img>
-        )}
+        <img
+          src={`${REACT_APP_SERVER_URL}/pic/${ownersPet.pet_pictures[0]}`}
+          alt="Pet"></img>
       </figure>
       <div className="petSchedule">
         <section className="petInfo">
