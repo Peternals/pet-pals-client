@@ -18,7 +18,7 @@
 		.contactList {
 			width: 100%;
 			.current {
-				background-color: rgb(235, 235, 235);
+				background-color: rgba($color: $secondaryColor, $alpha: 0.5);
 			}
 			.notSeen {
 				font-weight: bolder;
@@ -26,6 +26,7 @@
 			.contact {
 				display: flex;
 				cursor: pointer;
+				justify-content: space-between;
 				width: 100%;
 				padding: 10px;
 				border-bottom: 1px solid rgb(160, 160, 160);
@@ -36,18 +37,28 @@
 					background-color: $primaryColor;
 					overflow: hidden;
 					margin: auto;
-				}
-				.contactImg img {
-					width: 100%;
-					min-height: 100%;
+					img {
+						width: 100%;
+						min-height: 100%;
+					}
 				}
 				.contactInfo {
-					width: 100%;
 					margin-left: 10px;
+					width: 100%;
+					overflow: hidden;
 					.contactName {
 						display: flex;
 						justify-content: space-between;
+						max-width: 100%;
+					}
+					.contactMessageSummary {
+						overflow: hidden;
 						width: 100%;
+						p {
+							text-overflow: ellipsis;
+							overflow: hidden;
+							white-space: nowrap;
+						}
 					}
 					.username {
 						font-weight: 900;
