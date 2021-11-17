@@ -34,6 +34,11 @@ const Navbar = () => {
                   <i className="fa fa-bell"></i>
                 </li>
               </Link>
+              <Link to="/owner/pet-setting">
+                <li>
+                  <i className="fa fas fa-paw"></i>
+                </li>
+              </Link>
             </>
           )}
           {isLoggedIn === true && (
@@ -46,11 +51,6 @@ const Navbar = () => {
               <Link to="/setting">
                 <li>
                   <i className="fa fas fa-cog"></i>
-                </li>
-              </Link>
-              <Link to="/owner/pet-setting">
-                <li>
-                  <i className="fa fas fa-paw"></i>
                 </li>
               </Link>
               <Link to="/signin" onClick={handleSignOut}>

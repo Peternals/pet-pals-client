@@ -1,47 +1,38 @@
-import React, { useEffect, useState } from "react";
-import sampleDog from "../../assets/sampleDog2.jpeg";
+import React, { useEffect } from "react";
 import "react-calendar/dist/Calendar.css";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PetSchedule from "./PetSchedule";
+import { getPetInfo } from "../../slicers/petSlice";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const PetInfo = () => {
-  const user = useSelector((state) => state.user);
-  const [ownersPet, setOwnersPet] = useState({});
+  const pet = useSelector((state) => state.pet.info);
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    (async () => {
-      try {
-        const pet = await axios.get(`${REACT_APP_SERVER_URL}/pet/owner`, {
-          headers: {
-            "x-access-token": localStorage.getItem("token"),
-          },
-        });
-        setOwnersPet(pet.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [user]);
+    dispatch(getPetInfo());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className="homeSection">
       <figure className="petPic">
-        {ownersPet.pet_pictures ? (
+        {pet.pet_pictures.length ? (
           <img
-            src={`${REACT_APP_SERVER_URL}/pic/${ownersPet.pet_pictures[0]}`}
+            src={`${REACT_APP_SERVER_URL}/pic/${
+              pet.pet_pictures[pet.pet_pictures.length - 1]
+            }`}
             alt="Pet"
           ></img>
         ) : (
-          <img src={sampleDog} alt="dog"></img>
+          <h1>Loading...</h1>
         )}
       </figure>
       <div className="petSchedule">
         <section className="petInfo">
-          <h2>This is {ownersPet.name}</h2>
+          <h2>This is {pet.name}</h2>
           <p className="summaryTitle">Bio:</p>
-          <p className="summary">{ownersPet.description}</p>
+          <p className="summary">{pet.description}</p>
         </section>
         <PetSchedule />
       </div>

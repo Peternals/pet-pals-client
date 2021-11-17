@@ -67,13 +67,16 @@ function App() {
                 </PrivateRoute>
               }
             >
+              <Route
+                path="/owner/pet-setting"
+                element={
+                  <PrivateRoute>
+                    <UpdatePetInfo />
+                  </PrivateRoute>
+                }
+              />
               <Route exact path="/owner" element={<PetInfo />} />
               <Route exact path="/owner/requests" element={<Request />} />
-              <Route
-                exact
-                path="/owner/pet-setting"
-                element={<UpdatePetInfo />}
-              />
             </Route>
           )}
 
