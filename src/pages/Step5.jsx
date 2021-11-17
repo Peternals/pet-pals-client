@@ -5,10 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
 import { petQuestionStore } from "../slicers/petSlice";
 import { petDataStore } from "../slicers/petSlice";
-import axios from "axios";
+import { submitPic, submitPicForPet } from "../util/uploadImage";
 import QuestionForm from "../components/owners/QuestionForm";
-
-const { REACT_APP_SERVER_URL } = process.env;
 
 export default function Step5() {
   const dispatch = useDispatch();
@@ -23,38 +21,6 @@ export default function Step5() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const submitPic = async (imageInput) => {
-      try {
-        const formData = new FormData();
-        formData.append("file", imageInput);
-
-        const response = await axios.post(
-          `${REACT_APP_SERVER_URL}/pic/upload`,
-          formData
-        );
-        return response.data[0].filename;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const submitPicForPet = async (imageInput) => {
-      try {
-        const formData = new FormData();
-        [...imageInput].forEach((image) => {
-          formData.append("file", image);
-          formData.append("name", Date.now() + image.name);
-        });
-        const response = await axios.post(
-          `${REACT_APP_SERVER_URL}/pic/upload`,
-          formData
-        );
-
-        return response.data.map((res) => res.filename);
-      } catch (err) {
-        console.log(err);
-      }
-    };
 
     const userProfilePic = await submitPic(userSignUpInfo.profile_picture);
     const submitAction = await dispatch(
