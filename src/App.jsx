@@ -23,6 +23,7 @@ import Carer from "./components/carer/Carer";
 import OwnerHome from "./components/owners/OwnerHome";
 import GalleryPage from "./pages/GalleryPage";
 import UpdateUserInfo from "./pages/UpdateUserInfo";
+import UpdatePetInfo from "./components/owners/UpdatePetInfo";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +69,11 @@ function App() {
             >
               <Route exact path="/owner" element={<PetInfo />} />
               <Route exact path="/owner/requests" element={<Request />} />
+              <Route
+                exact
+                path="/owner/pet-setting"
+                element={<UpdatePetInfo />}
+              />
             </Route>
           )}
 
@@ -122,7 +128,6 @@ function App() {
             }
           />
           <Route
-            //change to --> path="setting/:id" after we get user_id in redux
             path="/setting"
             element={
               <PrivateRoute>

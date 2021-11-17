@@ -43,10 +43,14 @@ const Navbar = () => {
                   <i className="fa fa-wechat"></i>
                 </li>
               </Link>
-              {/* TODO: change --> /setting/:id after user id is stored in redux */}
               <Link to="/setting">
                 <li>
                   <i className="fa fas fa-cog"></i>
+                </li>
+              </Link>
+              <Link to="/owner/pet-setting">
+                <li>
+                  <i className="fa fas fa-paw"></i>
                 </li>
               </Link>
               <Link to="/signin" onClick={handleSignOut}>
