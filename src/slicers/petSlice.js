@@ -37,26 +37,27 @@ export const petDataStore = createAsyncThunk(
   }
 );
 
-export const petQuestionStore = createAsyncThunk(
-  "pet/questions",
-  async (petDataInput) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.patch(
-        `${REACT_APP_SERVER_URL}/pet/${petDataInput.pet_id}`,
-        petDataInput.questionnaire,
-        {
-          headers: {
-            "x-access-token": token,
-          },
-        }
-      );
-      return response.data;
-    } catch (err) {
-      return { err: err.response.data };
-    }
-  }
-);
+// Just in case, will keep this codes
+// export const petQuestionStore = createAsyncThunk(
+//   "pet/questions",
+//   async (petDataInput) => {
+//     try {
+//       const token = localStorage.getItem("token");
+//       const response = await axios.patch(
+//         `${REACT_APP_SERVER_URL}/pet/${petDataInput.pet_id}`,
+//         petDataInput.questionnaire,
+//         {
+//           headers: {
+//             "x-access-token": token,
+//           },
+//         }
+//       );
+//       return response.data;
+//     } catch (err) {
+//       return { err: err.response.data };
+//     }
+//   }
+// );
 
 export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
   try {
@@ -133,7 +134,8 @@ export const petSlice = createSlice({
   },
   extraReducers: {
     [petDataStore.fulfilled]: (state, action) => {
-      state.owner_id = action.payload.owner_id;
+      state.info.owner_id = action.payload.owner_id;
+      state.pet_questions = action.payload.questionnaire;
     },
     [fetchAllPets.fulfilled]: (state, action) => {
       state.initialPets = action.payload;

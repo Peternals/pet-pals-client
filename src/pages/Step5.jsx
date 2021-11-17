@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
-import { petQuestionStore } from "../slicers/petSlice";
 import { petDataStore } from "../slicers/petSlice";
 import axios from "axios";
 import QuestionForm from "../components/owners/QuestionForm";
@@ -67,8 +66,14 @@ export default function Step5() {
         type: userSignUpInfo.type,
       })
     );
-
     const petPic = await submitPicForPet(petSignUpInfo.pet_pictures);
+
+    const questionPayload = {
+      questionnaire: questions.map((obj) => obj.text),
+    };
+
+    console.log(questionPayload);
+
     const petDataStoreAction = await dispatch(
       petDataStore({
         type: petSignUpInfo.type,
@@ -76,20 +81,11 @@ export default function Step5() {
         owner_id: submitAction.payload.user._id,
         description: petSignUpInfo.description,
         pet_pictures: petPic,
+        questionnaire: questionPayload.questionnaire,
       })
     );
 
-    const questionPayload = {
-      questionnaire: questions.map((obj) => obj.text),
-    };
-    const saveQuestionnaire = await dispatch(
-      petQuestionStore({
-        questionnaire: questionPayload,
-        pet_id: petDataStoreAction.payload._id,
-      })
-    );
-
-    if (submitAction.payload.user && saveQuestionnaire.payload) {
+    if (submitAction.payload.user && petDataStoreAction.payload.name) {
       navigate("/");
     }
   };
