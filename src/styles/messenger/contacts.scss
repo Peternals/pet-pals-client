@@ -1,75 +1,76 @@
 @import "../variables.scss";
 
 @mixin contacts {
-	.contactsListContainer::-webkit-scrollbar {
-		width: 5px;
-	}
+  .contactsListContainer::-webkit-scrollbar {
+    width: 5px;
+  }
 
-	.contactsListContainer::-webkit-scrollbar-thumb {
-		background: rgb(212, 212, 212);
-	}
-	.contactsListContainer {
-		width: 100%;
-		height: 100%;
-		margin-right: 0;
-		overflow: auto;
-		box-shadow: 1px 1px 5px $shadow;
-		background-color: white;
-		.contactList {
-			width: 100%;
-			.current {
-				background-color: rgba($color: $secondaryColor, $alpha: 0.5);
-			}
-			.notSeen {
-				font-weight: bolder;
-			}
-			.contact {
-				display: flex;
-				cursor: pointer;
-				justify-content: space-between;
-				width: 100%;
-				padding: 10px;
-				border-bottom: 1px solid rgb(160, 160, 160);
-				.contactImg {
-					height: 50px;
-					width: 50px;
-					border-radius: 50px;
-					background-color: $primaryColor;
-					overflow: hidden;
-					margin: auto;
-					img {
-						width: 100%;
-						min-height: 100%;
-					}
-				}
-				.contactInfo {
-					margin-left: 10px;
-					width: 100%;
-					overflow: hidden;
-					.contactName {
-						display: flex;
-						justify-content: space-between;
-						max-width: 100%;
-					}
-					.contactMessageSummary {
-						overflow: hidden;
-						width: 100%;
-						p {
-							text-overflow: ellipsis;
-							overflow: hidden;
-							white-space: nowrap;
-						}
-					}
-					.username {
-						font-weight: 900;
-					}
-				}
-			}
-		}
-	}
-	@media only screen and (min-width: 700px) {
-		.contactsListContainer {
-			width: 30%;
-		}
-	}
+  .contactsListContainer::-webkit-scrollbar-thumb {
+    background: rgb(212, 212, 212);
+  }
+  .contactsListContainer {
+    width: 100%;
+    height: 100%;
+    margin-right: 0;
+    overflow: auto;
+    box-shadow: 1px 1px 5px $shadow;
+    background-color: white;
+    .contactList {
+      width: 100%;
+
+      .notSeen {
+        font-weight: bolder;
+      }
+      .contact {
+        display: flex;
+        cursor: pointer;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid rgb(160, 160, 160);
+        .contactImg {
+          height: 50px;
+          width: 50px;
+          border-radius: 50px;
+          background-color: $primaryColor;
+          overflow: hidden;
+          margin: auto;
+          img {
+            width: 100%;
+            min-height: 100%;
+          }
+        }
+        .contactInfo {
+          margin-left: 10px;
+          width: 100%;
+          overflow: hidden;
+          .contactName {
+            display: flex;
+            justify-content: space-between;
+            max-width: 100%;
+          }
+          .contactMessageSummary {
+            overflow: hidden;
+            width: 100%;
+            p {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+          }
+          .username {
+            font-weight: 900;
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (min-width: 700px) {
+    .contactsListContainer {
+      width: 30%;
+      .current {
+        background-color: rgba($color: $secondaryColor, $alpha: 0.5);
+      }
+    }
+  }
 }
