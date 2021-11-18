@@ -41,7 +41,10 @@ const Request = () => {
         {requests.length > 0 ? (
           requests.map((req) => (
             <div className="request">
-              <img src={sampleImg} alt="img" />
+              <img
+                src={`${REACT_APP_SERVER_URL}/pic/${req.profile_picture}`}
+                alt="img"
+              />
               <div className="requestInfo">
                 <h3>{req.username}</h3>
                 <p>Request for max</p>

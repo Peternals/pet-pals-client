@@ -9,9 +9,10 @@
     display: flex;
     margin: 20px 0;
     align-items: center;
+    grid-gap: 10px;
     button {
-      margin-left: 20px;
       border: none;
+      border-radius: 10px;
       box-shadow: 1px 1px 5px $shadow;
     }
   }
