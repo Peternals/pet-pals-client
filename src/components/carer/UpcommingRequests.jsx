@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
-import { useSelector } from "react-redux";
+import axios from "axios";
+const { REACT_APP_SERVER_URL } = process.env;
 
 const UpcommingRequests = () => {
-  const ApprovedRequests = useSelector((state) => {
-    const Carer = state.user.Carer;
-    if (Carer) {
-      const request = Carer.requests.filter(
-        (request) => request.status === "Approved"
-      );
-      return request;
-    }
-    return [];
-  });
+  const [ApprovedRequests, setApprovedRequest] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const action = await axios.get(
+          `${REACT_APP_SERVER_URL}/requests/upcoming`,
+          {
+            headers: {
+              "x-access-token": localStorage.getItem("token"),
+            },
+          }
+        );
+        setApprovedRequest(action.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
   return (
     <div className="upcommingRequests">
       <div className="calendar">
@@ -22,8 +32,9 @@ const UpcommingRequests = () => {
             if (
               ApprovedRequests.find(
                 (x) =>
-                  new Date(x.start) <= new Date(date) &&
-                  new Date(x.end) >= new Date(date)
+                  new Date(x.request.start).setHours(0, 0, 0, 0) <=
+                    new Date(date) &&
+                  new Date(x.request.end).setHours(0, 0, 0, 0) >= new Date(date)
               )
             ) {
               return "highlight";

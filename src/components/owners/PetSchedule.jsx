@@ -59,8 +59,8 @@ const PetSchedule = () => {
             if (
               schedule.find(
                 (x) =>
-                  new Date(x.start) <= new Date(date) &&
-                  new Date(x.end) >= new Date(date)
+                  new Date(x.start).setHours(0, 0, 0, 0) <= new Date(date) &&
+                  new Date(x.end).setHours(0, 0, 0, 0) >= new Date(date)
               )
             ) {
               return "highlight";

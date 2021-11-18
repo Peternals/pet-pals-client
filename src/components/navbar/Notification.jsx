@@ -12,11 +12,12 @@ const Notification = () => {
     }
     return [];
   });
+
   return (
     <div>
       <div className="notification">
-        {requests.map((req) => (
-          <div className={`req ${req.status}`}>
+        {requests.map((req, i) => (
+          <div key={i} className={`req ${req.status}`}>
             <p>request for pet name is {req.status}</p>
           </div>
         ))}
