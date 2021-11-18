@@ -13,6 +13,7 @@ const initialState = {
   profile_picture: null,
   type: null,
   _id: null,
+  Carer: null,
 };
 
 export const validation = createAsyncThunk(
@@ -50,6 +51,7 @@ export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
       signInInput
     );
     localStorage.setItem("token", response.data.token);
+    console.log(response.data);
     return response.data;
   } catch (err) {
     return { err: err.response.data };
@@ -97,6 +99,7 @@ export const userSlice = createSlice({
       state.profile_picture = null;
       state.type = null;
       state._id = null;
+      state.Carer = null;
     },
   },
   extraReducers: {
@@ -115,6 +118,7 @@ export const userSlice = createSlice({
         state.profile_picture = action.payload.user.profile_picture;
         state.type = action.payload.user.type;
         state._id = action.payload.user._id;
+        state.Carer = action.payload.user.Carer;
       }
     },
     [signIn.fulfilled]: (state, action) => {
@@ -126,6 +130,7 @@ export const userSlice = createSlice({
         state.profile_picture = action.payload.user.profile_picture;
         state.type = action.payload.user.type;
         state._id = action.payload.user._id;
+        state.Carer = action.payload.user.Carer;
       }
     },
     [verifyTokenAction.fulfilled]: (state, action) => {
