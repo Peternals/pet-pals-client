@@ -16,7 +16,7 @@ const PendingRequests = () => {
   return (
     <div className="PendingRequests">
       <div className="pending">
-        <h2>Pending Lists</h2>
+        <h2>Pending Requests</h2>
         <section className="pendingLists">
           {pendingRequests.map((req) => (
             <div className="request">

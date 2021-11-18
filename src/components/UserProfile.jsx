@@ -9,13 +9,15 @@ const UserProfile = () => {
     <div className="profileContainer">
       <div className="profile">
         <div className="profile2">
-          <figure>
-            <img
-              src={`${REACT_APP_SERVER_URL}/pic/${user.profile_picture}`}
-              alt="profile"></img>
-          </figure>
-          <h2>{user.username}</h2>
+          <div className="figure">
+            <figure>
+              <img
+                src={`${REACT_APP_SERVER_URL}/pic/${user.profile_picture}`}
+                alt="profile"></img>
+            </figure>
+          </div>
           <div className="profileInfo">
+            <h2>{user.username}</h2>
             <p className="summaryTitle">Bio:</p>
             <p className="summary">{user.description}</p>
             <p className="summaryTitle">Email:</p>
