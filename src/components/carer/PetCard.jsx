@@ -11,7 +11,10 @@ const PetCard = ({ pet }) => {
             src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
             alt="pet"
           />
-          <div className="card-heading">{pet.name}</div>
+        </div>
+        <div className="card-heading">
+          <h4>{pet.name}</h4>
+          <p>{pet.description}</p>
         </div>
         <Link to={`/carer/pet/${pet._id}`} state={{ pet: pet }}>
           <button className="card-button"> Request</button>

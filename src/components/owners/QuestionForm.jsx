@@ -15,23 +15,24 @@ function Question({ question, index, removeQuestion }) {
 function QForm({ addQuestion }) {
   const [value, setValue] = useState("");
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(value);
     if (!value) return;
     addQuestion(value);
     setValue("");
   };
 
   return (
-    <li>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         className="input"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <button onClick={handleClick}>+</button>
-    </li>
+      <input type="submit" onClick={handleSubmit} />
+    </form>
   );
 }
 

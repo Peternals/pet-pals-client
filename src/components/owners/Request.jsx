@@ -38,23 +38,28 @@ const Request = () => {
     <section className="requestSection">
       <h1>Requests</h1>
       <div className="gridRequest">
-        {requests.map((req) => (
-          <div className="request">
-            <img src={sampleImg} alt="img" />
-            <div className="requestInfo">
-              <h3>{req.username}</h3>
-              <p>Request for max</p>
-              <p>
-                <span>from: </span>{" "}
-                {moment(req.request.start).format("MMM-DD-yyyy")}
-              </p>
-              <p>
-                <span>to:</span> {moment(req.request.end).format("MMM-DD-yyyy")}
-              </p>
-              <button onClick={() => openAnswerForm(req)}>Review</button>
+        {requests.length > 0 ? (
+          requests.map((req) => (
+            <div className="request">
+              <img src={sampleImg} alt="img" />
+              <div className="requestInfo">
+                <h3>{req.username}</h3>
+                <p>Request for max</p>
+                <p>
+                  <span>from: </span>{" "}
+                  {moment(req.request.start).format("MMM-DD-yyyy")}
+                </p>
+                <p>
+                  <span>to:</span>{" "}
+                  {moment(req.request.end).format("MMM-DD-yyyy")}
+                </p>
+                <button onClick={() => openAnswerForm(req)}>Review</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <h2>No Pending Requests yet...</h2>
+        )}
       </div>
       <AnswerForm
         answerFormRef={answerFormRef}

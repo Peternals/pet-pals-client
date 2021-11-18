@@ -14,6 +14,17 @@
     border: none;
     box-shadow: 1px 1px 5px $shadow;
   }
+  h4 {
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.9em;
+    font-weight: 100;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .card-image {
@@ -49,31 +60,31 @@
   animation: pulse 1.5s infinite;
 }
 
-// .card-heading {
-//   font-size: 18px;
-//   font-weight: bold;
-//   background: #fff;
-//   padding: 10px 15px;
-// }
 .card-heading {
   font-size: 18px;
   font-weight: bold;
-  height: 30%;
-  display: flex;
-  align-items: flex-end;
-  background: rgb(29, 29, 29);
-  background: linear-gradient(
-    0deg,
-    rgba(29, 29, 29, 0.8690826672465861) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: #fff;
   padding: 10px 15px;
-  position: absolute;
-  color: white;
-  bottom: 0;
-  left: 0;
-  width: 100%;
 }
+// .card-heading {
+//   font-size: 18px;
+//   font-weight: bold;
+//   height: 30%;
+//   display: flex;
+//   align-items: flex-end;
+//   background: rgb(29, 29, 29);
+//   background: linear-gradient(
+//     0deg,
+//     rgba(29, 29, 29, 0.8690826672465861) 0%,
+//     rgba(255, 255, 255, 0) 100%
+//   );
+//   padding: 10px 15px;
+//   position: absolute;
+//   color: white;
+//   bottom: 0;
+//   left: 0;
+//   width: 100%;
+// }
 
 .card-text {
   padding: 10px 15px;
