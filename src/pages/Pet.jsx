@@ -45,7 +45,7 @@ const Pet = () => {
       // start and end must be JS Dates
       let dates = [];
       let currentDate = start;
-      while (currentDate.getDate() <= end.getDate()) {
+      while (currentDate.getTime() <= end.getTime()) {
         dates.push(new Date(currentDate));
         currentDate.setDate(currentDate.getDate() + 1);
       }
@@ -60,7 +60,9 @@ const Pet = () => {
         )
       );
     });
-    return dates.some((date) => date.getDate() === convertedDate.getDate());
+    return dates.some(
+      (date) => date.toDateString() === convertedDate.toDateString()
+    );
   };
 
   return (
