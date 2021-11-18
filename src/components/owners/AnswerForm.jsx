@@ -8,7 +8,6 @@ const AnswerForm = ({
   currentRequest,
   getRequests,
 }) => {
-  console.log(currentRequest);
   const closeAnswerForm = () => {
     setCurrentRequest({});
     answerFormRef.current.classList.remove("showAnswerForm");

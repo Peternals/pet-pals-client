@@ -19,7 +19,6 @@ const Request = () => {
           },
         }
       );
-      console.log(request.data);
 
       setRequests(request.data);
     } catch (error) {}
