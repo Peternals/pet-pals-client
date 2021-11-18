@@ -1,0 +1,101 @@
+@import "../userProfile.scss";
+.profileMain {
+  padding: 70px 20px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  .summaryTitle {
+    margin-top: 10px;
+    font-weight: bolder;
+  }
+  .summary {
+    color: rgb(100, 100, 100);
+  }
+  @include userProfile;
+  .requestSection {
+    width: 80%;
+
+    .upcommingRequests {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      .calendar {
+        width: 90%;
+      }
+      .react-calendar {
+        width: 100%;
+        border: none;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 1px 1px 4px $shadow;
+        .highlight {
+          background-color: rgb(255, 115, 115);
+        }
+      }
+      h1 {
+        margin: auto;
+      }
+    }
+    .PendingRequests {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-bottom: 20px;
+      .pending {
+        width: 90%;
+        .pendingLists {
+          width: 100%;
+          margin-top: 20px;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          grid-gap: 10px;
+          span {
+            color: $tertiaryColor;
+          }
+          .request {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 20px;
+            height: max-content;
+            box-shadow: 1px 1px 5px $shadow;
+            .requestInfo {
+              width: 100%;
+              margin-left: 10px;
+            }
+            span {
+              font-weight: bold;
+            }
+            img {
+              width: 70px;
+              height: 70px;
+              border-radius: 150px;
+              margin-right: 10px;
+            }
+            button {
+              outline: none;
+              padding: 10px;
+              background-color: $secondaryColor;
+              border: none;
+              width: 100%;
+              border-radius: 30px;
+              margin-top: 10px;
+              transition: 0.5s;
+              cursor: pointer;
+              color: $whiteBackground;
+              &:hover {
+                transform: scale(1.1);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

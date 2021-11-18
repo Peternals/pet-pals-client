@@ -23,6 +23,7 @@ import Carer from "./components/carer/Carer";
 import OwnerHome from "./components/owners/OwnerHome";
 import GalleryPage from "./pages/GalleryPage";
 import UpdateUserInfo from "./pages/UpdateUserInfo";
+import CarerProfilePage from "./pages/CarerProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,8 +65,7 @@ function App() {
                 <PrivateRoute>
                   <OwnerHome />
                 </PrivateRoute>
-              }
-            >
+              }>
               <Route exact path="/owner" element={<PetInfo />} />
               <Route exact path="/owner/requests" element={<Request />} />
             </Route>
@@ -83,7 +83,6 @@ function App() {
                   </PrivateRoute>
                 }
               />
-
               <Route
                 path="/carer/pet/:id"
                 element={
@@ -97,6 +96,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Questionnaire />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/carer/profile"
+                element={
+                  <PrivateRoute>
+                    <CarerProfilePage />
                   </PrivateRoute>
                 }
               />

@@ -2,69 +2,33 @@
 @import "./profileHome.scss";
 @import "./requestSection.scss";
 @import "./answerForm.scss";
+@import "../userProfile.scss";
 button,
 input,
 optgroup,
 select,
 textarea {
-	margin: 0;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 0.9rem;
-	line-height: normal;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 0.9rem;
+  line-height: normal;
 }
 .owner {
-	padding: 10px 20px;
-	padding-top: 70px;
-	display: flex;
-	width: 100%;
-	height: 100%;
-	justify-content: space-between;
-	.summaryTitle {
-		margin-top: 10px;
-		font-weight: bolder;
-	}
-	.summary {
-		color: rgb(100, 100, 100);
-	}
-	.profileContainer {
-		width: 200px;
-		display: none;
-		.profile {
-			position: fixed;
-			width: 200px;
-			.profile2 {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				max-width: 200px;
-
-				figure {
-					height: 200px;
-					width: 200px;
-					overflow: hidden;
-					border-radius: 200px;
-					box-shadow: 1px 1px 5px $shadow;
-				}
-				img {
-					width: 100%;
-					min-height: 100%;
-				}
-				.profileInfo {
-					max-height: 50vh;
-					overflow-y: auto;
-				}
-			}
-		}
-	}
-	@include homeSection;
-	@include requestSection;
-	@include answerForm;
-}
-
-@media only screen and (min-width: 730px) {
-	.owner {
-		.profileContainer {
-			display: block;
-		}
-	}
+  padding: 10px 20px;
+  padding-top: 70px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  .summaryTitle {
+    margin-top: 10px;
+    font-weight: bolder;
+  }
+  .summary {
+    color: rgb(100, 100, 100);
+  }
+  @include userProfile;
+  @include homeSection;
+  @include requestSection;
+  @include answerForm;
 }

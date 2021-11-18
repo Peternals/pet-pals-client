@@ -27,17 +27,25 @@ const Navbar = () => {
           <h2>Pet Rental</h2>
         </Link>
         <ul className="mainOptions">
-          {type === "Owner" && (
-            <>
-              <Link to="/owner/requests">
-                <li>
-                  <i className="fa fa-bell"></i>
-                </li>
-              </Link>
-            </>
-          )}
           {isLoggedIn === true && (
             <>
+              {type === "Owner" ? (
+                <>
+                  <Link to="/owner/requests">
+                    <li>
+                      <i className="fa fa-bell"></i>
+                    </li>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/carer/profile">
+                    <li>
+                      <i className="fa fa-user"></i>
+                    </li>
+                  </Link>
+                </>
+              )}
               <Link to="/messenger">
                 <li>
                   <i className="fa fa-wechat"></i>
