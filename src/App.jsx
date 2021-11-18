@@ -49,8 +49,10 @@ function App() {
       socket.disconnect();
     };
   }, [isLoggedIn, id]);
+
+  const closeAnyNotif = () => {};
   return (
-    <div className="App">
+    <div className="App" onClick={closeAnyNotif}>
       <div className="background"></div>
       <HashRouter>
         <Navbar />

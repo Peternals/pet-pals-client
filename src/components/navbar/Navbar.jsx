@@ -6,6 +6,7 @@ import { signOutCleanUp } from "../../slicers/userSlice";
 import { signOutPetCleanUp } from "../../slicers/petSlice";
 import { signOutMessengerCleanUp } from "../../slicers/messengerSlice";
 import { signOutDateCleanUp } from "../../slicers/datePickerSlice";
+import Notification from "./Notification";
 
 const Navbar = () => {
   const type = useSelector((state) => state.user.type);
@@ -18,6 +19,10 @@ const Navbar = () => {
     dispatch(signOutMessengerCleanUp());
     dispatch(signOutDateCleanUp());
     window.localStorage.removeItem("token");
+  };
+
+  const openNotif = () => {
+    document.querySelector(".notification").classList.toggle("showNotif");
   };
 
   return (
@@ -39,6 +44,10 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
+                  <li onClick={openNotif}>
+                    <i className="fa fa-bell"></i>
+                    <Notification />
+                  </li>
                   <Link to="/carer/profile">
                     <li>
                       <i className="fa fa-user"></i>
