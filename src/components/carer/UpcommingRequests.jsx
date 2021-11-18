@@ -16,7 +16,7 @@ const UpcommingRequests = () => {
   return (
     <div className="upcommingRequests">
       <div className="calendar">
-        <h2>Upcomming Requests</h2>
+        <h2>Upcoming Requests</h2>
         <Calendar
           tileClassName={({ date, view }) => {
             if (
