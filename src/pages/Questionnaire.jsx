@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/carer/questionnaire.scss";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateDate } from "../slicers/datePickerSlice";
 
 // TODO: Questionnaire receives the questionnaire for the pet.
 const Questionnaire = () => {
   const { REACT_APP_SERVER_URL } = process.env;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   const user_id = useSelector((state) => state.user._id);
   const { pet } = location.state;
@@ -48,7 +50,12 @@ const Questionnaire = () => {
         // return { err: err.response.data };
       }
     })();
-  }, [REACT_APP_SERVER_URL, user_id]);
+
+    return () => {
+      dispatch(updateDate({ key: "startDate", data: null }));
+      dispatch(updateDate({ key: "endDate", data: null }));
+    };
+  }, [REACT_APP_SERVER_URL, user_id, dispatch]);
 
   async function onSubmit(data) {
     data.preventDefault();
@@ -84,6 +91,8 @@ const Questionnaire = () => {
           "x-access-token": localStorage.getItem("token"),
         },
       });
+      dispatch(updateDate({ key: "startDate", data: null }));
+      dispatch(updateDate({ key: "endDate", data: null }));
     } catch (err) {
       console.error(err);
     }

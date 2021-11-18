@@ -6,7 +6,7 @@ function Question({ question, index, removeQuestion }) {
     <div>
       {question.text}
       <div>
-        <button onClick={() => removeQuestion(index)}>x</button>
+        <i onClick={() => removeQuestion(index)}>x</i>
       </div>
     </div>
   );
@@ -23,7 +23,7 @@ function QForm({ addQuestion }) {
   };
 
   return (
-    <li>
+    <form onSubmit={handleClick}>
       <input
         type="text"
         className="input"
@@ -31,7 +31,7 @@ function QForm({ addQuestion }) {
         onChange={(e) => setValue(e.target.value)}
       />
       <button onClick={handleClick}>+</button>
-    </li>
+    </form>
   );
 }
 
@@ -43,7 +43,8 @@ function QuestionForm(props) {
 
   const removeQuestion = (index) => {
     const newQuestions = [...props.questions];
-    props.questions.splice(index, 1);
+    console.log(newQuestions);
+    newQuestions.splice(index, 1);
     props.updateQuestions(newQuestions);
   };
 

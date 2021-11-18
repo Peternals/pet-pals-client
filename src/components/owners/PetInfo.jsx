@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import sampleDog from "../../assets/sampleDog2.jpeg";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -28,13 +27,10 @@ const PetInfo = () => {
   return (
     <section className="homeSection">
       <figure className="petPic">
-        {ownersPet.pet_pictures ? (
+        {ownersPet.pet_pictures && (
           <img
             src={`${REACT_APP_SERVER_URL}/pic/${ownersPet.pet_pictures[0]}`}
-            alt="Pet"
-          ></img>
-        ) : (
-          <img src={sampleDog} alt="dog"></img>
+            alt="Pet"></img>
         )}
       </figure>
       <div className="petSchedule">
