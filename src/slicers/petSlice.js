@@ -73,28 +73,23 @@ export const getPetInfo = createAsyncThunk("pet/getInfo", async () => {
   }
 });
 
-export const updatePetInfo = createAsyncThunk(
-  "pet/update",
-  async ({ data }) => {
-    try {
-      console.log({ data });
-      const token = localStorage.getItem("token");
-      const response = await axios.patch(
-        `${REACT_APP_SERVER_URL}/pet/${data._id}`,
-        { data },
-        {
-          headers: {
-            "x-access-token": token,
-          },
-        }
-      );
-      console.log(response.data);
-      return response.data;
-    } catch (err) {
-      return { err: err.response.data };
-    }
+export const updatePetInfo = createAsyncThunk("pet/update", async (data) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.patch(
+      `${REACT_APP_SERVER_URL}/pet/${data._id}`,
+      data,
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    return { err: err.response.data };
   }
-);
+});
 
 export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
   try {

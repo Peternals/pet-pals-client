@@ -26,11 +26,11 @@ const UpdatePetInfo = () => {
     };
     updateInfo();
     data._id = _id;
-    const update = await dispatch(updatePetInfo({ data }));
-    if (update.payload.err) {
-      setErrorMessage("Pet info is failed to update...");
+    const handleUpdate = await dispatch(updatePetInfo(data));
+    if (handleUpdate.payload.err) {
+      setErrorMessage("Failed to update...");
     } else {
-      setSuccessMessage("Pet info is successfully updated!");
+      setSuccessMessage("Successfully updated!");
     }
   };
 
