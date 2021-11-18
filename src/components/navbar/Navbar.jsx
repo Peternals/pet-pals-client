@@ -6,6 +6,7 @@ import { signOutCleanUp } from "../../slicers/userSlice";
 import { signOutPetCleanUp } from "../../slicers/petSlice";
 import { signOutMessengerCleanUp } from "../../slicers/messengerSlice";
 import { signOutDateCleanUp } from "../../slicers/datePickerSlice";
+import Notification from "./Notification";
 
 const Navbar = () => {
   const type = useSelector((state) => state.user.type);
@@ -20,6 +21,10 @@ const Navbar = () => {
     window.localStorage.removeItem("token");
   };
 
+  const openNotif = () => {
+    document.querySelector(".notification").classList.toggle("showNotif");
+  };
+
   return (
     <header className="navHeader">
       <nav className="navMain">
@@ -27,17 +32,29 @@ const Navbar = () => {
           <h2>Pet Rental</h2>
         </Link>
         <ul className="mainOptions">
-          {type === "Owner" && (
-            <>
-              <Link to="/owner/requests">
-                <li>
-                  <i className="fa fa-bell"></i>
-                </li>
-              </Link>
-            </>
-          )}
           {isLoggedIn === true && (
             <>
+              {type === "Owner" ? (
+                <>
+                  <Link to="/owner/requests">
+                    <li>
+                      <i className="fa fa-bell"></i>
+                    </li>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <li onClick={openNotif}>
+                    <i className="fa fa-bell"></i>
+                    <Notification />
+                  </li>
+                  <Link to="/carer/profile">
+                    <li>
+                      <i className="fa fa-user"></i>
+                    </li>
+                  </Link>
+                </>
+              )}
               <Link to="/messenger">
                 <li>
                   <i className="fa fa-wechat"></i>

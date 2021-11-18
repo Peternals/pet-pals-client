@@ -60,7 +60,7 @@ const AnswerForm = ({
         </ol>
         <div className="answerFormButtons">
           <button onClick={() => requestAction("Approved")}>Accept</button>
-          <button onClick={() => requestAction("reject")}>Decline</button>
+          <button onClick={() => requestAction("Rejected")}>Decline</button>
         </div>
       </div>
     </div>
