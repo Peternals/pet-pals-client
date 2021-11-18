@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
-import sampleImg from "../../assets/sample.jpg";
 import AnswerForm from "./AnswerForm";
 import moment from "moment";
 const { REACT_APP_SERVER_URL } = process.env;

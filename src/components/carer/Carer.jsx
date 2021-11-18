@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import PetGrid from "./PetGrid";
 import "../../styles/carer/carer.scss";
 import {
@@ -11,7 +11,7 @@ import {
 // Grid of cards for web view, column for phone view
 const Carer = () => {
   const [type, setType] = useState("");
-  const allPets = useSelector((state) => state.pet.initialPets);
+  // const allPets = useSelector((state) => state.pet.initialPets);
   const dispatch = useDispatch();
   const types = ["Dog", "Cat", "Otter", "Snake"];
   const typeRef = useRef();

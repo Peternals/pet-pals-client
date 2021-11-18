@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import sampleDog from "../../assets/sampleDog2.jpeg";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
