@@ -19,7 +19,7 @@ const PendingRequests = () => {
         <h2>Pending Requests</h2>
         <section className="pendingLists">
           {pendingRequests.map((req) => (
-            <div className="request">
+            <div className="request" key={req._id}>
               <div className="requestInfo">
                 <h3>{req.username}</h3>
                 <p>Request for max</p>
