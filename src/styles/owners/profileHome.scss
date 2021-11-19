@@ -148,6 +148,7 @@
         }
         .petInfo {
           width: 40%;
+          min-height: 321px;
         }
       }
     }
@@ -155,9 +156,6 @@
   @media only screen and (min-width: 730px) {
     .homeSection {
       width: 70%;
-      .petInfo {
-        min-height: 321px;
-      }
     }
   }
 }

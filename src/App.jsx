@@ -50,9 +50,11 @@ function App() {
     };
   }, [isLoggedIn, id]);
 
-  const closeAnyNotif = () => {};
+  const closeAnyNotif = (e) => {
+    // document.querySelector(".notification").classList.remove("showNotif");
+  };
   return (
-    <div className="App" onClick={closeAnyNotif}>
+    <div className="App" onMouseDown={closeAnyNotif}>
       <div className="background"></div>
       <HashRouter>
         <Navbar />
