@@ -23,11 +23,7 @@ const Navbar = () => {
 
   const openNotif = () => {
     const notif = document.querySelector(".notification");
-    if (notif.classList.contains("showNotif")) {
-      notif.classList.add("showNotif");
-    } else {
-      notif.classList.remove("showNotif");
-    }
+    notif.classList.toggle("showNotif");
   };
 
   return (
