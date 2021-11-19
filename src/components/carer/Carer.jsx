@@ -7,6 +7,7 @@ import {
   fetchPetsByType,
   resetFilter,
 } from "../../slicers/petSlice";
+import FilterContainer from "../filter/FilterContainer";
 
 // Grid of cards for web view, column for phone view
 const Carer = () => {
@@ -33,13 +34,15 @@ const Carer = () => {
 
   return (
     <main className="carerMain">
+      <FilterContainer />
       <section>
         <form onSubmit={submit}>
           <select
             name="type"
             defaultValue=""
             ref={typeRef}
-            onChange={(e) => setType(e.target.value)}>
+            onChange={(e) => setType(e.target.value)}
+          >
             <option value="">Select pet type</option>
             {types.map((type, i) => (
               <option key={i} value={type}>

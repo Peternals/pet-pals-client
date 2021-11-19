@@ -1,0 +1,39 @@
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addFilter, removeFilter } from "../../slicers/filterOptionSlice";
+
+const Trained = () => {
+  const dispatch = useDispatch();
+  const trainedTags = ["Litter trained", "Child friendly", "House trained"];
+
+  const handleFileter = (e) => {
+    if (e.target.checked) {
+      dispatch(addFilter({ key: "trained", value: e.target.value }));
+    } else {
+      dispatch(removeFilter({ key: "trained", value: e.target.value }));
+    }
+  };
+
+  return (
+    <section>
+      <h2>Trained</h2>
+      <div>
+        {trainedTags.map((trained, i) => (
+          <div key={i}>
+            <label>
+              <input
+                type="checkbox"
+                value={trained}
+                name="trained"
+                onClick={handleFileter}
+              />
+              {trained}
+            </label>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default Trained;
