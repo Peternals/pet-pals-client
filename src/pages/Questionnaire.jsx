@@ -62,6 +62,7 @@ const Questionnaire = () => {
 
     const request = {
       pet_id: pet._id,
+      pet_name: pet.name,
       start: startDate,
       end: endDate,
       status: "Pending",
@@ -139,7 +140,8 @@ const Questionnaire = () => {
                   className="form-control"
                   onChange={(e) => {
                     handleInput(e, index);
-                  }}></textarea>
+                  }}
+                ></textarea>
               </label>
             </div>
           );

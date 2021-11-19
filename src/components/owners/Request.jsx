@@ -12,7 +12,7 @@ const Request = () => {
     try {
       //get all request of the user
       const request = await axios.get(
-        `${REACT_APP_SERVER_URL}/requests/Pending`,
+        `${REACT_APP_SERVER_URL}/requests/owner/Pending`,
         {
           headers: {
             "x-access-token": localStorage.getItem("token"),
@@ -21,7 +21,9 @@ const Request = () => {
       );
 
       setRequests(request.data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     getRequests();
@@ -45,7 +47,7 @@ const Request = () => {
               />
               <div className="requestInfo">
                 <h3>{req.username}</h3>
-                <p>Request for max</p>
+                <p>Request for {req.request.pet_name}</p>
                 <p>
                   <span>from: </span>{" "}
                   {moment(req.request.start).format("MMM-DD-yyyy")}
