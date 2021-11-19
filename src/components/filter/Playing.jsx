@@ -16,7 +16,7 @@ const Playing = () => {
 
   return (
     <section>
-      <h2>Size</h2>
+      <h2>Where to Play?</h2>
       <div>
         {playingTags.map((playing, i) => (
           <div key={i}>
