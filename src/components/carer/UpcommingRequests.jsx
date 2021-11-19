@@ -29,12 +29,15 @@ const UpcommingRequests = () => {
         <h2>Upcoming Requests</h2>
         <Calendar
           tileClassName={({ date, view }) => {
+            const currentDay = new Date().setHours(0, 0, 0, 0);
             if (
               ApprovedRequests.find(
                 (x) =>
                   new Date(x.request.start).setHours(0, 0, 0, 0) <=
                     new Date(date) &&
-                  new Date(x.request.end).setHours(0, 0, 0, 0) >= new Date(date)
+                  new Date(x.request.end).setHours(0, 0, 0, 0) >=
+                    new Date(date) &&
+                  new Date(currentDay).setHours(0, 0, 0, 0) <= new Date(date)
               )
             ) {
               return "highlight";

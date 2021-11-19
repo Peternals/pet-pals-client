@@ -12,7 +12,7 @@ const Request = () => {
     try {
       //get all request of the user
       const request = await axios.get(
-        `${REACT_APP_SERVER_URL}/requests/Pending`,
+        `${REACT_APP_SERVER_URL}/requests/owner/Pending`,
         {
           headers: {
             "x-access-token": localStorage.getItem("token"),
@@ -22,7 +22,9 @@ const Request = () => {
       console.log(request.data);
 
       setRequests(request.data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     getRequests();
