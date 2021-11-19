@@ -60,6 +60,31 @@ export const petDataStore = createAsyncThunk(
 //   }
 // );
 
+export const deleteQuestion = createAsyncThunk(
+  "pet/deleteQuestion",
+  async (data) => {
+    try {
+      console.log(data);
+      console.log(data._id);
+      console.log(data.questionnaire);
+      const token = localStorage.getItem("token");
+      const response = await axios.patch(
+        `${REACT_APP_SERVER_URL}/pet/${data._id}/question`,
+        data.questionnaire,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data };
+    }
+  }
+);
+
 export const getPetInfo = createAsyncThunk("pet/getInfo", async () => {
   try {
     const token = localStorage.getItem("token");
@@ -68,6 +93,7 @@ export const getPetInfo = createAsyncThunk("pet/getInfo", async () => {
         "x-access-token": token,
       },
     });
+    console.log(pet.data);
     return pet.data;
   } catch (err) {
     return { err: err.response.data };
@@ -76,6 +102,7 @@ export const getPetInfo = createAsyncThunk("pet/getInfo", async () => {
 
 export const updatePetInfo = createAsyncThunk("pet/update", async (data) => {
   try {
+    console.log(data);
     const token = localStorage.getItem("token");
     const response = await axios.patch(
       `${REACT_APP_SERVER_URL}/pet/${data._id}`,
@@ -86,6 +113,7 @@ export const updatePetInfo = createAsyncThunk("pet/update", async (data) => {
         },
       }
     );
+    console.log(response.data);
     return response.data;
   } catch (err) {
     return { err: err.response.data };
@@ -169,12 +197,23 @@ export const petSlice = createSlice({
   extraReducers: {
     [petDataStore.fulfilled]: (state, action) => {
       state.info.owner_id = action.payload.owner_id;
+      state.info._id = action.payload._id;
+      state.pet_questions = action.payload.questionnaire;
+    },
+    [getPetInfo.fulfilled]: (state, action) => {
+      state.info.type = action.payload.type;
+      state.info.name = action.payload.name;
+      state.info.owner_id = action.payload.owner_id;
+      state.info.description = action.payload.description;
+      state.info.pet_pictures = action.payload.pet_pictures;
+      state.info._id = action.payload._id;
       state.pet_questions = action.payload.questionnaire;
     },
     [updatePetInfo.fulfilled]: (state, action) => {
       if (!action.payload.err) {
         state.info.name = action.payload.name;
         state.info.description = action.payload.description;
+        state.pet_questions = action.payload.questionnaire;
 
         if (action.payload.pet_pictures !== undefined) {
           state.info.pet_pictures = [
@@ -183,6 +222,9 @@ export const petSlice = createSlice({
           ];
         }
       }
+    },
+    [deleteQuestion.fulfilled]: (state, action) => {
+      state.pet_questions = action.payload.questionnaire;
     },
     [fetchAllPets.fulfilled]: (state, action) => {
       state.initialPets = action.payload;

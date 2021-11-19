@@ -7,7 +7,6 @@ const { REACT_APP_SERVER_URL } = process.env;
 
 const PetInfo = () => {
   const pet = useSelector((state) => state.pet.info);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPetInfo());
@@ -19,9 +18,7 @@ const PetInfo = () => {
       <figure className="petPic">
         {pet.pet_pictures.length ? (
           <img
-            src={`${REACT_APP_SERVER_URL}/pic/${
-              pet.pet_pictures[pet.pet_pictures.length - 1]
-            }`}
+            src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
             alt="Pet"
           ></img>
         ) : (
