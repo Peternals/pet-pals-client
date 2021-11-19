@@ -18,7 +18,10 @@ const Notification = () => {
       <div className="notification">
         {requests.map((req, i) => (
           <div key={i} className={`req ${req.status}`}>
-            <p>request for pet name is {req.status}</p>
+            <p>
+              Request for {req.pet_name} is{" "}
+              {req.status === "Rejected" ? "Unsuccessful" : req.status}
+            </p>
           </div>
         ))}
       </div>

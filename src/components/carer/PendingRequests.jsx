@@ -30,7 +30,7 @@ const PendingRequests = () => {
           {pendingRequests.map((req, i) => (
             <div className="request" key={i}>
               <div className="requestInfo">
-                <p>Request for max</p>
+                <p>Request for {req.request.pet_name}</p>
                 <p>
                   <span>from: </span>{" "}
                   {moment(req.request.start).format("MMM-DD-yyyy")}
