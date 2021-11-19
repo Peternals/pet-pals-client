@@ -43,7 +43,6 @@ function QuestionForm(props) {
 
   const removeQuestion = (index) => {
     const newQuestions = [...props.questions];
-    console.log(newQuestions);
     newQuestions.splice(index, 1);
     props.updateQuestions(newQuestions);
   };

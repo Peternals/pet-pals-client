@@ -1,19 +1,15 @@
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { DateRangePicker } from "react-dates";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDate } from "../slicers/datePickerSlice";
 
-function DatePicker() {
+function DatePicker({ isDateBlocked }) {
   const dispatch = useDispatch();
   const { startDate, endDate, focusedInput } = useSelector(
     (state) => state.datePicker
   );
-
-  useEffect(() => {
-    console.log(startDate);
-  }, [startDate]);
 
   // TODO: Add time component
   // TODO: Figure out how to pass start date and end date out.
@@ -32,9 +28,9 @@ function DatePicker() {
       }} // PropTypes.func.isRequired,
       focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
       onFocusChange={(focusedInput) => {
-        console.log(focusedInput);
         dispatch(updateDate({ key: "focusedInput", data: focusedInput }));
       }} // PropTypes.func.isRequired,
+      isDayBlocked={isDateBlocked}
     />
   );
 }

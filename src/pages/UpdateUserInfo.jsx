@@ -30,7 +30,6 @@ const UpdateUserInfo = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(_id, data);
     const submitPic = async (imageInput) => {
       try {
         const formData = new FormData();
@@ -66,7 +65,6 @@ const UpdateUserInfo = () => {
     modifyData();
 
     const updateUserAction = await dispatch(updateUserInfo({ _id, data }));
-    console.log(updateUserAction);
     if (updateUserAction.payload.err) {
       setErrorMessage("Accout update is falied");
     } else {
