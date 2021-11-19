@@ -22,7 +22,12 @@ const Navbar = () => {
   };
 
   const openNotif = () => {
-    document.querySelector(".notification").classList.toggle("showNotif");
+    const notif = document.querySelector(".notification");
+    if (notif.classList.contains("showNotif")) {
+      notif.classList.add("showNotif");
+    } else {
+      notif.classList.remove("showNotif");
+    }
   };
 
   return (
@@ -44,7 +49,7 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <li onClick={openNotif}>
+                  <li onMouseUp={openNotif}>
                     <i className="fa fa-bell"></i>
                     <Notification />
                   </li>
