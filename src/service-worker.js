@@ -59,7 +59,7 @@
 // opt-in, read http://bit.ly/CRA-PWA
 
 // eslint-disable-next-line no-restricted-globals
-const ignored = self.__WB_MANIFEST;
+// const ignored = self.__WB_MANIFEST;
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
