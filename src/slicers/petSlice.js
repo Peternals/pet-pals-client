@@ -158,6 +158,7 @@ export const {
   getPetDescription,
   getPetPicture,
   getPetQuestions,
+  getPetTag,
   resetFilter,
   signOutPetCleanUp,
 } = petSlice.actions;

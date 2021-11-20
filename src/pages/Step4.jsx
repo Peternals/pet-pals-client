@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -9,47 +9,33 @@ import {
   getPetName,
   getPetDescription,
   getPetPicture,
+  getPetTag,
 } from "../slicers/petSlice";
 import "../styles/registration/step.scss";
-import axios from "axios";
-
-const { REACT_APP_SERVER_URL } = process.env;
 
 export default function Step4() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [typeTags, setTypeTags] = useState([]);
-  const [petHealthTags, setPetHealthTags] = useState([]);
-  const [trainedTags, setTrainedTags] = useState([]);
-  const [playingTags, setPlayingTags] = useState([]);
-  const sizes = ["Small", "Medium", "Large", "Giant"];
-
-  useEffect(() => {
-    const fetchTags = async () => {
-      const allTags = await axios.get(`${REACT_APP_SERVER_URL}/tag`);
-      setTypeTags(
-        allTags.data
-          .filter((tag) => tag.category === "Type")
-          .sort((a, b) => {
-            const nameA = a.name.toUpperCase();
-            const nameB = b.name.toUpperCase();
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
-            return 0;
-          })
-      );
-      setPetHealthTags(
-        allTags.data.filter((tag) => tag.category === "Pet health")
-      );
-      setTrainedTags(allTags.data.filter((tag) => tag.category === "Trained"));
-      setPlayingTags(allTags.data.filter((tag) => tag.category === "Playing"));
-    };
-    fetchTags();
-  }, []);
+  const typeTags = [
+    "Dog",
+    "Cat",
+    "Otter",
+    "Snake",
+    "Rabbit",
+    "Hamster",
+    "Marmot",
+    "Parakeet",
+    "Hedgehog",
+    "Ferret",
+    "Iguana",
+    "Mini pig",
+    "Turtle",
+    "Fish",
+  ];
+  const sizeTags = ["Small", "Medium", "Large", "Giant"];
+  const healthTags = ["Vaccinated", "Neutered", "Need supplements"];
+  const trainedTags = ["Litter trained", "Child friendly", "House trained"];
+  const playingTags = ["Outside", "Inside"];
 
   const validationSchema = Yup.object().shape({
     petName: Yup.string().required("Pet name is required"),
@@ -71,15 +57,37 @@ export default function Step4() {
   });
 
   const handleNext = async (e) => {
-    const peNameVal = e.petName;
+    const petNameVal = e.petName;
     const petTypeVal = e.petType;
     const petDescriptionVal = e.petDescription;
     const inputFile = document.querySelector("#file");
     const pet_pictureVal = inputFile.files;
+    const petSizeTagVal = e.petSizeTag;
+    const petHealthTagVal = e.petHealthTag;
+    const petTrainedTagVal = e.petTrainedTag;
+    const petPlayingTagVal = e.petPlayingTag;
+
+    const tags = {
+      type: petTypeVal,
+      size: petSizeTagVal,
+      health: petHealthTagVal,
+      trained: petTrainedTagVal,
+      playing: petPlayingTagVal,
+    };
+
+    const submitTags = () => {
+      const result = [];
+      for (const key in tags) {
+        if (tags[key]) result.push(tags[key]);
+      }
+      return result.flat();
+    };
+
     await dispatch(getPetType(petTypeVal));
-    await dispatch(getPetName(peNameVal));
+    await dispatch(getPetName(petNameVal));
     await dispatch(getPetDescription(petDescriptionVal));
     await dispatch(getPetPicture(pet_pictureVal));
+    await dispatch(getPetTag(submitTags()));
     navigate("/step5");
   };
 
@@ -99,48 +107,56 @@ export default function Step4() {
           <div>{errors.petName?.message}</div>
           <select type="text" {...register("petType")}>
             <option>Select pet type</option>
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
-            <option value="otter">Otter</option>
-            <option value="snake">Snake</option>
-          </select>
-          <select>
-            <option>Select pet type</option>
             {typeTags.map((type, i) => (
-              <option value={type.name} key={i}>
-                {type.name}
+              <option value={type} key={i}>
+                {type}
               </option>
             ))}
           </select>
-          <select>
+          <select {...register("petSizeTag")}>
             <option>Select size</option>
-            {sizes.map((size, i) => (
+            {sizeTags.map((size, i) => (
               <option value={size} key={i}>
                 {size}
               </option>
             ))}
           </select>
           <div>
-            {petHealthTags.map((health, i) => (
+            {healthTags.map((health, i) => (
               <label key={i}>
-                <input type="checkbox" value={health.name} name="health" />
-                {health.name}
+                <input
+                  type="checkbox"
+                  value={health}
+                  name="health"
+                  {...register("petHealthTag")}
+                />
+                {health}
               </label>
             ))}
           </div>
           <div>
             {trainedTags.map((trained, i) => (
               <label key={i}>
-                <input type="checkbox" value={trained.name} name="trained" />
-                {trained.name}
+                <input
+                  type="checkbox"
+                  value={trained}
+                  name="trained"
+                  {...register("petTrainedTag")}
+                />
+                {trained}
               </label>
             ))}
           </div>
           <div>
             {playingTags.map((playing, i) => (
               <label key={i}>
-                <input type="checkbox" value={playing.name} name="playing" />
-                {playing.name}
+                <input
+                  type="checkbox"
+                  value={playing}
+                  name="playing"
+                  {...register("petPlayingTag")}
+                />
+                {playing}
               </label>
             ))}
           </div>
