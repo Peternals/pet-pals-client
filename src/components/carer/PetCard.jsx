@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const PetCard = ({ pet }) => {
-  console.log(pet.tag);
   return (
     <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
       <div className="card-sl">
