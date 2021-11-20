@@ -5,7 +5,6 @@ const { REACT_APP_SERVER_URL } = process.env;
 const initialState = {
   tags: [],
   allPets: [],
-  initialPets: [],
   filteredPets: [],
   isFiltered: false,
 };
@@ -31,7 +30,9 @@ export const fetchPetsByTag = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const { data: response } = await axios.get(
-        `${REACT_APP_SERVER_URL}/pet/tag?name=["${tags}"]`,
+        `${REACT_APP_SERVER_URL}/pet/tag?name=[${tags.map(
+          (tag) => `"${tag}"`
+        )}]`,
         {
           headers: {
             "x-access-token": token,
