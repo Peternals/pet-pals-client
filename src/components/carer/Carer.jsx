@@ -9,33 +9,28 @@ import {
 } from "../../slicers/petSlice";
 import FilterContainer from "../filter/FilterContainer";
 
-// Grid of cards for web view, column for phone view
 const Carer = () => {
-  const [type, setType] = useState("");
-  // const allPets = useSelector((state) => state.pet.initialPets);
   const dispatch = useDispatch();
-  const types = ["Dog", "Cat", "Otter", "Snake"];
-  const typeRef = useRef();
 
   useEffect(() => {
     dispatch(fetchAllPets());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const submit = (e) => {
-    e.preventDefault();
-    dispatch(fetchPetsByType(type));
-  };
+  // const submit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(fetchPetsByType(type));
+  // };
 
-  const resetView = () => {
-    dispatch(resetFilter());
-    typeRef.current.value = "";
-  };
+  // const resetView = () => {
+  //   dispatch(resetFilter());
+  //   typeRef.current.value = "";
+  // };
 
   return (
     <main className="carerMain">
       <FilterContainer />
-      <section>
+      {/* <section>
         <form onSubmit={submit}>
           <select
             name="type"
@@ -54,7 +49,7 @@ const Carer = () => {
           <button>Search Pets</button>
         </form>
         <button onClick={resetView}>Reset</button>
-      </section>
+      </section> */}
       <PetGrid />
     </main>
   );

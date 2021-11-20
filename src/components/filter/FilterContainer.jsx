@@ -9,11 +9,13 @@ import Type from "./Type";
 const FilterContainer = () => {
   return (
     <div>
-      <Type />
-      <Size />
-      <PetHealth />
-      <Trained />
-      <Playing />
+      <form>
+        <Type />
+        <Size />
+        <PetHealth />
+        <Trained />
+        <Playing />
+      </form>
     </div>
   );
 };
