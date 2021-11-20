@@ -9,9 +9,20 @@ import { signOutDateCleanUp } from "../../slicers/datePickerSlice";
 import Notification from "./Notification";
 
 const Navbar = () => {
-  const type = useSelector((state) => state.user.type);
+  const { type, _id } = useSelector((state) => state.user);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
+  const newConversations = useSelector((state) => {
+    const conversations = state.messenger.conversations;
+    if (conversations.length === 0) return 0;
+    return conversations.filter((conv) => {
+      const user = conv.seen.find((seen) => seen.userId === _id);
+      if (user.state === false) {
+        return true;
+      }
+      return false;
+    }).length;
+  });
 
   const handleSignOut = (e) => {
     dispatch(signOutCleanUp());
@@ -58,7 +69,9 @@ const Navbar = () => {
               )}
               <Link to="/messenger">
                 <li>
-                  <i className="fa fa-wechat"></i>
+                  <i className="fa fa-wechat">
+                    {newConversations === 0 ? "" : newConversations}
+                  </i>
                 </li>
               </Link>
               {/* TODO: change --> /setting/:id after user id is stored in redux */}
@@ -67,7 +80,7 @@ const Navbar = () => {
                   <i className="fa fas fa-cog"></i>
                 </li>
               </Link>
-              <Link to="/signin" onClick={handleSignOut}>
+              <Link to="/" onClick={handleSignOut}>
                 <li>
                   <i className="fa fa-sign-out"></i>
                 </li>

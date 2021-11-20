@@ -3,12 +3,10 @@ import { useState } from "react";
 
 function Question({ question, index, removeQuestion }) {
   return (
-    <div>
+    <li>
       {question.text}
-      <div>
-        <i onClick={() => removeQuestion(index)}>x</i>
-      </div>
-    </div>
+      <i className="fa fa-close" onClick={() => removeQuestion(index)}></i>
+    </li>
   );
 }
 

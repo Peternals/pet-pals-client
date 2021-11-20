@@ -40,7 +40,9 @@ const Carer = () => {
             defaultValue=""
             ref={typeRef}
             onChange={(e) => setType(e.target.value)}>
-            <option value="">Select pet type</option>
+            <option value="" disabled>
+              Select pet type
+            </option>
             {types.map((type, i) => (
               <option key={i} value={type}>
                 {type}

@@ -6,6 +6,7 @@ import { signUp } from "../slicers/userSlice";
 import { petDataStore } from "../slicers/petSlice";
 import axios from "axios";
 import QuestionForm from "../components/owners/QuestionForm";
+import "../styles/registration/step5.scss";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -91,18 +92,21 @@ export default function Step5() {
   };
 
   return (
-    <>
-      <div>
-        <form onSubmit={handleSubmit} style={{ marginTop: 200 }}>
-          <h2>Questionnaire</h2>
-          <QuestionForm
-            questions={questions}
-            updateQuestions={updateQuestions}
-          />
-          <button>Submit</button>
-        </form>
-      </div>
-      <Link to="/step4">Back</Link>
-    </>
+    <main className="step5Main">
+      <form className="" onSubmit={handleSubmit}>
+        <h2>Questionnaire</h2>
+        <QuestionForm questions={questions} updateQuestions={updateQuestions} />
+        <button
+          disabled={questions.length === 0}
+          style={
+            questions.length === 0
+              ? { pointerEvents: "none", opacity: 0.4 }
+              : {}
+          }>
+          Submit
+        </button>
+        <Link to="/step4">Back</Link>
+      </form>
+    </main>
   );
 }
