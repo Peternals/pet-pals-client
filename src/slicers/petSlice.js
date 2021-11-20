@@ -9,6 +9,7 @@ const initialState = {
     owner_id: null,
     description: null,
     pet_pictures: [],
+    tag: [],
   },
   pet_questions: [],
   initialPets: [],
@@ -116,21 +117,24 @@ export const petSlice = createSlice({
     getOwnerId: (state, action) => {
       state.info.owner_id = action.payload;
     },
+    getPetTag: (state, action) => {
+      state.info.tag = action.payload;
+    },
     resetFilter: (state, action) => {
       state.filteredPets = state.initialPets;
       state.isFiltered = false;
     },
     signOutPetCleanUp: (state) => {
-			state.info.type = null;
-			state.info.name = null;
-			state.info.owner_id = null;
-			state.info.description = null;
-			state.info.pet_pictures = [];
+      state.info.type = null;
+      state.info.name = null;
+      state.info.owner_id = null;
+      state.info.description = null;
+      state.info.pet_pictures = [];
       state.pet_questions = [];
       state.initialPets = [];
       state.filteredPets = [];
       state.isFiltered = false;
-		},
+    },
   },
   extraReducers: {
     [petDataStore.fulfilled]: (state, action) => {
