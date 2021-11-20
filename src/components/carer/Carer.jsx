@@ -7,6 +7,7 @@ import {
   fetchPetsByType,
   resetFilter,
 } from "../../slicers/petSlice";
+import FilterContainer from "../filter/FilterContainer";
 
 // Grid of cards for web view, column for phone view
 const Carer = () => {
@@ -33,6 +34,7 @@ const Carer = () => {
 
   return (
     <main className="carerMain">
+      <FilterContainer />
       <section>
         <form onSubmit={submit}>
           <select

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,6 +16,15 @@ export default function Step5() {
   const petSignUpInfo = useSelector((state) => state.pet.info);
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
+  const currentQuestionRef = useRef();
+
+  useEffect(() => {
+    if (questions.length > 0) {
+      if (currentQuestionRef.current) {
+        currentQuestionRef.current.scrollIntoView();
+      }
+    }
+  }, [questions]);
 
   const updateQuestions = (newQuestions) => {
     setQuestions(newQuestions);
@@ -93,9 +102,13 @@ export default function Step5() {
 
   return (
     <main className="step5Main">
-      <form className="" onSubmit={handleSubmit}>
+      <form className="ste5MainForm" onSubmit={handleSubmit}>
         <h2>Questionnaire</h2>
-        <QuestionForm questions={questions} updateQuestions={updateQuestions} />
+        <QuestionForm
+          questions={questions}
+          updateQuestions={updateQuestions}
+          currentQuestionRef={currentQuestionRef}
+        />
         <button
           disabled={questions.length === 0}
           style={
