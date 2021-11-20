@@ -6,7 +6,7 @@ const Size = () => {
   const dispatch = useDispatch();
   const sizeTags = ["Small", "Medium", "Large", "Giant"];
 
-  const handleFileter = (e) => {
+  const handleFilter = (e) => {
     if (e.target.checked) {
       dispatch(addFilter({ key: "size", value: e.target.value }));
     } else {
@@ -25,7 +25,7 @@ const Size = () => {
                 type="checkbox"
                 value={size}
                 name="size"
-                onClick={handleFileter}
+                onClick={handleFilter}
               />
               {size}
             </label>

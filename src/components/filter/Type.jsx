@@ -21,7 +21,7 @@ const Type = () => {
     "Fish",
   ];
 
-  const handleFileter = (e) => {
+  const handleFilter = (e) => {
     if (e.target.checked) {
       dispatch(addFilter({ key: "type", value: e.target.value }));
     } else {
@@ -40,7 +40,7 @@ const Type = () => {
                 type="checkbox"
                 value={type}
                 name="type"
-                onClick={handleFileter}
+                onClick={handleFilter}
               />
               {type}
             </label>

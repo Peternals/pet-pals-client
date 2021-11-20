@@ -6,7 +6,7 @@ const Trained = () => {
   const dispatch = useDispatch();
   const trainedTags = ["Litter trained", "Child friendly", "House trained"];
 
-  const handleFileter = (e) => {
+  const handleFilter = (e) => {
     if (e.target.checked) {
       dispatch(addFilter({ key: "trained", value: e.target.value }));
     } else {
@@ -25,7 +25,7 @@ const Trained = () => {
                 type="checkbox"
                 value={trained}
                 name="trained"
-                onClick={handleFileter}
+                onClick={handleFilter}
               />
               {trained}
             </label>

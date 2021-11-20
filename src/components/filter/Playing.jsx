@@ -6,7 +6,7 @@ const Playing = () => {
   const dispatch = useDispatch();
   const playingTags = ["Outside", "Inside"];
 
-  const handleFileter = (e) => {
+  const handleFilter = (e) => {
     if (e.target.checked) {
       dispatch(addFilter({ key: "playing", value: e.target.value }));
     } else {
@@ -25,7 +25,7 @@ const Playing = () => {
                 type="checkbox"
                 value={playing}
                 name="playing"
-                onClick={handleFileter}
+                onClick={handleFilter}
               />
               {playing}
             </label>

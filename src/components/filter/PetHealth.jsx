@@ -6,7 +6,7 @@ const PetHealth = () => {
   const dispatch = useDispatch();
   const healthTags = ["Vaccinated", "Neutered", "Need supplements"];
 
-  const handleFileter = (e) => {
+  const handleFilter = (e) => {
     if (e.target.checked) {
       dispatch(addFilter({ key: "petHealth", value: e.target.value }));
     } else {
@@ -25,7 +25,7 @@ const PetHealth = () => {
                 type="checkbox"
                 value={health}
                 name="health"
-                onClick={handleFileter}
+                onClick={handleFilter}
               />
               {health}
             </label>
