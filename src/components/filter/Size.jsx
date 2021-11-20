@@ -8,9 +8,9 @@ const Size = () => {
 
   const handleFilter = (e) => {
     if (e.target.checked) {
-      dispatch(addFilter({ key: "size", value: e.target.value }));
+      dispatch(addFilter(e.target.value));
     } else {
-      dispatch(removeFilter({ key: "size", value: e.target.value }));
+      dispatch(removeFilter(e.target.value));
     }
   };
 
