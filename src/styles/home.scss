@@ -1,59 +1,77 @@
 @import "./variables.scss";
 
 .homeMain {
-	padding-top: 70px;
-	height: 100%;
-	width: 100%;
-	.banner {
-		display: flex;
-		max-height: 600px;
-		height: 100%;
-		width: 100%;
-		align-items: center;
-		section {
-			width: 30%;
-			display: flex;
-			flex-direction: column;
-			h1 {
-				align-items: center;
-			}
-			button {
-				width: 100%;
-				padding: 10px;
-				border: 0;
-				border-radius: 20px;
-				margin: 5px 0;
-				background-color: $primaryColor;
-				color: white;
-				box-shadow: 1px 1px 3px 1px $shadow;
-				&:hover {
-					transition: 0.5s;
-					transform: scale(1.05);
-				}
-			}
+  padding: 20px;
+  padding-top: 70px;
+  height: 100%;
+  width: 100%;
+  .banner {
+    display: flex;
+    max-height: 600px;
+    height: 100%;
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
+    section {
+      width: 100%;
+      height: 50%;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      h1 {
+        align-items: center;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        border: 0;
+        border-radius: 20px;
+        margin: 5px 0;
+        background-color: $primaryColor;
+        color: white;
+        box-shadow: 1px 1px 3px 1px $shadow;
+        &:hover {
+          transition: 0.5s;
+          transform: scale(1.05);
+        }
+      }
 
-			.signin {
-				background-color: $secondaryColor;
-			}
-			.signup {
-				background-color: $tertiaryColor;
-			}
-		}
+      .signin {
+        background-color: $secondaryColor;
+      }
+      .signup {
+        background-color: $tertiaryColor;
+      }
+    }
 
-		figure {
-			// margin-right: -100px;
-			width: 75%;
-			position: relative;
-			img {
-				width: 100%;
-			}
-			.splash {
-				position: absolute;
-				right: 0;
-				top: -100px;
-				width: 80%;
-				z-index: -1;
-			}
-		}
-	}
+    figure {
+      // margin-right: -100px;
+      width: 100%;
+      position: relative;
+      img {
+        width: 100%;
+      }
+      .splash {
+        position: absolute;
+        right: 0;
+        top: -50px;
+        width: 80%;
+        z-index: -1;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .homeMain {
+    .banner {
+      flex-direction: row;
+      section {
+        width: 30%;
+      }
+      .splash {
+        margin-top: -10%;
+      }
+    }
+  }
 }
