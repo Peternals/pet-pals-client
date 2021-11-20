@@ -71,7 +71,6 @@ export default function Step5() {
     const questionPayload = {
       questionnaire: questions.map((obj) => obj.text),
     };
-
     const petDataStoreAction = await dispatch(
       petDataStore({
         type: petSignUpInfo.type,

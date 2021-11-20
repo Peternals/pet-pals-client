@@ -51,7 +51,7 @@ export default function Step4() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
@@ -62,24 +62,22 @@ export default function Step4() {
     const petDescriptionVal = e.petDescription;
     const inputFile = document.querySelector("#file");
     const pet_pictureVal = inputFile.files;
-    const petSizeTagVal = e.petSizeTag;
-    const petHealthTagVal = e.petHealthTag;
-    const petTrainedTagVal = e.petTrainedTag;
-    const petPlayingTagVal = e.petPlayingTag;
-
-    const tags = {
-      type: petTypeVal,
-      size: petSizeTagVal,
-      health: petHealthTagVal,
-      trained: petTrainedTagVal,
-      playing: petPlayingTagVal,
-    };
 
     const submitTags = () => {
-      const result = [];
-      for (const key in tags) {
-        if (tags[key]) result.push(tags[key]);
+      const dirtyKeys = Object.keys(dirtyFields);
+      const originalKeys = Object.keys(e);
+      const deletedKeys = originalKeys.filter(
+        (key) => !dirtyKeys.includes(key)
+      );
+
+      for (const key of deletedKeys) {
+        delete e[key];
       }
+      delete e.petName;
+      delete e.petDescription;
+      delete e.pet_picture;
+
+      const result = Object.values(e);
       return result.flat();
     };
 
