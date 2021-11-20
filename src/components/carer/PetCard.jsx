@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const PetCard = ({ pet }) => {
+  console.log(pet.tag);
   return (
     <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
       <div className="card-sl">
@@ -15,6 +16,9 @@ const PetCard = ({ pet }) => {
         <div className="card-heading">
           <h4>{pet.name}</h4>
           <p>{pet.description}</p>
+          {pet.tag.map((t, i) => (
+            <p key={i}>{t.name}</p>
+          ))}
         </div>
         <Link to={`/carer/pet/${pet._id}`} state={{ pet: pet }}>
           <button className="card-button"> Request</button>
