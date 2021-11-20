@@ -16,9 +16,6 @@ const PetCard = ({ pet }) => {
         <div className="card-heading">
           <h4>{pet.name}</h4>
           <p>{pet.description}</p>
-          {pet.tag.map((t, i) => (
-            <p key={i}>{t.name}</p>
-          ))}
         </div>
         <Link to={`/carer/pet/${pet._id}`} state={{ pet: pet }}>
           <button className="card-button"> Request</button>
