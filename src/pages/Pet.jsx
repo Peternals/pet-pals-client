@@ -5,6 +5,7 @@ import samplePet from "../assets/sampleDog2.jpeg";
 import { useLocation, Link } from "react-router-dom";
 import Gallery from "../components/gallery/Gallery";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -18,6 +19,8 @@ const Pet = () => {
   const { pet } = location.state;
   const petImg = pet.pet_pictures;
   const [requests, setRequests] = useState([]);
+  const { startDate, endDate } = useSelector((state) => state.datePicker);
+  console.log(startDate, endDate);
 
   useEffect(() => {
     (async () => {
@@ -72,8 +75,21 @@ const Pet = () => {
         <section className="petOptions">
           <DatePicker isDateBlocked={isDateInApprovedRequest} />
           {/*TODO: Pet , Pet Questions, selected dates required to the Link*/}
-          <Link to="/carer/questionnaire" state={{ pet: pet }}>
-            <button className="card-button">Book Date</button>
+          <Link
+            to="/carer/questionnaire"
+            state={{ pet: pet }}
+            style={
+              startDate === null || endDate === null
+                ? { pointerEvents: "none" }
+                : {}
+            }>
+            <button
+              className="card-button"
+              style={
+                startDate === null || endDate === null ? { opacity: "0.4" } : {}
+              }>
+              Book Date
+            </button>
           </Link>
         </section>
         <section className="petFlexBox">
