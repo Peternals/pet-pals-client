@@ -9,11 +9,9 @@ const initialState = {
     owner_id: null,
     description: null,
     pet_pictures: [],
+    tag: [],
   },
   pet_questions: [],
-  initialPets: [],
-  filteredPets: [],
-  isFiltered: false,
 };
 
 export const petDataStore = createAsyncThunk(
@@ -59,40 +57,6 @@ export const petDataStore = createAsyncThunk(
 //   }
 // );
 
-export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const { data: response } = await axios.get(`${REACT_APP_SERVER_URL}/pet`, {
-      headers: {
-        "x-access-token": token,
-      },
-    });
-    return response;
-  } catch (err) {
-    return { err: err.response.data };
-  }
-});
-
-export const fetchPetsByType = createAsyncThunk(
-  "pet/fetchPetsByType",
-  async (type) => {
-    try {
-      const token = localStorage.getItem("token");
-      const { data: response } = await axios.get(
-        `${REACT_APP_SERVER_URL}/pet/type/${type}`,
-        {
-          headers: {
-            "x-access-token": token,
-          },
-        }
-      );
-      return response;
-    } catch (err) {
-      return { err: err.response.data };
-    }
-  }
-);
-
 export const petSlice = createSlice({
   name: "pet",
   initialState,
@@ -116,34 +80,22 @@ export const petSlice = createSlice({
     getOwnerId: (state, action) => {
       state.info.owner_id = action.payload;
     },
-    resetFilter: (state, action) => {
-      state.filteredPets = state.initialPets;
-      state.isFiltered = false;
+    getPetTag: (state, action) => {
+      state.info.tag = action.payload;
     },
     signOutPetCleanUp: (state) => {
-			state.info.type = null;
-			state.info.name = null;
-			state.info.owner_id = null;
-			state.info.description = null;
-			state.info.pet_pictures = [];
+      state.info.type = null;
+      state.info.name = null;
+      state.info.owner_id = null;
+      state.info.description = null;
+      state.info.pet_pictures = [];
       state.pet_questions = [];
-      state.initialPets = [];
-      state.filteredPets = [];
-      state.isFiltered = false;
-		},
+    },
   },
   extraReducers: {
     [petDataStore.fulfilled]: (state, action) => {
       state.info.owner_id = action.payload.owner_id;
       state.pet_questions = action.payload.questionnaire;
-    },
-    [fetchAllPets.fulfilled]: (state, action) => {
-      state.initialPets = action.payload;
-      state.isFiltered = false;
-    },
-    [fetchPetsByType.fulfilled]: (state, action) => {
-      state.filteredPets = action.payload;
-      state.isFiltered = true;
     },
   },
 });
@@ -154,7 +106,7 @@ export const {
   getPetDescription,
   getPetPicture,
   getPetQuestions,
-  resetFilter,
+  getPetTag,
   signOutPetCleanUp,
 } = petSlice.actions;
 export default petSlice.reducer;

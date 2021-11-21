@@ -24,22 +24,77 @@ import OwnerHome from "./components/owners/OwnerHome";
 import GalleryPage from "./pages/GalleryPage";
 import UpdateUserInfo from "./pages/UpdateUserInfo";
 import CarerProfilePage from "./pages/CarerProfilePage";
+import {
+  addMessageAction,
+  setSeenStateAction,
+  signOutMessengerCleanUp,
+} from "./slicers/messengerSlice";
+import { getConversationsAction } from "./slicers/actions/messageActions";
+import axios from "axios";
+
+const { REACT_APP_SERVER_URL } = process.env;
 
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const type = useSelector((state) => state.user.type);
   const id = useSelector((state) => state.user._id);
+  const currentChatUser = useSelector(
+    (state) => state.messenger.currentChatUser
+  );
+
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      socket.on("receiveMessage", async (data) => {
+        await dispatch(getConversationsAction());
+        if (currentChatUser._id === data.sender_id) {
+          dispatch(addMessageAction(data));
+          dispatch(
+            setSeenStateAction({
+              conversation_id: data.conversation_id,
+              user_id: data.receiver_id,
+            })
+          );
+          await axios.post(
+            `${REACT_APP_SERVER_URL}/messages/seen/${data.conversation_id}`,
+            {},
+            {
+              headers: {
+                "x-access-token": localStorage.getItem("token"),
+              },
+            }
+          );
+        }
+      });
+    }
+    return () => {
+      socket.off("receiveMessage");
+    };
+  }, [dispatch, currentChatUser, isLoggedIn]);
 
   useEffect(() => {
     (async () => {
       try {
-        dispatch(verifyTokenAction());
+        await dispatch(verifyTokenAction());
       } catch (error) {
         console.log(error);
       }
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (isLoggedIn === true) await dispatch(getConversationsAction());
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
+    return () => {
+      dispatch(signOutMessengerCleanUp());
+    };
+  }, [dispatch, isLoggedIn]);
   useEffect(() => {
     if (isLoggedIn === true) {
       socket.connect();

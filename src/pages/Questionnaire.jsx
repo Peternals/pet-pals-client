@@ -128,7 +128,6 @@ const Questionnaire = () => {
 
   return (
     <main className="questionnaireMain">
-      <p>Hello</p>
       <form onSubmit={onSubmit}>
         {pet.questionnaire.map((question, index) => {
           return (
@@ -140,13 +139,17 @@ const Questionnaire = () => {
                   className="form-control"
                   onChange={(e) => {
                     handleInput(e, index);
-                  }}
-                ></textarea>
+                  }}></textarea>
               </label>
             </div>
           );
         })}
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          disabled={qa.some((QA) => QA.answer === "")}
+          style={qa.some((QA) => QA.answer === "") ? { opacity: 0.4 } : {}}>
+          Submit
+        </button>
       </form>
     </main>
   );
