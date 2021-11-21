@@ -17,7 +17,6 @@ const UpdateUserInfo = () => {
   const [currentInterests, setCurrentInterests] = useState();
 
   const _id = useSelector((state) => state.user._id);
-  const userInterests = useSelector((state) => state.interests);
   const dispatch = useDispatch();
 
   const typeTags = [
