@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Contacts from "../components/messenger/Contacts";
 import MessageBox from "../components/messenger/MessageBox";
-import { getConversationsAction } from "../slicers/actions/messageActions";
 import { cleanOutMessengerBox } from "../slicers/messengerSlice";
 import "../styles/messenger/messenger.scss";
 
