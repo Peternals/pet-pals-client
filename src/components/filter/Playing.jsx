@@ -26,22 +26,21 @@ const Playing = () => {
 
   return (
     <section>
-      <h2>Where to Play?</h2>
-      <div>
+      <h4>Where to Play?</h4>
+      <ul>
         {playingTags.map((playing, i) => (
-          <div key={i}>
-            <label>
-              <input
-                type="checkbox"
-                value={playing}
-                name="playing"
-                onClick={handleFilter}
-              />
-              {playing}
-            </label>
-          </div>
+          <li key={i}>
+            <input
+              type="checkbox"
+              value={playing}
+              name="playing"
+              id={playing}
+              onClick={handleFilter}
+            />
+            <label htmlFor={playing}>{playing}</label>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

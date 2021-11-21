@@ -35,18 +35,28 @@ const FilterContainer = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Type />
-        <Size />
-        <PetHealth />
-        <Trained />
-        <Playing />
-        <button>Search Pets</button>
-      </form>
-      <button onClick={handleViewAll}>See All</button>
-      <div>
-        <button onClick={resetView}>Reset</button>
+    <div className="filterContainer">
+      <div className="filterContainer2">
+        <div className="filterContainer3">
+          <div className="filterBtns">
+            <button className="seeAll" onClick={handleViewAll}>
+              See All
+            </button>
+            <button className="reset" onClick={resetView}>
+              Reset
+            </button>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <button className="searchPets">Search Pets</button>
+            <div className="tagContainer">
+              <Type />
+              <Size />
+              <PetHealth />
+              <Trained />
+              <Playing />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

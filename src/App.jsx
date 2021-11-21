@@ -46,7 +46,8 @@ function App() {
   useEffect(() => {
     if (isLoggedIn === true) {
       socket.on("receiveMessage", async (data) => {
-        await dispatch(getConversationsAction());
+        console.log("1");
+        dispatch(getConversationsAction());
         if (currentChatUser._id === data.sender_id) {
           dispatch(addMessageAction(data));
           dispatch(

@@ -7,7 +7,7 @@ const PetGrid = () => {
   const filteredPets = useSelector((state) => state.filterOptions.filteredPets);
   const isFiltered = useSelector((state) => state.filterOptions.isFiltered);
   return (
-    <div className="container" style={{ marginTop: "50px" }}>
+    <div className="container">
       <div className="row">
         {!isFiltered ? (
           allPets.map((pet, i) => <PetCard pet={pet} key={i} />)
