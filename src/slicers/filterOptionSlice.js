@@ -26,7 +26,6 @@ export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
 export const fetchPetsByTag = createAsyncThunk(
   "pet/fetchPetsByTag",
   async (tags) => {
-    console.log(tags);
     try {
       const token = localStorage.getItem("token");
       const { data: response } = await axios.get(
@@ -39,7 +38,6 @@ export const fetchPetsByTag = createAsyncThunk(
           },
         }
       );
-      console.log(response);
       return response;
     } catch (err) {
       return { err: err.response.data };
@@ -52,8 +50,8 @@ const filterOptionSlice = createSlice({
   initialState,
   reducers: {
     resetFilter: (state, action) => {
-      state.filteredPets = state.initialPets;
-      state.isFiltered = false;
+      state.tags = [];
+      state.isFiltered = true;
     },
     addFilter: (state, action) => {
       const added = action.payload;
