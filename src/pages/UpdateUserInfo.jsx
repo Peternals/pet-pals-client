@@ -17,6 +17,27 @@ const UpdateUserInfo = () => {
   const _id = useSelector((state) => state.user._id);
   const dispatch = useDispatch();
 
+  const typeTags = [
+    "Dog",
+    "Cat",
+    "Otter",
+    "Snake",
+    "Rabbit",
+    "Hamster",
+    "Marmot",
+    "Parakeet",
+    "Hedgehog",
+    "Ferret",
+    "Iguana",
+    "Mini pig",
+    "Turtle",
+    "Fish",
+  ];
+  const sizeTags = ["Small", "Medium", "Large", "Giant"];
+  const healthTags = ["Vaccinated", "Neutered", "Need supplements"];
+  const trainedTags = ["Litter trained", "Child friendly", "House trained"];
+  const playingTags = ["Outside", "Inside"];
+
   const validationSchema = Yup.object().shape({
     username: Yup.string(),
     email: Yup.string().email("Email is invalid"),
@@ -77,21 +98,53 @@ const UpdateUserInfo = () => {
       img = await submitPic(data.profile_picture[0]);
     }
 
-    const modifyData = () => {
+    const modifyProfileData = () => {
+      const updateProfileData = {};
       const dirtyKeys = Object.keys(dirtyFields);
-      const originalKeys = Object.keys(data);
-      const deleteKeys = originalKeys.filter(
-        (originalKey) => !dirtyKeys.includes(originalKey)
-      );
-      for (let key of deleteKeys) {
-        delete data[key];
+      const profileDirtyKeys = dirtyKeys.filter((key) => {
+        return (
+          key !== "petType" &&
+          key !== "petSizeTag" &&
+          key !== "petHealthTag" &&
+          key !== "petTrainedTag" &&
+          key !== "petPlayingTag"
+        );
+      });
+      for (let key of profileDirtyKeys) {
+        updateProfileData[key] = data[key];
       }
-      data.profile_picture = img;
-      return data;
-    };
-    modifyData();
 
-    const updateUserAction = await dispatch(updateUserInfo({ _id, data }));
+      updateProfileData.profile_picture = img;
+      return updateProfileData;
+    };
+    const updateProfileData = modifyProfileData();
+
+    const modifyInterstsData = () => {
+      const updateInterestsData = [];
+      const dirtyKeys = Object.keys(dirtyFields);
+      const interestsDirtyKeys = dirtyKeys.filter((key) => {
+        return (
+          key !== "username" &&
+          key !== "email" &&
+          key !== "password" &&
+          key !== "description" &&
+          key !== "profile_picture"
+        );
+      });
+      for (let key of interestsDirtyKeys) {
+        updateInterestsData.push(data[key]);
+      }
+
+      return updateInterestsData.flat();
+    };
+    const updateInterstsData = modifyInterstsData();
+
+    const updateData = updateProfileData;
+    updateData.interests = updateInterstsData;
+
+    const updateUserAction = await dispatch(
+      updateUserInfo({ _id, updateData })
+    );
     if (updateUserAction.payload.err) {
       setErrorMessage("Accout update is falied");
     } else {
@@ -116,7 +169,7 @@ const UpdateUserInfo = () => {
               }}
             />
             {selectedFile && (
-              <img src={preview} alt="selectedImg" style={{ width: "50%" }} />
+              <img src={preview} alt="selectedImg" style={{ width: "20%" }} />
             )}
           </div>
           <input
@@ -135,6 +188,62 @@ const UpdateUserInfo = () => {
           />
           <div>{errors.password?.message}</div>
           <input type="type" placeholder="Bio" {...register("description")} />
+          <div>Interests</div>
+          <select type="text" {...register("petType")}>
+            <option>Select Pet Type</option>
+            {typeTags.map((type, i) => (
+              <option value={type} key={i}>
+                {type}
+              </option>
+            ))}
+          </select>
+          <select type="text" {...register("petSizeTag")}>
+            <option>Select Pet Size</option>
+            {sizeTags.map((size, i) => (
+              <option value={size} key={i}>
+                {size}
+              </option>
+            ))}
+          </select>
+          <div>
+            {healthTags.map((health, i) => (
+              <label key={i}>
+                <input
+                  type="checkbox"
+                  value={health}
+                  name="health"
+                  {...register("petHealthTag")}
+                />
+                {health}
+              </label>
+            ))}
+          </div>
+          <div>
+            {trainedTags.map((trained, i) => (
+              <label key={i}>
+                <input
+                  type="checkbox"
+                  value={trained}
+                  name="trained"
+                  {...register("petTrainedTag")}
+                />
+                {trained}
+              </label>
+            ))}
+          </div>
+          <div>
+            {playingTags.map((playing, i) => (
+              <label key={i}>
+                <input
+                  type="checkbox"
+                  value={playing}
+                  name="playing"
+                  {...register("petPlayingTag")}
+                />
+                {playing}
+              </label>
+            ))}
+          </div>
           <button>Save</button>
         </form>
       </div>

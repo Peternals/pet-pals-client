@@ -60,11 +60,12 @@ export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
 
 export const updateUserInfo = createAsyncThunk(
   "user/update",
-  async ({ _id, data }) => {
+  async ({ _id, updateData }) => {
     try {
+      console.log(updateData);
       const response = await axios.patch(
         `${REACT_APP_SERVER_URL}/user/${_id}`,
-        { _id, data }
+        { _id, updateData }
       );
       return response.data;
     } catch (err) {
@@ -148,6 +149,7 @@ export const userSlice = createSlice({
         state.email = action.payload.email;
         state.description = action.payload.description;
         state.profile_picture = action.payload.profile_picture;
+        state.interests = action.payload.interests;
       }
     },
   },
