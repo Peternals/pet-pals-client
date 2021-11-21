@@ -8,9 +8,9 @@ const PetHealth = () => {
 
   const handleFilter = (e) => {
     if (e.target.checked) {
-      dispatch(addFilter({ key: "petHealth", value: e.target.value }));
+      dispatch(addFilter(e.target.value));
     } else {
-      dispatch(removeFilter({ key: "petHealth", value: e.target.value }));
+      dispatch(removeFilter(e.target.value));
     }
   };
 

@@ -12,9 +12,6 @@ const initialState = {
     tag: [],
   },
   pet_questions: [],
-  initialPets: [],
-  filteredPets: [],
-  isFiltered: false,
 };
 
 export const petDataStore = createAsyncThunk(
