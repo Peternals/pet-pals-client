@@ -58,11 +58,24 @@ export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
   }
 });
 
+export const fetchUserInfo = createAsyncThunk(
+  "user/fetch",
+  async (_id) => {
+    try {
+      const response = await axios.get(
+        `${REACT_APP_SERVER_URL}/user/${_id}`
+      );
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data }
+    }
+  }
+)
+
 export const updateUserInfo = createAsyncThunk(
   "user/update",
   async ({ _id, updateData }) => {
     try {
-      console.log(updateData);
       const response = await axios.patch(
         `${REACT_APP_SERVER_URL}/user/${_id}`,
         { _id, updateData }
@@ -142,6 +155,9 @@ export const userSlice = createSlice({
         ...action.payload,
         isLoggedIn: "err" in action.payload ? false : true,
       };
+    },
+    [fetchUserInfo.fulfilled]: (state, action) => {
+      state.interests = action.payload.interests;
     },
     [updateUserInfo.fulfilled]: (state, action) => {
       if (!action.payload.err) {

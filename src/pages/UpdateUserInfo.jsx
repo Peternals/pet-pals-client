@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/update.scss";
 import { updateUserInfo } from "../slicers/userSlice";
+import { fetchUserInfo } from "../slicers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,8 +14,10 @@ const UpdateUserInfo = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+  const [currentInterests, setCurrentInterests] = useState();
 
   const _id = useSelector((state) => state.user._id);
+  const userInterests = useSelector((state) => state.interests);
   const dispatch = useDispatch();
 
   const typeTags = [
@@ -53,6 +56,11 @@ const UpdateUserInfo = () => {
   });
 
   const imageField = register("profile_picture", { required: true });
+
+  useEffect(async () => {
+    const fetchInterests = await dispatch(fetchUserInfo(_id));
+    setCurrentInterests(fetchInterests.payload.interests);
+  }, []);
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -158,6 +166,7 @@ const UpdateUserInfo = () => {
       <div>{errorMessage ? errorMessage : successMessage}</div>
       <div className="update">
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div>Profile</div>
           <div>
             <input
               type="file"
@@ -188,24 +197,38 @@ const UpdateUserInfo = () => {
           />
           <div>{errors.password?.message}</div>
           <input type="type" placeholder="Bio" {...register("description")} />
+          <hr></hr>
           <div>Interests</div>
-          <select type="text" {...register("petType")}>
-            <option>Select Pet Type</option>
-            {typeTags.map((type, i) => (
-              <option value={type} key={i}>
-                {type}
-              </option>
-            ))}
-          </select>
-          <select type="text" {...register("petSizeTag")}>
-            <option>Select Pet Size</option>
-            {sizeTags.map((size, i) => (
-              <option value={size} key={i}>
-                {size}
-              </option>
-            ))}
-          </select>
           <div>
+            <div>Pet Type :</div>
+            {typeTags.map((type, i) => (
+              <label key={i}>
+                <input
+                  type="checkbox"
+                  value={type}
+                  name="petType"
+                  {...register("petType")}
+                />
+                {type}&nbsp;&nbsp;
+              </label>
+            ))}
+          </div>
+          <div>
+            Pet Sieze :&nbsp;&nbsp;
+            {sizeTags.map((size, i) => (
+              <label key={i}>
+                <input
+                  type="checkbox"
+                  value={size}
+                  name="petSizeTag"
+                  {...register("petSizeTag")}
+                />
+                {size}&nbsp;&nbsp;
+              </label>
+            ))}
+          </div>
+          <div>
+            Pet Health :&nbsp;&nbsp;
             {healthTags.map((health, i) => (
               <label key={i}>
                 <input
@@ -214,11 +237,12 @@ const UpdateUserInfo = () => {
                   name="health"
                   {...register("petHealthTag")}
                 />
-                {health}
+                {health}&nbsp;&nbsp;
               </label>
             ))}
           </div>
           <div>
+            Trained :&nbsp;&nbsp;
             {trainedTags.map((trained, i) => (
               <label key={i}>
                 <input
@@ -227,11 +251,12 @@ const UpdateUserInfo = () => {
                   name="trained"
                   {...register("petTrainedTag")}
                 />
-                {trained}
+                {trained}&nbsp;&nbsp;
               </label>
             ))}
           </div>
           <div>
+            Where to Play ? :&nbsp;&nbsp;
             {playingTags.map((playing, i) => (
               <label key={i}>
                 <input
@@ -240,9 +265,18 @@ const UpdateUserInfo = () => {
                   name="playing"
                   {...register("petPlayingTag")}
                 />
-                {playing}
+                {playing}&nbsp;&nbsp;
               </label>
             ))}
+          </div>
+          <br />
+          <div>The Current Intersts </div>
+          <div>
+            {currentInterests
+              ? currentInterests.map((interest, i) => (
+                  <span key={i}>{interest}&nbsp;&nbsp;</span>
+                ))
+              : ""}
           </div>
           <button>Save</button>
         </form>
