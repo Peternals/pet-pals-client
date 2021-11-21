@@ -8,9 +8,9 @@ const Playing = () => {
 
   const handleFilter = (e) => {
     if (e.target.checked) {
-      dispatch(addFilter({ key: "playing", value: e.target.value }));
+      dispatch(addFilter(e.target.value));
     } else {
-      dispatch(removeFilter({ key: "playing", value: e.target.value }));
+      dispatch(removeFilter(e.target.value));
     }
   };
 

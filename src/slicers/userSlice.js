@@ -14,6 +14,7 @@ const initialState = {
   type: null,
   _id: null,
   Carer: null,
+  interests: [],
 };
 
 export const validation = createAsyncThunk(
@@ -51,7 +52,6 @@ export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
       signInInput
     );
     localStorage.setItem("token", response.data.token);
-    console.log(response.data);
     return response.data;
   } catch (err) {
     return { err: err.response.data };
@@ -119,6 +119,7 @@ export const userSlice = createSlice({
         state.type = action.payload.user.type;
         state._id = action.payload.user._id;
         state.Carer = action.payload.user.Carer;
+        state.interests = action.payload.user.interests;
       }
     },
     [signIn.fulfilled]: (state, action) => {
@@ -131,6 +132,7 @@ export const userSlice = createSlice({
         state.type = action.payload.user.type;
         state._id = action.payload.user._id;
         state.Carer = action.payload.user.Carer;
+        state.interests = action.payload.user.interests;
       }
     },
     [verifyTokenAction.fulfilled]: (state, action) => {

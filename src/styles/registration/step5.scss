@@ -1,0 +1,81 @@
+@import "../variables.scss";
+
+.step5Main {
+  padding-top: 70px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  a {
+    text-decoration: underline;
+    color: $primaryColor;
+  }
+  .ste5MainForm {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 1px 1px 4px $shadow;
+    border-radius: 20px;
+    max-height: 90%;
+    form {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      input {
+        width: 90%;
+        padding: 5px;
+        border: 0;
+        outline: none;
+        border-bottom: 1px solid $shadow;
+        &:focus {
+          border-bottom: 1px solid $primaryColor;
+        }
+      }
+      button {
+        width: 10%;
+        outline: none;
+        background-color: transparent;
+        border: none;
+        font-size: 1.5em;
+        color: $secondaryColor;
+      }
+    }
+
+    ol {
+      overflow: auto;
+      width: 100%;
+      max-height: 70%;
+      padding-right: 20px;
+      p {
+        max-width: 90%;
+      }
+
+      li {
+        color: rgb(85, 85, 85);
+        padding-bottom: 10px;
+        .question {
+          justify-content: space-between;
+          font-size: 1.5em;
+          display: flex;
+          width: 100%;
+        }
+        i {
+          color: rgb(255, 125, 125);
+        }
+      }
+    }
+    button {
+      background-color: $secondaryColor;
+      color: white;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+    }
+  }
+}

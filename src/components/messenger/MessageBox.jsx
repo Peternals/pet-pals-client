@@ -25,19 +25,12 @@ const MessageBox = () => {
   const scrollRef2 = useRef();
 
   useEffect(() => {
-    socket.on("receiveMessage", (data) => {
-      dispatch(getConversationsAction());
-      if (currentChatUser._id === data.sender_id) {
-        dispatch(addMessageAction(data));
-      }
-    });
     socket.on("senderTyping", (data) => {
       if (currentChatUser._id === data.sender_id) {
         setSenderTyping(data.current);
       }
     });
     return () => {
-      socket.off("receiveMessage");
       socket.off("senderTyping");
     };
   }, [dispatch, currentChatUser]);
@@ -48,8 +41,8 @@ const MessageBox = () => {
   }, [currentConversation, dispatch]);
 
   useEffect(() => {
-    if (messageList.length > 0) scrollRef?.current.scrollIntoView();
     if (senderTyping) scrollRef2?.current.scrollIntoView();
+    if (messageList.length > 0) scrollRef?.current.scrollIntoView();
   }, [messageList, senderTyping]);
 
   useEffect(() => {
@@ -72,6 +65,7 @@ const MessageBox = () => {
           text: message,
           receiver_id: currentChatUser._id,
           sender_id: id,
+          conversation_id: currentConversation,
         };
         await axios.post(
           `${process.env.REACT_APP_SERVER_URL}/messages`,
