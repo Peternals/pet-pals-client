@@ -82,8 +82,6 @@ export default function Step5() {
       questionnaire: questions.map((obj) => obj.text),
     };
 
-    console.log(questionPayload);
-
     const petDataStoreAction = await dispatch(
       petDataStore({
         type: petSignUpInfo.type,
@@ -92,6 +90,7 @@ export default function Step5() {
         description: petSignUpInfo.description,
         pet_pictures: petPic,
         questionnaire: questionPayload.questionnaire,
+        tag: petSignUpInfo.tag,
       })
     );
 
