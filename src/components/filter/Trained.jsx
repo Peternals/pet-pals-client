@@ -26,22 +26,21 @@ const Trained = () => {
 
   return (
     <section>
-      <h2>Trained</h2>
-      <div>
+      <h4>Trained</h4>
+      <ul>
         {trainedTags.map((trained, i) => (
-          <div key={i}>
-            <label>
-              <input
-                type="checkbox"
-                value={trained}
-                name="trained"
-                onClick={handleFilter}
-              />
-              {trained}
-            </label>
-          </div>
+          <li key={i}>
+            <input
+              type="checkbox"
+              value={trained}
+              name="trained"
+              onClick={handleFilter}
+              id={trained}
+            />
+            <label htmlFor={trained}>{trained}</label>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

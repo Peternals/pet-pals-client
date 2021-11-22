@@ -26,22 +26,21 @@ const PetHealth = () => {
 
   return (
     <section>
-      <h2>Pet Health</h2>
-      <div>
+      <h4>Pet Health</h4>
+      <ul>
         {healthTags.map((health, i) => (
-          <div key={i}>
-            <label>
-              <input
-                type="checkbox"
-                value={health}
-                name="health"
-                onClick={handleFilter}
-              />
-              {health}
-            </label>
-          </div>
+          <li key={i}>
+            <input
+              type="checkbox"
+              value={health}
+              name="health"
+              id={health}
+              onClick={handleFilter}
+            />
+            <label htmlFor={health}>{health}</label>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

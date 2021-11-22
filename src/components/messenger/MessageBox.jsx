@@ -67,6 +67,7 @@ const MessageBox = () => {
           sender_id: id,
           conversation_id: currentConversation,
         };
+        dispatch(addMessageAction(data));
         await axios.post(
           `${process.env.REACT_APP_SERVER_URL}/messages`,
           {
@@ -82,8 +83,7 @@ const MessageBox = () => {
           }
         );
         socket.emit("sendMessage", data);
-        await dispatch(addMessageAction(data));
-        await dispatch(getConversationsAction());
+        dispatch(getConversationsAction());
         setMessage("");
       }
     } catch (error) {

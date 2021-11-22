@@ -1,130 +1,154 @@
 @import "../variables.scss";
 
 @mixin mainRegistration {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
-	form {
-		width: 90%;
-		max-width: 400px;
-		background-color: white;
-		padding: 20px;
-		border-radius: 20px;
-		box-shadow: 1px 1px 5px 2px $shadow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+  padding-bottom: 40px;
+  overflow: hidden;
+  padding-top: 80px;
+  form {
+    width: 90%;
+    max-width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px 2px $shadow;
 
-		transition: 0.5s;
-		&:hover {
-			transform: scale(1.05);
-		}
+    transition: 0.5s;
+    &:hover {
+      transform: scale(1.05);
+    }
 
-		input {
-			width: 100%;
-			border: none;
-			background-color: transparent;
-			outline: none;
-			margin: 10px 0;
-			padding: 5px 0;
-			color: white;
-			font-size: 1.1em;
-		}
-		select {
-			margin: 10px 0;
-			padding: 5px;
-			outline: none;
-			border: none;
-			border-radius: 10px;
-		}
-		textarea {
-			height: 200px;
-			width: 100%;
-			resize: none;
-			padding: 10px;
-			border: none;
-			outline: none;
-			border-radius: 10px;
-			font-size: 1.1em;
-		}
-		button {
-			margin-top: 20px;
+    input {
+      width: 100%;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      margin: 10px 0;
+      padding: 5px 0;
+      color: white;
+      font-size: 1.1em;
+    }
+    select {
+      margin: 10px 5px;
+      padding: 5px;
+      outline: none;
+      border: none;
+      border-radius: 10px;
+    }
+    textarea {
+      height: 200px;
+      width: 100%;
+      resize: none;
+      padding: 10px;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+    }
+    button {
+      margin-top: 20px;
 
-			box-shadow: 1px 1px 3px $shadow;
-			border: none;
-			padding: 10px;
+      box-shadow: 1px 1px 3px $shadow;
+      border: none;
+      padding: 10px;
 
-			border-radius: 30px;
-			width: 100%;
-		}
-	}
+      border-radius: 30px;
+      width: 100%;
+    }
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      label {
+        border-radius: 100px;
+        background-color: rgb(0, 155, 175);
+        padding: 2px 5px;
+        opacity: 0.4;
+        margin: 3px;
+        color: white;
+      }
+      input[type="checkbox"] {
+        display: none;
+      }
+    }
+
+    input[type="checkbox"]:checked ~ label {
+      opacity: 1 !important;
+    }
+  }
 }
 
 @mixin red {
-	form {
-		background-color: $tertiaryColor;
-		input {
-			border-bottom: 1px solid #ffd6dc;
-		}
-		textarea {
-			background-color: #ffd6dc;
-		}
-		select {
-			background-color: #ffd6dc;
-		}
-		button {
-			background-color: #ffd6dc;
-			color: $tertiaryColor;
-		}
-	}
-	a {
-		color: #ffd6dc;
-	}
-	h1 {
-		color: #ffd6dc;
-	}
-	input::placeholder {
-		color: #ffd6dc;
-	}
-	button {
-		margin-top: 10px;
+  form {
+    background-color: $tertiaryColor;
+    input {
+      border-bottom: 1px solid #ffd6dc;
+    }
+    textarea {
+      background-color: #ffd6dc;
+    }
+    select {
+      background-color: #ffd6dc;
+    }
+    button {
+      background-color: #ffd6dc;
+      color: $tertiaryColor;
+    }
+  }
+  a {
+    color: #ffd6dc;
+  }
+  h1 {
+    color: #ffd6dc;
+  }
+  input::placeholder {
+    color: #ffd6dc;
+  }
+  button {
+    margin-top: 10px;
 
-		box-shadow: 1px 1px 3px $shadow;
-		border: none;
-		padding: 10px;
+    box-shadow: 1px 1px 3px $shadow;
+    border: none;
+    padding: 10px;
 
-		border-radius: 30px;
-		width: 30%;
-		color: #ff465e;
-	}
+    border-radius: 30px;
+    width: 30%;
+    color: #ff465e;
+  }
 }
 
 @mixin green {
-	form {
-		background-color: $secondaryColor;
-		input {
-			border-bottom: 1px solid #90ffd3;
-		}
-		textarea {
-			background-color: #90ffd3;
-		}
-		select {
-			background-color: #90ffd3;
-			color: #005835;
-		}
-		button {
-			background-color: #90ffd3;
-			color: #005835;
-		}
-	}
-	a {
-		color: #90ffd3;
-	}
-	h1 {
-		color: #90ffd3;
-	}
-	input::placeholder {
-		color: #90ffd3;
-	}
+  form {
+    background-color: $secondaryColor;
+    input {
+      border-bottom: 1px solid #90ffd3;
+    }
+    textarea {
+      background-color: #90ffd3;
+    }
+    select {
+      background-color: #90ffd3;
+      color: #005835;
+    }
+    button {
+      background-color: #90ffd3;
+      color: #005835;
+    }
+  }
+  a {
+    color: #90ffd3;
+  }
+  h1 {
+    color: #90ffd3;
+  }
+  input::placeholder {
+    color: #90ffd3;
+  }
 }

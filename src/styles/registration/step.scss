@@ -3,11 +3,11 @@
 
 .step3Owner,
 .step4 {
-	@include mainRegistration;
-	@include green;
+  @include mainRegistration;
+  @include green;
 }
 
 .step3Carer {
-	@include mainRegistration;
-	@include red;
+  @include mainRegistration;
+  @include red;
 }
