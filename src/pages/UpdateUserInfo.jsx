@@ -56,9 +56,11 @@ const UpdateUserInfo = () => {
 
   const imageField = register("profile_picture", { required: true });
 
-  useEffect(async () => {
-    const fetchInterests = await dispatch(fetchUserInfo(_id));
-    setCurrentInterests(fetchInterests.payload.interests);
+  useEffect(() => {
+    (async () => {
+      const result = await dispatch(fetchUserInfo(_id));
+      setCurrentInterests(result.payload.interests);
+    })();
   }, []);
 
   // create a preview as a side effect, whenever selected file is changed
