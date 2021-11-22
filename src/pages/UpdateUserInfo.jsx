@@ -61,7 +61,7 @@ const UpdateUserInfo = () => {
       const result = await dispatch(fetchUserInfo(_id));
       setCurrentInterests(result.payload.interests);
     })();
-  }, []);
+  }, [_id, dispatch]);
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
