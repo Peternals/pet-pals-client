@@ -89,6 +89,12 @@ export const userSlice = createSlice({
     getProfilePicture: (state, action) => {
       state.profile_picture = action.payload.profile_picture;
     },
+    updateRequest: (state, action) => {
+      console.log(action.payload);
+      const reqId = action.payload._id;
+      const filter = state.Carer.requests.filter((req) => req._id !== reqId);
+      state.Carer.requests = [...filter, action.payload];
+    },
     signOutCleanUp: (state) => {
       state.isLoggedIn = false;
       state.isSuccess = false;
@@ -159,5 +165,6 @@ export const {
   getProfilePicture,
   getType,
   signOutCleanUp,
+  updateRequest,
 } = userSlice.actions;
 export default userSlice.reducer;

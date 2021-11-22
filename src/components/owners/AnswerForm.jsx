@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { socket } from "../../socket";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const AnswerForm = ({
@@ -40,6 +41,28 @@ const AnswerForm = ({
       }
       await getRequests();
       closeAnswerForm();
+      //       pet_id
+      // :
+      // "619a3bf5d0f2f593b14bc0a8"
+      // pet_name
+      // :
+      // "brook"
+      // start
+      // :
+      // 2022-01-11T03:00:00.000+00:00
+      // end
+      // :
+      // 2022-01-12T03:00:00.000+00:00
+      // status
+      // :
+      // "Approved"
+      socket.emit("notifyRequest", {
+        user_id: currentRequest._id,
+        request: {
+          ...currentRequest.request,
+          status: action,
+        },
+      });
     } catch (error) {
       console.log(error);
     }

@@ -7,6 +7,7 @@ import { signOutPetCleanUp } from "../../slicers/petSlice";
 import { signOutMessengerCleanUp } from "../../slicers/messengerSlice";
 import { signOutDateCleanUp } from "../../slicers/datePickerSlice";
 import Notification from "./Notification";
+import { socket } from "../../socket";
 
 const Navbar = () => {
   const { type, _id } = useSelector((state) => state.user);
@@ -29,6 +30,7 @@ const Navbar = () => {
     dispatch(signOutPetCleanUp());
     dispatch(signOutMessengerCleanUp());
     dispatch(signOutDateCleanUp());
+    socket.disconnect();
     window.localStorage.removeItem("token");
   };
 

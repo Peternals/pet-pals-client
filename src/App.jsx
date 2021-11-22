@@ -31,6 +31,8 @@ import {
 } from "./slicers/messengerSlice";
 import { getConversationsAction } from "./slicers/actions/messageActions";
 import axios from "axios";
+import { updateRequest } from "./slicers/userSlice";
+import ringtone from "./assets/ringtone.mp3";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -43,10 +45,11 @@ function App() {
     (state) => state.messenger.currentChatUser
   );
 
+  // get all messages, set message actions to be received by the user
   useEffect(() => {
     if (isLoggedIn === true) {
       socket.on("receiveMessage", async (data) => {
-        console.log("1");
+        new Audio(ringtone).play();
         dispatch(getConversationsAction());
         if (currentChatUser._id === data.sender_id) {
           dispatch(addMessageAction(data));
@@ -73,6 +76,7 @@ function App() {
     };
   }, [dispatch, currentChatUser, isLoggedIn]);
 
+  //verify token and get user info
   useEffect(() => {
     (async () => {
       try {
@@ -83,6 +87,22 @@ function App() {
     })();
   }, [dispatch]);
 
+  //if the user is login, add the user to the socket user array
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      socket.connect();
+      socket.emit("addUser", { user_id: id });
+      socket.on("notifyRequest", (data) => {
+        new Audio(ringtone).play();
+        dispatch(updateRequest(data.request));
+      });
+    }
+    return () => {
+      socket.disconnect();
+    };
+  }, [isLoggedIn, id, dispatch]);
+
+  //get all conversations of the user
   useEffect(() => {
     (async () => {
       try {
@@ -96,15 +116,6 @@ function App() {
       dispatch(signOutMessengerCleanUp());
     };
   }, [dispatch, isLoggedIn]);
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      socket.connect();
-      socket.emit("addUser", { user_id: id });
-    }
-    return () => {
-      socket.disconnect();
-    };
-  }, [isLoggedIn, id]);
 
   const closeAnyNotif = (e) => {
     // document.querySelector(".notification").classList.remove("showNotif");
