@@ -41,22 +41,21 @@ const Type = () => {
 
   return (
     <section>
-      <h2>Type</h2>
-      <div>
+      <h4>Type</h4>
+      <ul>
         {typeTags.map((type, i) => (
-          <div key={i}>
-            <label>
-              <input
-                type="checkbox"
-                value={type}
-                name="type"
-                onClick={handleFilter}
-              />
-              {type}
-            </label>
-          </div>
+          <li key={i}>
+            <input
+              type="checkbox"
+              value={type}
+              name="type"
+              onClick={handleFilter}
+              id={type}
+            />
+            <label htmlFor={type}>{type}</label>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

@@ -131,8 +131,7 @@ export default function Step3Carer() {
           <textarea
             type="text"
             placeholder="Bio"
-            {...register("description")}
-          ></textarea>
+            {...register("description")}></textarea>
           <div>{errors.description?.message}</div>
           <select type="text" {...register("petType")}>
             <option>Select Pet Type</option>
@@ -150,45 +149,54 @@ export default function Step3Carer() {
               </option>
             ))}
           </select>
-          <div>
+          <ul>
             {healthTags.map((health, i) => (
-              <label key={i}>
+              <li>
                 <input
                   type="checkbox"
                   value={health}
                   name="health"
+                  id={health}
                   {...register("petHealthTag")}
                 />
-                {health}
-              </label>
+                <label key={i} htmlFor={health}>
+                  {health}
+                </label>
+              </li>
             ))}
-          </div>
-          <div>
+          </ul>
+          <ul>
             {trainedTags.map((trained, i) => (
-              <label key={i}>
+              <li key={trained}>
                 <input
                   type="checkbox"
                   value={trained}
                   name="trained"
+                  id={trained}
                   {...register("petTrainedTag")}
                 />
-                {trained}
-              </label>
+                <label key={i} htmlFor={trained}>
+                  {trained}
+                </label>
+              </li>
             ))}
-          </div>
-          <div>
+          </ul>
+          <ul>
             {playingTags.map((playing, i) => (
-              <label key={i}>
+              <li>
                 <input
                   type="checkbox"
                   value={playing}
                   name="playing"
+                  id={playing}
                   {...register("petPlayingTag")}
                 />
-                {playing}
-              </label>
+                <label key={i} htmlFor={playing}>
+                  {playing}
+                </label>
+              </li>
             ))}
-          </div>
+          </ul>
           <button>Submit</button>
           <Link to="/step2">Back</Link>
         </form>

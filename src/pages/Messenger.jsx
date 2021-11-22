@@ -22,6 +22,7 @@ const Messenger = () => {
   };
 
   useEffect(() => {
+    //shouldnt be in here but for now this is good
     return () => {
       dispatch(cleanOutMessengerBox());
     };

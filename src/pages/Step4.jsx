@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -120,51 +120,53 @@ export default function Step4() {
               </option>
             ))}
           </select>
-          <div>
+          <ul>
             {healthTags.map((health, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
                   type="checkbox"
                   value={health}
                   name="health"
+                  id={health}
                   {...register("petHealthTag")}
                 />
-                {health}
-              </label>
+                <label htmlFor={health}>{health}</label>
+              </li>
             ))}
-          </div>
-          <div>
+          </ul>
+          <ul>
             {trainedTags.map((trained, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
                   type="checkbox"
                   value={trained}
                   name="trained"
+                  id={trained}
                   {...register("petTrainedTag")}
                 />
-                {trained}
-              </label>
+                <label htmlFor={trained}>{trained}</label>
+              </li>
             ))}
-          </div>
-          <div>
+          </ul>
+          <ul>
             {playingTags.map((playing, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
+                  id={playing}
                   type="checkbox"
                   value={playing}
                   name="playing"
                   {...register("petPlayingTag")}
                 />
-                {playing}
-              </label>
+                <label htmlFor={playing}>{playing}</label>
+              </li>
             ))}
-          </div>
+          </ul>
           <div>{errors.petType?.message}</div>
           <textarea
             type="text"
             placeholder="Bio"
-            {...register("petDescription")}
-          ></textarea>
+            {...register("petDescription")}></textarea>
           <div>{errors.petDescription?.message}</div>
           <button>Next</button>
           <Link to="/step3/owner">Back</Link>

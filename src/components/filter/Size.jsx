@@ -26,22 +26,21 @@ const Size = () => {
 
   return (
     <section>
-      <h2>Size</h2>
-      <div>
+      <h4>Size</h4>
+      <ul>
         {sizeTags.map((size, i) => (
-          <div key={i}>
-            <label>
-              <input
-                type="checkbox"
-                value={size}
-                name="size"
-                onClick={handleFilter}
-              />
-              {size}
-            </label>
-          </div>
+          <li key={i}>
+            <input
+              type="checkbox"
+              value={size}
+              name="size"
+              id={size}
+              onClick={handleFilter}
+            />
+            <label htmlFor={size}>{size}</label>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };
