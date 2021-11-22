@@ -114,7 +114,8 @@ export default function Step5() {
             questions.length === 0
               ? { pointerEvents: "none", opacity: 0.4 }
               : {}
-          }>
+          }
+        >
           Submit
         </button>
         <Link to="/step4">Back</Link>
