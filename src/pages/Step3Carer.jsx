@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
-import { submitPic } from "../util/uploadImage";
+// import { submitPic } from "../util/uploadImage";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import axios from "axios";
+const { REACT_APP_SERVER_URL } = process.env;
 
 export default function Step3Carer() {
   const signUpInfo = useSelector((state) => state.user);
