@@ -13,6 +13,8 @@ const initialState = {
   profile_picture: null,
   type: null,
   _id: null,
+  Carer: null,
+  interests: [],
 };
 
 export const validation = createAsyncThunk(
@@ -56,13 +58,27 @@ export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
   }
 });
 
+export const fetchUserInfo = createAsyncThunk(
+  "user/fetch",
+  async (_id) => {
+    try {
+      const response = await axios.get(
+        `${REACT_APP_SERVER_URL}/user/${_id}`
+      );
+      return response.data;
+    } catch (err) {
+      return { err: err.response.data }
+    }
+  }
+)
+
 export const updateUserInfo = createAsyncThunk(
   "user/update",
-  async ({ _id, data }) => {
+  async ({ _id, updateData }) => {
     try {
       const response = await axios.patch(
         `${REACT_APP_SERVER_URL}/user/${_id}`,
-        { _id, data }
+        { _id, updateData }
       );
       return response.data;
     } catch (err) {
@@ -97,6 +113,7 @@ export const userSlice = createSlice({
       state.profile_picture = null;
       state.type = null;
       state._id = null;
+      state.Carer = null;
     },
   },
   extraReducers: {
@@ -115,6 +132,8 @@ export const userSlice = createSlice({
         state.profile_picture = action.payload.user.profile_picture;
         state.type = action.payload.user.type;
         state._id = action.payload.user._id;
+        state.Carer = action.payload.user.Carer;
+        state.interests = action.payload.user.interests;
       }
     },
     [signIn.fulfilled]: (state, action) => {
@@ -126,6 +145,8 @@ export const userSlice = createSlice({
         state.profile_picture = action.payload.user.profile_picture;
         state.type = action.payload.user.type;
         state._id = action.payload.user._id;
+        state.Carer = action.payload.user.Carer;
+        state.interests = action.payload.user.interests;
       }
     },
     [verifyTokenAction.fulfilled]: (state, action) => {
@@ -135,12 +156,16 @@ export const userSlice = createSlice({
         isLoggedIn: "err" in action.payload ? false : true,
       };
     },
+    [fetchUserInfo.fulfilled]: (state, action) => {
+      state.interests = action.payload.interests;
+    },
     [updateUserInfo.fulfilled]: (state, action) => {
       if (!action.payload.err) {
         state.username = action.payload.username;
         state.email = action.payload.email;
         state.description = action.payload.description;
         state.profile_picture = action.payload.profile_picture;
+        state.interests = action.payload.interests;
       }
     },
   },

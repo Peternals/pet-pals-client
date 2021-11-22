@@ -10,11 +10,9 @@ const initialState = {
     description: null,
     pet_pictures: [],
     _id: null,
+    tag: [],
   },
   pet_questions: [],
-  initialPets: [],
-  filteredPets: [],
-  isFiltered: false,
 };
 
 export const petDataStore = createAsyncThunk(
@@ -120,40 +118,6 @@ export const updatePetInfo = createAsyncThunk("pet/update", async (data) => {
   }
 });
 
-export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const { data: response } = await axios.get(`${REACT_APP_SERVER_URL}/pet`, {
-      headers: {
-        "x-access-token": token,
-      },
-    });
-    return response;
-  } catch (err) {
-    return { err: err.response.data };
-  }
-});
-
-export const fetchPetsByType = createAsyncThunk(
-  "pet/fetchPetsByType",
-  async (type) => {
-    try {
-      const token = localStorage.getItem("token");
-      const { data: response } = await axios.get(
-        `${REACT_APP_SERVER_URL}/pet/type/${type}`,
-        {
-          headers: {
-            "x-access-token": token,
-          },
-        }
-      );
-      return response;
-    } catch (err) {
-      return { err: err.response.data };
-    }
-  }
-);
-
 export const petSlice = createSlice({
   name: "pet",
   initialState,
@@ -177,9 +141,8 @@ export const petSlice = createSlice({
     getOwnerId: (state, action) => {
       state.info.owner_id = action.payload;
     },
-    resetFilter: (state, action) => {
-      state.filteredPets = state.initialPets;
-      state.isFiltered = false;
+    getPetTag: (state, action) => {
+      state.info.tag = action.payload;
     },
     signOutPetCleanUp: (state) => {
       state.info.type = null;
@@ -189,9 +152,6 @@ export const petSlice = createSlice({
       state.info.pet_pictures = [];
       state.info._id = null;
       state.pet_questions = [];
-      state.initialPets = [];
-      state.filteredPets = [];
-      state.isFiltered = false;
     },
   },
   extraReducers: {
@@ -226,14 +186,6 @@ export const petSlice = createSlice({
     [deleteQuestion.fulfilled]: (state, action) => {
       state.pet_questions = action.payload.questionnaire;
     },
-    [fetchAllPets.fulfilled]: (state, action) => {
-      state.initialPets = action.payload;
-      state.isFiltered = false;
-    },
-    [fetchPetsByType.fulfilled]: (state, action) => {
-      state.filteredPets = action.payload;
-      state.isFiltered = true;
-    },
   },
 });
 
@@ -243,7 +195,7 @@ export const {
   getPetDescription,
   getPetPicture,
   getPetQuestions,
-  resetFilter,
+  getPetTag,
   signOutPetCleanUp,
 } = petSlice.actions;
 export default petSlice.reducer;

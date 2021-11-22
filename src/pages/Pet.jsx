@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "../components/DatePicker";
-import { Link } from "react-router-dom";
 import "../styles/carer/pet.scss";
 import samplePet from "../assets/sampleDog2.jpeg";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Gallery from "../components/gallery/Gallery";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -17,15 +18,78 @@ const Pet = () => {
   const location = useLocation();
   const { pet } = location.state;
   const petImg = pet.pet_pictures;
+  const [requests, setRequests] = useState([]);
+  const { startDate, endDate } = useSelector((state) => state.datePicker);
+  console.log(startDate, endDate);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const requestsData = await axios.get(
+          `${REACT_APP_SERVER_URL}/requests/Approved/${pet._id}`,
+          {
+            headers: {
+              "x-access-token": localStorage.getItem("token"),
+            },
+          }
+        );
+        setRequests(requestsData.data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [pet._id]);
+
+  const isDateInApprovedRequest = (momentDate) => {
+    const convertedDate = momentDate.toDate();
+    let dates = [];
+
+    const getDatesBetweenDates = function (start, end) {
+      // start and end must be JS Dates
+      let dates = [];
+      let currentDate = start;
+      while (currentDate.getTime() <= end.getTime()) {
+        dates.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      return dates;
+    };
+
+    requests.forEach((request) => {
+      dates = dates.concat(
+        getDatesBetweenDates(
+          new Date(request.request.start),
+          new Date(request.request.end)
+        )
+      );
+    });
+    return dates.some(
+      (date) => date.toDateString() === convertedDate.toDateString()
+    );
+  };
+
   return (
     <main className="petMain">
       <div className="container-fluid p-3 align-items-center">
         {/** TODO: Replace PetCard with the actual PetInfo component */}
         <section className="petOptions">
-          <DatePicker />
+          <DatePicker isDateBlocked={isDateInApprovedRequest} />
           {/*TODO: Pet , Pet Questions, selected dates required to the Link*/}
-          <Link to="/carer/questionnaire" state={{ pet: pet }}>
-            <button className="card-button">Book Date</button>
+          <Link
+            to="/carer/questionnaire"
+            state={{ pet: pet }}
+            style={
+              startDate === null || endDate === null
+                ? { pointerEvents: "none" }
+                : {}
+            }>
+            <button
+              className="card-button"
+              style={
+                startDate === null || endDate === null ? { opacity: "0.4" } : {}
+              }>
+              Book Date
+            </button>
           </Link>
         </section>
         <section className="petFlexBox">

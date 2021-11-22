@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
 
-function Question({ question, index, removeQuestion }) {
+function Question({ question, index, removeQuestion, currentQuestionRef }) {
   return (
-    <div>
-      {question.text}
-      <div>
-        <i onClick={() => removeQuestion(index)}>x</i>
+    <li ref={currentQuestionRef}>
+      <div className="question">
+        <p>{question.text}</p>
+        <i className="fa fa-close" onClick={() => removeQuestion(index)}></i>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -28,14 +28,16 @@ function QForm({ addQuestion }) {
         type="text"
         className="input"
         value={value}
+        placeholder="Add Questions"
         onChange={(e) => setValue(e.target.value)}
       />
-      <button onClick={handleClick}>+</button>
+      <button onClick={handleClick} className="fa fa-plus"></button>
     </form>
   );
 }
 
 function QuestionForm(props) {
+  const { currentQuestionRef } = props;
   const addQuestion = (text) => {
     const newQuestions = [...props.questions, { text }];
     props.updateQuestions(newQuestions);
@@ -43,25 +45,25 @@ function QuestionForm(props) {
 
   const removeQuestion = (index) => {
     const newQuestions = [...props.questions];
-    console.log(newQuestions);
     newQuestions.splice(index, 1);
     props.updateQuestions(newQuestions);
   };
 
   return (
-    <div>
-      <ul>
+    <>
+      <ol>
         {props.questions.map((question, index) => (
           <Question
             key={index}
             index={index}
             question={question}
             removeQuestion={removeQuestion}
+            currentQuestionRef={currentQuestionRef}
           />
         ))}
-      </ul>
+      </ol>
       <QForm addQuestion={addQuestion} />
-    </div>
+    </>
   );
 }
 

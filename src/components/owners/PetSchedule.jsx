@@ -15,7 +15,7 @@ const PetSchedule = () => {
     (async () => {
       try {
         const request = await axios.get(
-          `${REACT_APP_SERVER_URL}/requests/Approved`,
+          `${REACT_APP_SERVER_URL}/requests/owner/Approved`,
           {
             headers: {
               "x-access-token": localStorage.getItem("token"),
@@ -56,11 +56,13 @@ const PetSchedule = () => {
         <Calendar
           onChange={onActiveStartDateChange}
           tileClassName={({ date, view }) => {
+            const currentDay = new Date().setHours(0, 0, 0, 0);
             if (
               schedule.find(
                 (x) =>
-                  new Date(x.start) <= new Date(date) &&
-                  new Date(x.end) >= new Date(date)
+                  new Date(x.start).setHours(0, 0, 0, 0) <= new Date(date) &&
+                  new Date(x.end).setHours(0, 0, 0) >= new Date(date) &&
+                  new Date(currentDay).setHours(0, 0, 0, 0) <= new Date(date)
               )
             ) {
               return "highlight";

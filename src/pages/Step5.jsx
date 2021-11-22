@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { signUp } from "../slicers/userSlice";
 import { petDataStore } from "../slicers/petSlice";
 import { submitPic, submitPicForPet } from "../util/uploadImage";
 import QuestionForm from "../components/owners/QuestionForm";
+import "../styles/registration/step5.scss";
 
 export default function Step5() {
   const dispatch = useDispatch();
@@ -13,6 +14,15 @@ export default function Step5() {
   const petSignUpInfo = useSelector((state) => state.pet.info);
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
+  const currentQuestionRef = useRef();
+
+  useEffect(() => {
+    if (questions.length > 0) {
+      if (currentQuestionRef.current) {
+        currentQuestionRef.current.scrollIntoView();
+      }
+    }
+  }, [questions]);
 
   const updateQuestions = (newQuestions) => {
     setQuestions(newQuestions);
@@ -38,8 +48,6 @@ export default function Step5() {
       questionnaire: questions.map((obj) => obj.text),
     };
 
-    console.log(questionPayload);
-
     const petDataStoreAction = await dispatch(
       petDataStore({
         type: petSignUpInfo.type,
@@ -48,6 +56,7 @@ export default function Step5() {
         description: petSignUpInfo.description,
         pet_pictures: petPic,
         questionnaire: questionPayload.questionnaire,
+        tag: petSignUpInfo.tag,
       })
     );
 
@@ -57,18 +66,25 @@ export default function Step5() {
   };
 
   return (
-    <>
-      <div>
-        <form onSubmit={handleSubmit} style={{ marginTop: 200 }}>
-          <h2>Questionnaire</h2>
-          <QuestionForm
-            questions={questions}
-            updateQuestions={updateQuestions}
-          />
-          <button>Submit</button>
-        </form>
-      </div>
-      <Link to="/step4">Back</Link>
-    </>
+    <main className="step5Main">
+      <form className="ste5MainForm" onSubmit={handleSubmit}>
+        <h2>Questionnaire</h2>
+        <QuestionForm
+          questions={questions}
+          updateQuestions={updateQuestions}
+          currentQuestionRef={currentQuestionRef}
+        />
+        <button
+          disabled={questions.length === 0}
+          style={
+            questions.length === 0
+              ? { pointerEvents: "none", opacity: 0.4 }
+              : {}
+          }>
+          Submit
+        </button>
+        <Link to="/step4">Back</Link>
+      </form>
+    </main>
   );
 }

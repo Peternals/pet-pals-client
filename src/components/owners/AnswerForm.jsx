@@ -8,7 +8,6 @@ const AnswerForm = ({
   currentRequest,
   getRequests,
 }) => {
-  console.log(currentRequest);
   const closeAnswerForm = () => {
     setCurrentRequest({});
     answerFormRef.current.classList.remove("showAnswerForm");
@@ -61,7 +60,7 @@ const AnswerForm = ({
         </ol>
         <div className="answerFormButtons">
           <button onClick={() => requestAction("Approved")}>Accept</button>
-          <button onClick={() => requestAction("reject")}>Decline</button>
+          <button onClick={() => requestAction("Rejected")}>Decline</button>
         </div>
       </div>
     </div>

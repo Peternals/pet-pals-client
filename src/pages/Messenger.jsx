@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Contacts from "../components/messenger/Contacts";
 import MessageBox from "../components/messenger/MessageBox";
-import { signOutMessengerCleanUp } from "../slicers/messengerSlice";
+import { cleanOutMessengerBox } from "../slicers/messengerSlice";
 import "../styles/messenger/messenger.scss";
 
 const Messenger = () => {
@@ -17,11 +17,14 @@ const Messenger = () => {
 
     document.querySelector(".messageBoxHeader").classList.add("hideHeader");
     document.querySelector(".contactListHeader").classList.remove("hideHeader");
+
+    dispatch(cleanOutMessengerBox());
   };
 
   useEffect(() => {
+    //shouldnt be in here but for now this is good
     return () => {
-      dispatch(signOutMessengerCleanUp());
+      dispatch(cleanOutMessengerBox());
     };
   }, [dispatch]);
   return (

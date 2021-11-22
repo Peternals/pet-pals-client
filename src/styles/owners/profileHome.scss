@@ -131,7 +131,7 @@
         background-color: white;
         padding: 20px;
         height: max-content;
-        min-height: 321px;
+
         width: 100%;
         border-radius: 30px;
         box-shadow: 1px 1px 5px $shadow;
@@ -148,6 +148,7 @@
         }
         .petInfo {
           width: 40%;
+          min-height: 321px;
         }
       }
     }
