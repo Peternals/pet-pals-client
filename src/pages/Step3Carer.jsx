@@ -129,12 +129,8 @@ export default function Step3Carer() {
           <textarea
             type="text"
             placeholder="Bio"
-<<<<<<< HEAD
             {...register("description")}
           ></textarea>
-          <div>{errors.description?.message}</div>
-=======
-            {...register("description")}></textarea>
           <div>{errors.description?.message}</div>
           <select type="text" {...register("petType")}>
             <option>Select Pet Type</option>
@@ -200,7 +196,6 @@ export default function Step3Carer() {
               </li>
             ))}
           </ul>
->>>>>>> main
           <button>Submit</button>
           <Link to="/step2">Back</Link>
         </form>
