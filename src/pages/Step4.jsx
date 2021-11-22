@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -166,7 +166,8 @@ export default function Step4() {
           <textarea
             type="text"
             placeholder="Bio"
-            {...register("petDescription")}></textarea>
+            {...register("petDescription")}
+          ></textarea>
           <div>{errors.petDescription?.message}</div>
           <button>Next</button>
           <Link to="/step3/owner">Back</Link>
