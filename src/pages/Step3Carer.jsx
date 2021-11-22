@@ -8,53 +8,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 export default function Step3Carer() {
-<<<<<<< HEAD
-  const dispatch = useDispatch();
-  const signUpInfo = useSelector((state) => state.user);
-  const navigate = useNavigate();
-
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Full Name is required"),
-    description: Yup.string().required("Bio is required"),
-    profile_picture: Yup.mixed()
-      .required("Profile picture is required")
-      .test("fileLength", "Profile picture is required", (value) => {
-        return value.length > 0;
-      }),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
-
-  const handleSubmitAction = async (e) => {
-    const inputFile = document.querySelector("#file");
-    const usernameVal = e.username;
-    const descriptionVal = e.description;
-    const profile_pictureVal = inputFile.files[0];
-
-    const img = await submitPic(profile_pictureVal);
-
-    const submitAction = await dispatch(
-      signUp({
-        username: usernameVal,
-        email: signUpInfo.email,
-        password: signUpInfo.password,
-        description: descriptionVal,
-        profile_picture: img,
-        type: signUpInfo.type,
-      })
-    );
-    if (submitAction.payload.user) {
-      navigate("/");
-    }
-  };
-
-=======
   const signUpInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -156,7 +109,6 @@ export default function Step3Carer() {
     }
   };
 
->>>>>>> main
   return (
     <>
       <div className="step3Carer">
