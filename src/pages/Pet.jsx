@@ -6,6 +6,7 @@ import { useLocation, Link } from "react-router-dom";
 import Gallery from "../components/gallery/Gallery";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Tags from "../components/Tag";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -20,7 +21,6 @@ const Pet = () => {
   const petImg = pet.pet_pictures;
   const [requests, setRequests] = useState([]);
   const { startDate, endDate } = useSelector((state) => state.datePicker);
-  console.log(startDate, endDate);
 
   useEffect(() => {
     (async () => {
@@ -82,12 +82,14 @@ const Pet = () => {
               startDate === null || endDate === null
                 ? { pointerEvents: "none" }
                 : {}
-            }>
+            }
+          >
             <button
               className="card-button"
               style={
                 startDate === null || endDate === null ? { opacity: "0.4" } : {}
-              }>
+              }
+            >
               Book Date
             </button>
           </Link>
@@ -110,6 +112,9 @@ const Pet = () => {
             <h1>This is {pet.name}</h1>
             <h3>Bio</h3>
             <p>{pet.description}</p>
+            <div className="tags">
+              <Tags tags={pet.tag} />
+            </div>
           </div>
         </section>
         <h1>Gallery</h1>

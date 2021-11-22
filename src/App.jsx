@@ -31,6 +31,7 @@ import {
 } from "./slicers/messengerSlice";
 import { getConversationsAction } from "./slicers/actions/messageActions";
 import axios from "axios";
+import "bulma/css/bulma.min.css";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -125,7 +126,8 @@ function App() {
                 <PrivateRoute>
                   <OwnerHome />
                 </PrivateRoute>
-              }>
+              }
+            >
               <Route exact path="/owner" element={<PetInfo />} />
               <Route exact path="/owner/requests" element={<Request />} />
             </Route>
