@@ -7,8 +7,10 @@ import Trained from "./Trained";
 import Type from "./Type";
 import {
   fetchAllPets,
+  defaultFetchPetsByTag,
   fetchPetsByTag,
   resetFilter,
+  clearFilteredPets,
 } from "../../slicers/filterOptionSlice";
 
 const FilterContainer = () => {
@@ -18,8 +20,11 @@ const FilterContainer = () => {
   const closeBtnRef = useRef();
 
   useEffect(() => {
-    dispatch(fetchPetsByTag(interests));
-  });
+    dispatch(defaultFetchPetsByTag(interests));
+    return () => {
+      dispatch(clearFilteredPets());
+    };
+  }, [interests, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +40,7 @@ const FilterContainer = () => {
 
   const resetView = () => {
     dispatch(resetFilter());
+    dispatch(defaultFetchPetsByTag(interests));
     closeBtnRef.current.classList.remove("showFilter");
   };
 

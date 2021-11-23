@@ -23,13 +23,35 @@ export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
   }
 });
 
+export const defaultFetchPetsByTag = createAsyncThunk(
+  "pet/defaultFetchPetsByTag",
+  async (tags) => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data: response } = await axios.get(
+        `${REACT_APP_SERVER_URL}/pet/tag/single?name=[${tags.map(
+          (tag) => `"${tag}"`
+        )}]`,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      );
+      return response;
+    } catch (err) {
+      return { err: err.response.data };
+    }
+  }
+);
+
 export const fetchPetsByTag = createAsyncThunk(
   "pet/fetchPetsByTag",
   async (tags) => {
     try {
       const token = localStorage.getItem("token");
       const { data: response } = await axios.get(
-        `${REACT_APP_SERVER_URL}/pet/tag?value=[${tags.map(
+        `${REACT_APP_SERVER_URL}/pet/tag/all?value=[${tags.map(
           (tag) => `"${tag}"`
         )}]`,
         {
@@ -49,6 +71,9 @@ const filterOptionSlice = createSlice({
   name: "filterOptions",
   initialState,
   reducers: {
+    clearFilteredPets: (state) => {
+      state.filteredPets = [];
+    },
     resetFilter: (state, action) => {
       state.tags = [];
       state.isFiltered = true;
@@ -67,6 +92,10 @@ const filterOptionSlice = createSlice({
       state.allPets = action.payload;
       state.isFiltered = false;
     },
+    [defaultFetchPetsByTag.fulfilled]: (state, action) => {
+      state.filteredPets = action.payload;
+      state.isFiltered = true;
+    },
     [fetchPetsByTag.fulfilled]: (state, action) => {
       state.filteredPets = action.payload;
       state.isFiltered = true;
@@ -75,6 +104,7 @@ const filterOptionSlice = createSlice({
 });
 
 export const {
+  clearFilteredPets,
   resetFilter,
   addFilter,
   removeFilter,

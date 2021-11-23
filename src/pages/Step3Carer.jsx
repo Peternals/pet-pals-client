@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../slicers/userSlice";
@@ -10,6 +10,9 @@ import * as Yup from "yup";
 const { REACT_APP_SERVER_URL } = process.env;
 
 export default function Step3Carer() {
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState();
+
   const signUpInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,6 +55,30 @@ export default function Step3Carer() {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+
+  const imageField = register("profile_picture", { required: true });
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
+  const onSelectFile = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+
+    setSelectedFile(e.target.files[0]);
+  };
 
   const handleSubmitAction = async (e) => {
     const inputFile = document.querySelector("#file");
@@ -119,8 +146,15 @@ export default function Step3Carer() {
             type="file"
             id="file"
             placeholder="Picture"
-            {...register("profile_picture")}
+            {...imageField}
+            onChange={(e) => {
+              imageField.onChange(e);
+              onSelectFile(e);
+            }}
           />
+          {selectedFile && (
+            <img src={preview} alt="selectedImg" style={{ width: "40%" }} />
+          )}
           <div>{errors.profile_picture?.message}</div>
           <input
             type="text"
@@ -131,7 +165,8 @@ export default function Step3Carer() {
           <textarea
             type="text"
             placeholder="Bio"
-            {...register("description")}></textarea>
+            {...register("description")}
+          ></textarea>
           <div>{errors.description?.message}</div>
           <select type="text" {...register("petType")}>
             <option>Select Pet Type</option>

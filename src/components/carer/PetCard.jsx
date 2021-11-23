@@ -5,7 +5,7 @@ const { REACT_APP_SERVER_URL } = process.env;
 
 const PetCard = ({ pet }) => {
   return (
-    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 cardContainer">
       <div className="card-sl">
         <div className="card-image">
           <img
