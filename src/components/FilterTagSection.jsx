@@ -75,10 +75,9 @@ const FilterTagSection = ({ category }) => {
   };
 
   return (
-    <div className="field is-grouped is-grouped-multiline">
-      <div className="control">
-        <Select options={options} onChange={handleUpdate} />
-      </div>
+    <div className="box">
+      <Select options={options} onChange={handleUpdate} />
+      <hr />
       <DeletableTags tags={selectedTags} deleteTag={deleteTag} />
     </div>
   );

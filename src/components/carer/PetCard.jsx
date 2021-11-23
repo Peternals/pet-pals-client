@@ -18,8 +18,8 @@ const PetCard = ({ pet }) => {
           <p>{pet.description}</p>
         </div>
         <div
-          className="tags card-text"
-          style={{ position: "absolute", bottom: 0 }}
+          className="tags card-text tagOverride"
+          // style={{ position: "absolute", bottom: 0 }}
         >
           <Tags tags={pet.tag} />
         </div>
