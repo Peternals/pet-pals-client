@@ -150,7 +150,9 @@ const UpdateUserInfo = () => {
     const updateInterstsData = modifyInterstsData();
 
     const updateData = updateProfileData;
-    updateData.interests = updateInterstsData;
+    updateInterstsData.length === 0
+      ? (updateData.interests = undefined)
+      : (updateData.interests = updateInterstsData);
 
     const updateUserAction = await dispatch(
       updateUserInfo({ _id, updateData })

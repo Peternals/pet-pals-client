@@ -145,6 +145,9 @@
         flex-direction: row;
         .calendar {
           width: 57%;
+          min-height: 321px;
+          height: max-content;
+          max-height: max-content;
         }
         .petInfo {
           width: 40%;
