@@ -1,33 +1,14 @@
-import axios from "axios";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import AnswerForm from "./AnswerForm";
 import moment from "moment";
+import { useSelector } from "react-redux";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const Request = () => {
   const answerFormRef = useRef();
-  const [requests, setRequests] = useState([]);
-  const [currentRequest, setCurrentRequest] = useState({});
-  const getRequests = async () => {
-    try {
-      //get all request of the user
-      const request = await axios.get(
-        `${REACT_APP_SERVER_URL}/requests/owner/Pending`,
-        {
-          headers: {
-            "x-access-token": localStorage.getItem("token"),
-          },
-        }
-      );
+  const requests = useSelector((state) => state.user.ownerRequests);
 
-      setRequests(request.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getRequests();
-  }, []);
+  const [currentRequest, setCurrentRequest] = useState({});
 
   const openAnswerForm = (req) => {
     setCurrentRequest(req);
@@ -68,7 +49,6 @@ const Request = () => {
         answerFormRef={answerFormRef}
         setCurrentRequest={setCurrentRequest}
         currentRequest={currentRequest}
-        getRequests={getRequests}
       />
     </section>
   );

@@ -13,6 +13,7 @@ import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const Navbar = () => {
+  const requests = useSelector((state) => state.user.ownerRequests.length);
   const { type, _id } = useSelector((state) => state.user);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
@@ -83,14 +84,18 @@ const Navbar = () => {
                 <>
                   <Link to="/owner/requests">
                     <li>
-                      <i className="fa fa-bell"></i>
+                      <i className="fa fa-bell">
+                        {requests === 0 ? "" : requests}
+                      </i>
                     </li>
                   </Link>
                 </>
               ) : (
                 <>
                   <li onMouseUp={openNotif}>
-                    <i className="fa fa-bell">{newRequests}</i>
+                    <i className="fa fa-bell">
+                      {newRequests === 0 ? "" : newRequests}
+                    </i>
                     <Notification />
                   </li>
                   <Link to="/carer/profile">

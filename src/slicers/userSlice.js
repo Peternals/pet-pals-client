@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { verifyTokenAction } from "./actions/userAction";
+import { getOwnerRequest, verifyTokenAction } from "./actions/userAction";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
   _id: null,
   Carer: null,
   interests: [],
+  ownerRequests: [],
 };
 
 export const validation = createAsyncThunk(
@@ -120,6 +121,8 @@ export const userSlice = createSlice({
       state.type = null;
       state._id = null;
       state.Carer = null;
+      state.ownerRequests = [];
+      state.interests = [];
     },
     setRequestSeenState: (state) => {
       console.log("hello");
@@ -182,6 +185,9 @@ export const userSlice = createSlice({
         state.profile_picture = action.payload.profile_picture;
         state.interests = action.payload.interests;
       }
+    },
+    [getOwnerRequest.fulfilled]: (state, action) => {
+      state.ownerRequests = action.payload;
     },
   },
 });

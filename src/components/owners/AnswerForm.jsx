@@ -3,14 +3,10 @@ import axios from "axios";
 import { socket } from "../../socket";
 import { useDispatch } from "react-redux";
 import { addConversationAction } from "../../slicers/messengerSlice";
+import { getOwnerRequest } from "../../slicers/actions/userAction";
 const { REACT_APP_SERVER_URL } = process.env;
 
-const AnswerForm = ({
-  answerFormRef,
-  setCurrentRequest,
-  currentRequest,
-  getRequests,
-}) => {
+const AnswerForm = ({ answerFormRef, setCurrentRequest, currentRequest }) => {
   const dispatch = useDispatch();
   const closeAnswerForm = () => {
     setCurrentRequest({});
@@ -45,7 +41,7 @@ const AnswerForm = ({
           dispatch(addConversationAction(newConversation.data));
         }
       }
-      await getRequests();
+      await dispatch(getOwnerRequest());
       closeAnswerForm();
       socket.emit("notifyRequest", {
         user_id: currentRequest._id,

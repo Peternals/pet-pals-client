@@ -16,7 +16,10 @@ import Navbar from "./components/navbar/Navbar";
 import PetInfo from "./components/owners/PetInfo";
 import Request from "./components/owners/Request";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyTokenAction } from "./slicers/actions/userAction";
+import {
+  getOwnerRequest,
+  verifyTokenAction,
+} from "./slicers/actions/userAction";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Page404 from "./pages/Page404";
 import Carer from "./components/carer/Carer";
@@ -49,8 +52,8 @@ function App() {
   useEffect(() => {
     if (isLoggedIn === true) {
       socket.on("receiveMessage", async (data) => {
-        new Audio(ringtone).play();
         dispatch(getConversationsAction());
+        new Audio(ringtone).play();
         if (currentChatUser._id === data.sender_id) {
           dispatch(addMessageAction(data));
           dispatch(
@@ -101,6 +104,17 @@ function App() {
       socket.disconnect();
     };
   }, [isLoggedIn, id, dispatch]);
+
+  //if the user is an owner, get requests
+  useEffect(() => {
+    if (isLoggedIn === true && type === "Owner") {
+      dispatch(getOwnerRequest());
+      socket.on("requestReceive", () => {
+        new Audio(ringtone).play();
+        dispatch(getOwnerRequest());
+      });
+    }
+  }, [isLoggedIn, type, dispatch]);
 
   //get all conversations of the user
   useEffect(() => {
