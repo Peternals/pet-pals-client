@@ -58,19 +58,14 @@ export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
   }
 });
 
-export const fetchUserInfo = createAsyncThunk(
-  "user/fetch",
-  async (_id) => {
-    try {
-      const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/user/${_id}`
-      );
-      return response.data;
-    } catch (err) {
-      return { err: err.response.data }
-    }
+export const fetchUserInfo = createAsyncThunk("user/fetch", async (_id) => {
+  try {
+    const response = await axios.get(`${REACT_APP_SERVER_URL}/user/${_id}`);
+    return response.data;
+  } catch (err) {
+    return { err: err.response.data };
   }
-)
+});
 
 export const updateUserInfo = createAsyncThunk(
   "user/update",
@@ -104,9 +99,14 @@ export const userSlice = createSlice({
       state.profile_picture = action.payload.profile_picture;
     },
     updateRequest: (state, action) => {
-      console.log(action.payload);
       const reqId = action.payload._id;
-      const filter = state.Carer.requests.filter((req) => req._id !== reqId);
+
+      let filter;
+      if (state.Carer.requests.length > 0) {
+        filter = state.Carer.requests.filter((req) => req._id !== reqId);
+      } else {
+        filter = [];
+      }
       state.Carer.requests = [...filter, action.payload];
     },
     signOutCleanUp: (state) => {
@@ -120,6 +120,15 @@ export const userSlice = createSlice({
       state.type = null;
       state._id = null;
       state.Carer = null;
+    },
+    setRequestSeenState: (state) => {
+      console.log("hello");
+      if (state.Carer && state.Carer.requests.length > 0) {
+        state.Carer.requests = state.Carer.requests.map((req) => {
+          req.seen = true;
+          return req;
+        });
+      }
     },
   },
   extraReducers: {
@@ -184,5 +193,6 @@ export const {
   getType,
   signOutCleanUp,
   updateRequest,
+  setRequestSeenState,
 } = userSlice.actions;
 export default userSlice.reducer;

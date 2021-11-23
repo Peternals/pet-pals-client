@@ -2,12 +2,15 @@ import React from "react";
 import "../../styles/navbar/nav.scss";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signOutCleanUp } from "../../slicers/userSlice";
+import { setRequestSeenState, signOutCleanUp } from "../../slicers/userSlice";
 import { signOutPetCleanUp } from "../../slicers/petSlice";
 import { signOutMessengerCleanUp } from "../../slicers/messengerSlice";
 import { signOutDateCleanUp } from "../../slicers/datePickerSlice";
 import Notification from "./Notification";
 import { socket } from "../../socket";
+import axios from "axios";
+
+const { REACT_APP_SERVER_URL } = process.env;
 
 const Navbar = () => {
   const { type, _id } = useSelector((state) => state.user);
@@ -24,6 +27,16 @@ const Navbar = () => {
       return false;
     }).length;
   });
+  const newRequests = useSelector((state) => {
+    const Carer = state.user.Carer;
+    if (Carer) {
+      const request = Carer.requests.filter(
+        (request) => request.status !== "Pending" && request.seen === false
+      );
+      return request.length;
+    }
+    return 0;
+  });
 
   const handleSignOut = (e) => {
     dispatch(signOutCleanUp());
@@ -36,6 +49,24 @@ const Navbar = () => {
 
   const openNotif = () => {
     const notif = document.querySelector(".notification");
+    if (notif.classList.contains("showNotif")) {
+      if (newRequests > 0) {
+        dispatch(setRequestSeenState());
+        try {
+          axios.patch(
+            `${REACT_APP_SERVER_URL}/requests/carer/`,
+            {},
+            {
+              headers: {
+                "x-access-token": localStorage.getItem("token"),
+              },
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
     notif.classList.toggle("showNotif");
   };
 
@@ -59,7 +90,7 @@ const Navbar = () => {
               ) : (
                 <>
                   <li onMouseUp={openNotif}>
-                    <i className="fa fa-bell"></i>
+                    <i className="fa fa-bell">{newRequests}</i>
                     <Notification />
                   </li>
                   <Link to="/carer/profile">
