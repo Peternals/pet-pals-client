@@ -97,6 +97,7 @@ function App() {
       socket.emit("addUser", { user_id: id });
       socket.on("notifyRequest", (data) => {
         new Audio(ringtone).play();
+        dispatch(getConversationsAction());
         dispatch(updateRequest(data.request));
       });
     }
@@ -111,6 +112,7 @@ function App() {
       dispatch(getOwnerRequest());
       socket.on("requestReceive", () => {
         new Audio(ringtone).play();
+
         dispatch(getOwnerRequest());
       });
     }

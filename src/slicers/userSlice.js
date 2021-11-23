@@ -103,12 +103,14 @@ export const userSlice = createSlice({
       const reqId = action.payload._id;
 
       let filter;
-      if (state.Carer.requests.length > 0) {
+      if (state.Carer && state.Carer.requests.length > 0) {
         filter = state.Carer.requests.filter((req) => req._id !== reqId);
       } else {
         filter = [];
       }
-      state.Carer.requests = [...filter, action.payload];
+      state.Carer = {
+        requests: [...filter, action.payload],
+      };
     },
     signOutCleanUp: (state) => {
       state.isLoggedIn = false;
