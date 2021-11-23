@@ -16,7 +16,10 @@ import Navbar from "./components/navbar/Navbar";
 import PetInfo from "./components/owners/PetInfo";
 import Request from "./components/owners/Request";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyTokenAction } from "./slicers/actions/userAction";
+import {
+  getOwnerRequest,
+  verifyTokenAction,
+} from "./slicers/actions/userAction";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Page404 from "./pages/Page404";
 import Carer from "./components/carer/Carer";
@@ -32,6 +35,8 @@ import {
 } from "./slicers/messengerSlice";
 import { getConversationsAction } from "./slicers/actions/messageActions";
 import axios from "axios";
+import { updateRequest } from "./slicers/userSlice";
+import ringtone from "./assets/ringtone.mp3";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -44,11 +49,12 @@ function App() {
     (state) => state.messenger.currentChatUser
   );
 
+  // get all messages, set message actions to be received by the user
   useEffect(() => {
     if (isLoggedIn === true) {
       socket.on("receiveMessage", async (data) => {
-        console.log("1");
         dispatch(getConversationsAction());
+        new Audio(ringtone).play();
         if (currentChatUser._id === data.sender_id) {
           dispatch(addMessageAction(data));
           dispatch(
@@ -74,6 +80,7 @@ function App() {
     };
   }, [dispatch, currentChatUser, isLoggedIn]);
 
+  //verify token and get user info
   useEffect(() => {
     (async () => {
       try {
@@ -84,6 +91,35 @@ function App() {
     })();
   }, [dispatch]);
 
+  //if the user is login, add the user to the socket user array
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      socket.connect();
+      socket.emit("addUser", { user_id: id });
+      socket.on("notifyRequest", (data) => {
+        new Audio(ringtone).play();
+        dispatch(getConversationsAction());
+        dispatch(updateRequest(data.request));
+      });
+    }
+    return () => {
+      socket.disconnect();
+    };
+  }, [isLoggedIn, id, dispatch]);
+
+  //if the user is an owner, get requests
+  useEffect(() => {
+    if (isLoggedIn === true && type === "Owner") {
+      dispatch(getOwnerRequest());
+      socket.on("requestReceive", () => {
+        new Audio(ringtone).play();
+
+        dispatch(getOwnerRequest());
+      });
+    }
+  }, [isLoggedIn, type, dispatch]);
+
+  //get all conversations of the user
   useEffect(() => {
     (async () => {
       try {
@@ -97,15 +133,6 @@ function App() {
       dispatch(signOutMessengerCleanUp());
     };
   }, [dispatch, isLoggedIn]);
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      socket.connect();
-      socket.emit("addUser", { user_id: id });
-    }
-    return () => {
-      socket.disconnect();
-    };
-  }, [isLoggedIn, id]);
 
   const closeAnyNotif = (e) => {
     // document.querySelector(".notification").classList.remove("showNotif");
