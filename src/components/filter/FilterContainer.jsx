@@ -29,7 +29,11 @@ const FilterContainer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     closeBtnRef.current.classList.remove("showFilter");
-    dispatch(fetchPetsByTag(tags));
+    if (tags.length === 0) {
+      dispatch(fetchAllPets());
+    } else {
+      dispatch(fetchPetsByTag(tags));
+    }
   };
 
   const handleViewAll = (e) => {
