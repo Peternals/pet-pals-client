@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   updatePetInfo,
-  updateQuestion,
-  addQuestion,
-  removeQuestion,
-  modifiyQuestion,
+  deleteQuestion,
+  getPetInfo,
 } from "../../slicers/petSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { submitPicForPet } from "../../util/uploadImage";
@@ -13,20 +11,17 @@ import { submitPicForPet } from "../../util/uploadImage";
 const UpdatePetInfo = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [question, setQuestion] = useState("");
-  const [removeQ, setRemoveQ] = useState("");
-  const [modifyQ, setModifyQ] = useState("");
+  // const [index, setIndex] = useState();
   const petInfo = useSelector((state) => state.pet.info);
-  const questionnaire = useSelector((state) => state.pet.pet_questions);
+  const questions = useSelector((state) => state.pet.pet_questions);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  // {
-  //   defaultValues: {
-  //     name: petInfo.name,
-  //     description: petInfo.description,
-  //   },
-  // }
-  const onSubmit = async (data) => {
+
+  useEffect(() => {
+    dispatch(getPetInfo());
+  }, [dispatch]);
+
+  const onSubmit = async (data, e) => {
     let images;
     if (data.pet_pictures.length >= 1) {
       images = await submitPicForPet(data.pet_pictures);
@@ -47,41 +42,16 @@ const UpdatePetInfo = () => {
     } else {
       setSuccessMessage("Successfully updated!");
     }
+    e.target.reset();
   };
 
-  const handleAddQuestion = (e) => {
-    e.preventDefault();
-    setQuestion("");
-    dispatch(addQuestion(question));
+  const handleDelete = async (index) => {
+    const data = {
+      _id: petInfo._id,
+      questionnaire: questions[index],
+    };
+    await dispatch(deleteQuestion(data));
   };
-
-  const handleRemoveQuestion = (i) => {
-    setRemoveQ(questionnaire[i]);
-    dispatch(removeQuestion(removeQ));
-  };
-
-  const handleModifyQuestion = (e) => {
-    e.preventDefault();
-    dispatch(modifiyQuestion(modifyQ));
-  };
-
-  const hadleUpdateQuestion = (data) => {
-    data._id = petInfo._id;
-    data.questionnaire = petInfo.questionnaire;
-    dispatch(updateQuestion(data));
-  };
-
-  // const handleDelete = async (data) => {
-  //   data._id = petInfo._id;
-  //   data.questionnaire = questionnaire[index];
-  //   await dispatch(deleteQuestion(data));
-  // };
-
-  // const handleModify = async (data) => {
-  //   data._id = petInfo._id;
-  //   data.questionnaire = questionnaire[index];
-  //   await dispatch(modifyQuestion(data));
-  // };
 
   return (
     <section style={{ margin: 100 }}>
@@ -99,36 +69,23 @@ const UpdatePetInfo = () => {
         <input type="file" multiple {...register("pet_pictures")} />
         <button>Save</button>
       </form>
-      <h1 style={{ marginTop: 10 }}>Update Questionnaire</h1>
-      <form onSubmit={hadleUpdateQuestion}>
-        {questionnaire &&
-          questionnaire.map((q, i) => (
-            <div key={i}>
-              <form onSubmit={handleModifyQuestion}>
-                <input
-                  type="text"
-                  defaultValue={q}
-                  onChange={(e) => setModifyQ(e.target.value)}
-                />
-                <button>Save</button>
-              </form>
-              <button onClick={() => handleRemoveQuestion(i)}>Delete</button>
-            </div>
-          ))}
-        <form onSubmit={handleAddQuestion}>
-          <input
-            type="text"
-            placeholder="Add Question"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-          <button>Add</button>
-        </form>
-        <button>Submit</button>
+      <h2 style={{ marginTop: 30 }}>Update Questionnaire</h2>
+      {questions &&
+        questions.map((q, i) => (
+          <div key={i}>
+            <p>{q}</p>
+            <button onClick={() => handleDelete(i)}>Delete</button>
+          </div>
+        ))}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          placeholder="Add Question"
+          defaultValue=""
+          {...register("questionnaire")}
+        />
+        <button>Add</button>
       </form>
-      {/* <form>
-        <textarea type="text" defaultValue={questionnaire} />
-      </form> */}
     </section>
   );
 };

@@ -1,35 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
-import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { useSelector } from "react-redux";
 import PetSchedule from "./PetSchedule";
-import { getPetInfo } from "../../slicers/petSlice";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const PetInfo = () => {
-  const pet = useSelector((state) => state.pet.info);
-  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const [ownersPet, setOwnersPet] = useState({});
+
   useEffect(() => {
-    dispatch(getPetInfo());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    (async () => {
+      try {
+        const pet = await axios.get(`${REACT_APP_SERVER_URL}/pet/owner`, {
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
+        });
+        setOwnersPet(pet.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [user]);
 
   return (
     <section className="homeSection">
       <figure className="petPic">
-        {pet.pet_pictures.length ? (
+        {ownersPet.pet_pictures && (
           <img
-            src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
+            src={`${REACT_APP_SERVER_URL}/pic/${ownersPet.pet_pictures[0]}`}
             alt="Pet"
           ></img>
-        ) : (
-          <h1>Loading...</h1>
         )}
       </figure>
       <div className="petSchedule">
         <section className="petInfo">
-          <h2>This is {pet.name}</h2>
+          <h2>This is {ownersPet.name}</h2>
           <p className="summaryTitle">Bio:</p>
-          <p className="summary">{pet.description}</p>
+          <p className="summary">{ownersPet.description}</p>
         </section>
         <PetSchedule />
       </div>

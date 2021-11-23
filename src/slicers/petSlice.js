@@ -36,37 +36,14 @@ export const petDataStore = createAsyncThunk(
   }
 );
 
-// Just in case, will keep this codes
-// export const petQuestionStore = createAsyncThunk(
-//   "pet/questions",
-//   async (petDataInput) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await axios.patch(
-//         `${REACT_APP_SERVER_URL}/pet/${petDataInput.pet_id}`,
-//         petDataInput.questionnaire,
-//         {
-//           headers: {
-//             "x-access-token": token,
-//           },
-//         }
-//       );
-//       return response.data;
-//     } catch (err) {
-//       return { err: err.response.data };
-//     }
-//   }
-// );
-
-export const updateQuestion = createAsyncThunk(
-  "pet/updateQuestion",
+export const deleteQuestion = createAsyncThunk(
+  "pet/deleteQuestion",
   async (data) => {
     try {
-      console.log(data);
       const token = localStorage.getItem("token");
       const response = await axios.patch(
         `${REACT_APP_SERVER_URL}/pet/${data._id}/question`,
-        data.questionnaire,
+        { questionnaire: data.questionnaire },
         {
           headers: {
             "x-access-token": token,
@@ -80,27 +57,6 @@ export const updateQuestion = createAsyncThunk(
   }
 );
 
-// export const modifyQuestion = createAsyncThunk(
-//   "pet/modifyQuestion",
-//   async (data) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await axios.patch(
-//         `${REACT_APP_SERVER_URL}/pet/${data._id}/questionnaire`,
-//         data.questionnaire,
-//         {
-//           headers: {
-//             "x-access-token": token,
-//           },
-//         }
-//       );
-//       return response.data;
-//     } catch (err) {
-//       return { err: err.response.data };
-//     }
-//   }
-// );
-
 export const getPetInfo = createAsyncThunk("pet/getInfo", async () => {
   try {
     const token = localStorage.getItem("token");
@@ -109,7 +65,6 @@ export const getPetInfo = createAsyncThunk("pet/getInfo", async () => {
         "x-access-token": token,
       },
     });
-    console.log(pet.data);
     return pet.data;
   } catch (err) {
     return { err: err.response.data };
@@ -169,20 +124,6 @@ export const petSlice = createSlice({
       state.info._id = null;
       state.pet_questions = [];
     },
-    addQuestion: (state, action) => {
-      state.pet_questions = [...state.pet_questions, action.payload];
-    },
-    removeQuestion: (state, action) => {
-      state.pet_questions = state.pet_questions.filter(
-        (val) => val !== action.payload
-      );
-    },
-    modifiyQuestion: (state, action) => {
-      // state.pet_questions = state.pet_questions.map((val) =>
-      //   val === action.payload ? action.payload : val
-      // );
-      state.pet_questions = [...state.pet_questions, action.payload];
-    },
   },
   extraReducers: {
     [petDataStore.fulfilled]: (state, action) => {
@@ -198,15 +139,13 @@ export const petSlice = createSlice({
       state.info.pet_pictures = action.payload.pet_pictures;
       state.info._id = action.payload._id;
       state.pet_questions = action.payload.questionnaire;
+      state.info.tag = action.payload.tag;
     },
     [updatePetInfo.fulfilled]: (state, action) => {
       if (!action.payload.err) {
         state.info.name = action.payload.name;
         state.info.description = action.payload.description;
-        // state.pet_questions = [
-        //   ...state.pet_questions,
-        //   ...action.payload.questionnaire,
-        // ];
+        state.pet_questions = action.payload.questionnaire;
 
         if (action.payload.pet_pictures !== undefined) {
           state.info.pet_pictures = [
@@ -216,7 +155,7 @@ export const petSlice = createSlice({
         }
       }
     },
-    [updateQuestion.fulfilled]: (state, action) => {
+    [deleteQuestion.fulfilled]: (state, action) => {
       state.pet_questions = action.payload.questionnaire;
     },
   },
@@ -230,8 +169,5 @@ export const {
   getPetQuestions,
   getPetTag,
   signOutPetCleanUp,
-  addQuestion,
-  removeQuestion,
-  modifiyQuestion,
 } = petSlice.actions;
 export default petSlice.reducer;
