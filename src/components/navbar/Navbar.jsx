@@ -113,11 +113,23 @@ const Navbar = () => {
                 </li>
               </Link>
               {/* TODO: change --> /setting/:id after user id is stored in redux */}
-              <Link to="/setting">
-                <li>
-                  <i className="fa fas fa-cog"></i>
-                </li>
-              </Link>
+              {type === "Owner" ? (
+                <>
+                  <Link to="/owner/setting">
+                    <li>
+                      <i className="fa fas fa-cog"></i>
+                    </li>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/carer/setting">
+                    <li>
+                      <i className="fa fas fa-cog"></i>
+                    </li>
+                  </Link>
+                </>
+              )}
               <Link to="/" onClick={handleSignOut}>
                 <li>
                   <i className="fa fa-sign-out"></i>
