@@ -25,7 +25,8 @@ import Page404 from "./pages/Page404";
 import Carer from "./components/carer/Carer";
 import OwnerHome from "./components/owners/OwnerHome";
 import GalleryPage from "./pages/GalleryPage";
-import UpdateUserInfo from "./pages/UpdateUserInfo";
+import UpdateUserInfoOwner from "./pages/UpdateUserInfoOwner";
+import UpdateUserInfoCarer from "./pages/UpdateUserInfoCarer";
 import CarerProfilePage from "./pages/CarerProfilePage";
 import {
   addMessageAction,
@@ -146,16 +147,28 @@ function App() {
 
           {/* owner pages only */}
           {type === "Owner" && (
-            <Route
-              path="/owner"
-              element={
-                <PrivateRoute>
-                  <OwnerHome />
-                </PrivateRoute>
-              }>
-              <Route exact path="/owner" element={<PetInfo />} />
-              <Route exact path="/owner/requests" element={<Request />} />
-            </Route>
+            <>
+              <Route
+                path="/owner"
+                element={
+                  <PrivateRoute>
+                    <OwnerHome />
+                  </PrivateRoute>
+                }
+              >
+                <Route exact path="/owner" element={<PetInfo />} />
+                <Route exact path="/owner/requests" element={<Request />} />
+              </Route>
+              <Route
+                //change to --> path="setting/:id" after we get user_id in redux
+                path="/owner/setting"
+                element={
+                  <PrivateRoute>
+                    <UpdateUserInfoOwner />
+                  </PrivateRoute>
+                }
+              />
+            </>
           )}
 
           {/* carer pages only */}
@@ -194,6 +207,14 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route
+                path="/carer/setting"
+                element={
+                  <PrivateRoute>
+                    <UpdateUserInfoCarer />
+                  </PrivateRoute>
+                }
+              />
             </Route>
           )}
 
@@ -215,15 +236,7 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            //change to --> path="setting/:id" after we get user_id in redux
-            path="/setting"
-            element={
-              <PrivateRoute>
-                <UpdateUserInfo />
-              </PrivateRoute>
-            }
-          />
+
           {/* anyone can access this */}
           <Route exact path="/signin" element={<SignIn />} />
           <Route exact path="/signup" element={<SignUp />} />

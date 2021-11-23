@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,9 @@ import {
 import "../styles/registration/step.scss";
 
 export default function Step4() {
+  const [selectedFile, setSelectedFile] = useState([]);
+  const [preview, setPreview] = useState([]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const typeTags = [
@@ -57,6 +60,49 @@ export default function Step4() {
     resolver: yupResolver(validationSchema),
   });
 
+  const imageField = register("pet_picture", { required: true });
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrlArr = [];
+    for (let i = 0; i < selectedFile.length; i++) {
+      const objectUrl = URL.createObjectURL(selectedFile[i]);
+      objectUrlArr.push(objectUrl);
+    }
+    setPreview(objectUrlArr);
+
+    return () => preview.forEach((url) => URL.revokeObjectURL(url));
+  }, [selectedFile, preview]);
+
+  const onSelectFile = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+    let fileArr = [];
+    for (let file in e.target.files) {
+      fileArr.push(e.target.files[file]);
+    }
+    fileArr.splice(-2, 2);
+    setSelectedFile(fileArr);
+  };
+
+  const renderImg = () => {
+    const allImg = preview.map((url, i) => (
+      <img
+        key={i}
+        src={url}
+        alt="selectedImg"
+        style={{ width: "20%", height: "10%" }}
+      />
+    ));
+    return allImg;
+  };
+
   const handleNext = async (e) => {
     const petNameVal = e.petName;
     const petTypeVal = e.petType;
@@ -99,8 +145,13 @@ export default function Step4() {
             id="file"
             multiple
             placeholder="Picture"
-            {...register("pet_picture")}
+            {...imageField}
+            onChange={(e) => {
+              imageField.onChange(e);
+              onSelectFile(e);
+            }}
           />
+          {selectedFile && renderImg()}
           <div>{errors.pet_picture?.message}</div>
           <input type="text" placeholder="PetName" {...register("petName")} />
           <div>{errors.petName?.message}</div>
@@ -166,7 +217,8 @@ export default function Step4() {
           <textarea
             type="text"
             placeholder="Bio"
-            {...register("petDescription")}></textarea>
+            {...register("petDescription")}
+          ></textarea>
           <div>{errors.petDescription?.message}</div>
           <button>Next</button>
           <Link to="/step3/owner">Back</Link>
