@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { updatePetInfo, deleteQuestion } from "../../slicers/petSlice";
+import {
+  updatePetInfo,
+  updateQuestion,
+  addQuestion,
+  removeQuestion,
+  modifiyQuestion,
+} from "../../slicers/petSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { submitPicForPet } from "../../util/uploadImage";
 
 const UpdatePetInfo = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [index, setIndex] = useState();
+  const [question, setQuestion] = useState("");
+  const [removeQ, setRemoveQ] = useState("");
+  const [modifyQ, setModifyQ] = useState("");
   const petInfo = useSelector((state) => state.pet.info);
   const questionnaire = useSelector((state) => state.pet.pet_questions);
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      name: petInfo.name,
-      description: petInfo.description,
-    },
-  });
-
+  const { register, handleSubmit } = useForm();
+  // {
+  //   defaultValues: {
+  //     name: petInfo.name,
+  //     description: petInfo.description,
+  //   },
+  // }
   const onSubmit = async (data) => {
     let images;
     if (data.pet_pictures.length >= 1) {
@@ -41,12 +49,39 @@ const UpdatePetInfo = () => {
     }
   };
 
-  console.log(index, questionnaire[index]);
-  const handleDelete = async (data) => {
-    data._id = petInfo._id;
-    data.questionnaire = questionnaire[index];
-    await dispatch(deleteQuestion(data));
+  const handleAddQuestion = (e) => {
+    e.preventDefault();
+    setQuestion("");
+    dispatch(addQuestion(question));
   };
+
+  const handleRemoveQuestion = (i) => {
+    setRemoveQ(questionnaire[i]);
+    dispatch(removeQuestion(removeQ));
+  };
+
+  const handleModifyQuestion = (e) => {
+    e.preventDefault();
+    dispatch(modifiyQuestion(modifyQ));
+  };
+
+  const hadleUpdateQuestion = (data) => {
+    data._id = petInfo._id;
+    data.questionnaire = petInfo.questionnaire;
+    dispatch(updateQuestion(data));
+  };
+
+  // const handleDelete = async (data) => {
+  //   data._id = petInfo._id;
+  //   data.questionnaire = questionnaire[index];
+  //   await dispatch(deleteQuestion(data));
+  // };
+
+  // const handleModify = async (data) => {
+  //   data._id = petInfo._id;
+  //   data.questionnaire = questionnaire[index];
+  //   await dispatch(modifyQuestion(data));
+  // };
 
   return (
     <section style={{ margin: 100 }}>
@@ -65,32 +100,35 @@ const UpdatePetInfo = () => {
         <button>Save</button>
       </form>
       <h1 style={{ marginTop: 10 }}>Update Questionnaire</h1>
-      {questionnaire.map((q, i) => (
-        <div key={i}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <label>{q}</label>
-            <input type="text" {...register("questionnaire")} />
-            <button>Modify</button>
-          </form>
-          {/* {need to retrieve index of question } */}
-          <button
-            onClick={() => {
-              setIndex(i);
-              // handleDelete();
-            }}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder="Add Question"
-          {...register("questionnaire")}
-        />
-        <button>Save</button>
+      <form onSubmit={hadleUpdateQuestion}>
+        {questionnaire &&
+          questionnaire.map((q, i) => (
+            <div key={i}>
+              <form onSubmit={handleModifyQuestion}>
+                <input
+                  type="text"
+                  defaultValue={q}
+                  onChange={(e) => setModifyQ(e.target.value)}
+                />
+                <button>Save</button>
+              </form>
+              <button onClick={() => handleRemoveQuestion(i)}>Delete</button>
+            </div>
+          ))}
+        <form onSubmit={handleAddQuestion}>
+          <input
+            type="text"
+            placeholder="Add Question"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
+          <button>Add</button>
+        </form>
+        <button>Submit</button>
       </form>
+      {/* <form>
+        <textarea type="text" defaultValue={questionnaire} />
+      </form> */}
     </section>
   );
 };
