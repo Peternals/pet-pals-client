@@ -6,7 +6,7 @@ const Tags = ({ tags }) => {
     <div className="field is-grouped is-grouped-multiline">
       {tags.map((tg, i) => (
         <span className={getTagClass(tg.color)} key={i}>
-          {tg.name}
+          {tg.value}
         </span>
       ))}
     </div>

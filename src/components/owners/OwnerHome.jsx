@@ -10,7 +10,7 @@ const OwnerHome = () => {
   return (
     <main className="owner">
       <UserProfile />
-      <FilterTagSection />
+      <FilterTagSection category="Type" />
       <Routes>
         <Route exact path="/" element={<PetInfo />} />
         <Route exact path="/requests" element={<Request />} />

@@ -29,7 +29,7 @@ export const fetchPetsByTag = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const { data: response } = await axios.get(
-        `${REACT_APP_SERVER_URL}/pet/tag?name=[${tags.map(
+        `${REACT_APP_SERVER_URL}/pet/tag?value=[${tags.map(
           (tag) => `"${tag}"`
         )}]`,
         {

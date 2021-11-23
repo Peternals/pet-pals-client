@@ -1,75 +1,85 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { getTagClass } from "../utils/tag-utils";
-import { useDispatch, useSelector } from "react-redux";
-import { addFilter, removeFilter } from "../../slicers/filterOptionSlice";
+import { useDispatch } from "react-redux";
+import { addFilter, removeFilter } from "../slicers/filterOptionSlice";
+import DeletableTags from "./DeletableTags";
+import axios from "axios";
+const { REACT_APP_SERVER_URL } = process.env;
 
-const FilterTagSection = () => {
-  // Needs the options.
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
-
-  // Get all the possible tags
-  // State variable for selected tags
-  // Selected tags should be stored in the store, see filter/PetHealth for examples
+const FilterTagSection = ({ category }) => {
+  const [allTags, setAllTags] = useState([]);
+  const [options, setOptions] = useState([]);
   const dispatch = useDispatch();
-  const tags = useSelector((state) => state.filterOptions.tags);
-  const healthTags = ["Vaccinated", "Neutered", "Need supplements"];
   const [selectedTags, setSelectedTags] = useState([]);
+
+  // Retrieve tags by provided category
+  useEffect(() => {
+    (async () => {
+      try {
+        const action = await axios.get(
+          `${REACT_APP_SERVER_URL}/tag/category/${category}`,
+          {
+            headers: {
+              "x-access-token": localStorage.getItem("token"),
+            },
+          }
+        );
+        setAllTags(action.data);
+        setOptions(
+          allTags.map((tag) => {
+            return {
+              value: tag.value,
+              label: tag.value,
+            };
+          })
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [category, allTags]);
 
   const updateSelectedTags = (tag, action) => {
     let tags;
     if (action === "create") {
       tags = [...selectedTags, tag];
     } else if (action === "delete") {
-      tags = selectedTags.filter((tg) => tg !== tag);
+      tags = selectedTags.filter((tg) => tg.value !== tag.value);
     }
     setSelectedTags(tags);
   };
 
-  const handleFilter = (e) => {
-    if (e.target.checked) {
-      dispatch(addFilter(e.target.value)); // TODO: Replace this with adding and removing tags
-    } else {
-      dispatch(removeFilter(e.target.value));
-    }
+  // Annoying nature of select is that we must map everytime.
+  const findTagFromOption = (option) => {
+    return allTags.find((tag) => tag.value === option.value);
   };
-  const deleteTag = (e) => {
-    // Remove the tag from the state
 
-    // Update the store
-    dispatch(removeFilter(e.target.value));
+  const deleteTag = (e) => {
+    // Get the tag by name
+    const option = options.find((element) => element.value === e.target.name);
+    const tagToDelete = findTagFromOption(option);
+    // Remove the tag from the state
+    updateSelectedTags(tagToDelete, "delete");
+    // // Update the store
+    dispatch(removeFilter(tagToDelete.value));
   };
 
   const createTag = (tag) => {
-    dispatch(addFilter(e.target.value));
-    updateSelectedTags(tag);
-    return (
-      <div>
-        <span className={getTagClass(tag.color)} key={i}>
-          {tag.name}
-        </span>
-        <button class="tag is-delete" onClick={deleteTag}></button>
-      </div>
-    );
+    dispatch(addFilter(tag.value));
+    updateSelectedTags(tag, "create");
+  };
+
+  const handleUpdate = (option) => {
+    const tag = findTagFromOption(option);
+    createTag(tag);
   };
 
   return (
-    <div className="field has-addons">
+    <div className="field is-grouped is-grouped-multiline">
       <div className="control">
-        <Select options={options} />
+        <Select options={options} onChange={handleUpdate} />
       </div>
-      <div className="control">
-        <button id="add-tag" className="button is-link"></button>
-      </div>
-      <div id="tag-field" className="field is-grouped is-grouped-multiline">
-        <div className="control">
-          <div className="tags has-addons"></div>
-        </div>
-      </div>
+      <DeletableTags tags={selectedTags} deleteTag={deleteTag} />
     </div>
   );
 };
