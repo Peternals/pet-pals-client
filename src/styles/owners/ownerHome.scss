@@ -20,7 +20,7 @@ textarea {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  justify-content: space-between;
+
   .summaryTitle {
     margin-top: 10px;
     font-weight: bolder;
@@ -37,5 +37,6 @@ textarea {
 @media only screen and(min-width: 730px) {
   .owner {
     flex-direction: row;
+    justify-content: space-between;
   }
 }
