@@ -37,6 +37,7 @@ import { getConversationsAction } from "./slicers/actions/messageActions";
 import axios from "axios";
 import { updateRequest } from "./slicers/userSlice";
 import ringtone from "./assets/ringtone.mp3";
+import UpdatePetInfo from "./components/owners/UpdatePetInfo";
 
 const { REACT_APP_SERVER_URL } = process.env;
 

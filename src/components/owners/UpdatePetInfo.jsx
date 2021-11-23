@@ -11,7 +11,6 @@ import { submitPicForPet } from "../../util/uploadImage";
 const UpdatePetInfo = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  // const [index, setIndex] = useState();
   const petInfo = useSelector((state) => state.pet.info);
   const questions = useSelector((state) => state.pet.pet_questions);
   const dispatch = useDispatch();
