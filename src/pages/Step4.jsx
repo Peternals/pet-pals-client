@@ -76,7 +76,7 @@ export default function Step4() {
     setPreview(objectUrlArr);
 
     return () => preview.forEach((url) => URL.revokeObjectURL(url));
-  }, [selectedFile]);
+  }, [selectedFile, preview]);
 
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
