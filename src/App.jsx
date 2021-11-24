@@ -35,6 +35,7 @@ import {
 } from "./slicers/messengerSlice";
 import { getConversationsAction } from "./slicers/actions/messageActions";
 import axios from "axios";
+import "bulma/css/bulma.min.css";
 import { updateRequest } from "./slicers/userSlice";
 import ringtone from "./assets/ringtone.mp3";
 import UpdatePetInfo from "./components/owners/UpdatePetInfo";

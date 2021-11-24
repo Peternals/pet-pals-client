@@ -1,10 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PetHealth from "./PetHealth";
-import Playing from "./Playing";
-import Size from "./Size";
-import Trained from "./Trained";
-import Type from "./Type";
 import {
   fetchAllPets,
   defaultFetchPetsByTag,
@@ -12,6 +7,7 @@ import {
   resetFilter,
   clearFilteredPets,
 } from "../../slicers/filterOptionSlice";
+import FilterTagSection from "../FilterTagSection";
 
 const FilterContainer = () => {
   const tags = useSelector((state) => state.filterOptions.tags);
@@ -29,7 +25,11 @@ const FilterContainer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     closeBtnRef.current.classList.remove("showFilter");
-    dispatch(fetchPetsByTag(tags));
+    if (tags.length === 0) {
+      dispatch(fetchAllPets());
+    } else {
+      dispatch(fetchPetsByTag(tags));
+    }
   };
 
   const handleViewAll = (e) => {
@@ -67,13 +67,11 @@ const FilterContainer = () => {
           </div>
           <form onSubmit={handleSubmit}>
             <button className="searchPets">Search Pets</button>
-            <div className="tagContainer">
-              <Type />
-              <Size />
-              <PetHealth />
-              <Trained />
-              <Playing />
-            </div>
+            <FilterTagSection category="Type" />
+            <FilterTagSection category="Size" />
+            <FilterTagSection category="Pet health" />
+            <FilterTagSection category="Trained" />
+            <FilterTagSection category="Playing" />
           </form>
         </div>
       </div>

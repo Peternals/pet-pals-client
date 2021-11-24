@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Tags from "../Tag";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const PetCard = ({ pet }) => {
@@ -15,9 +16,12 @@ const PetCard = ({ pet }) => {
         <div className="card-heading">
           <h4>{pet.name}</h4>
           <p>{pet.description}</p>
-          {pet.tag.map((tg, i) => (
-            <p key={i}>{tg.name}</p>
-          ))}
+        </div>
+        <div
+          className="tags card-text tagOverride"
+          // style={{ position: "absolute", bottom: 0 }}
+        >
+          <Tags tags={pet.tag} />
         </div>
         <Link to={`/carer/pet/${pet._id}`} state={{ pet: pet }}>
           <button className="card-button"> Request</button>
