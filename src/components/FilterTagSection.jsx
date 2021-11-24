@@ -67,7 +67,6 @@ const FilterTagSection = ({ category }) => {
   return (
     <div className="box">
       <Select options={options} onChange={handleUpdate} />
-      <hr />
       <DeletableTags tags={selectedTags} deleteTag={deleteTag} />
     </div>
   );

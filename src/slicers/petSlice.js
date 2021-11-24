@@ -19,6 +19,7 @@ export const petDataStore = createAsyncThunk(
   "pet/signUp",
   async (petDataInput) => {
     try {
+      console.log(petDataInput);
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${REACT_APP_SERVER_URL}/pet/`,

@@ -51,7 +51,7 @@ function QuestionForm(props) {
 
   return (
     <>
-      <ol>
+      <ol className="questions">
         {props.questions.map((question, index) => (
           <Question
             key={index}
