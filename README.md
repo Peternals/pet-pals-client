@@ -42,6 +42,7 @@ SKIP_PREFLIGHT_CHECK=true
 To see the app, open your browser and access your local host url which you set up in ```.env``` file.
 
 #### 4. Let's start!
-<img width="500" alt="Screen Shot 2021-11-24 at 19 17 11" src="https://user-images.githubusercontent.com/83794734/143219860-ee33732a-67ce-4038-8d9d-40a292b4e1ab.png">
-# Note 📝
-# Tech Stack 🤖
+<img width="500" alt="Screen Shot 2021-11-24 at 19 17 11" src="https://user-images.githubusercontent.com/83794734/143219860-ee33732a-67ce-4038-8d9d-40a292b4e1ab.png">  
+
+# Note 📝  
+# Tech Stack 🤖  
