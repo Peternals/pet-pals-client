@@ -7,6 +7,7 @@ const PetGrid = () => {
   const filteredPets = useSelector((state) => state.filterOptions.filteredPets);
   const isFiltered = useSelector((state) => state.filterOptions.isFiltered);
   const filterState = useSelector((state) => state.filterOptions.state);
+
   return (
     <div className="container">
       <div className="row">
