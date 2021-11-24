@@ -1,15 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PetHealth from "./PetHealth";
-import Playing from "./Playing";
-import Size from "./Size";
-import Trained from "./Trained";
-import Type from "./Type";
 import {
   fetchAllPets,
+  defaultFetchPetsByTag,
   fetchPetsByTag,
   resetFilter,
+  clearFilteredPets,
 } from "../../slicers/filterOptionSlice";
+import FilterTagSection from "../FilterTagSection";
 
 const FilterContainer = () => {
   const tags = useSelector((state) => state.filterOptions.tags);
@@ -18,13 +16,20 @@ const FilterContainer = () => {
   const closeBtnRef = useRef();
 
   useEffect(() => {
-    dispatch(fetchPetsByTag(interests));
-  });
+    dispatch(defaultFetchPetsByTag(interests));
+    return () => {
+      dispatch(clearFilteredPets());
+    };
+  }, [interests, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     closeBtnRef.current.classList.remove("showFilter");
-    dispatch(fetchPetsByTag(tags));
+    if (tags.length === 0) {
+      dispatch(fetchAllPets());
+    } else {
+      dispatch(fetchPetsByTag(tags));
+    }
   };
 
   const handleViewAll = (e) => {
@@ -35,6 +40,7 @@ const FilterContainer = () => {
 
   const resetView = () => {
     dispatch(resetFilter());
+    dispatch(defaultFetchPetsByTag(interests));
     closeBtnRef.current.classList.remove("showFilter");
   };
 
@@ -56,17 +62,17 @@ const FilterContainer = () => {
               See All
             </button>
             <button className="reset" onClick={resetView}>
-              Reset
+              Recommendation
             </button>
           </div>
           <form onSubmit={handleSubmit}>
             <button className="searchPets">Search Pets</button>
-            <div className="tagContainer">
-              <Type />
-              <Size />
-              <PetHealth />
-              <Trained />
-              <Playing />
+            <div className="tagSectionContainer">
+              <FilterTagSection category="Type" />
+              <FilterTagSection category="Size" />
+              <FilterTagSection category="Pet health" />
+              <FilterTagSection category="Trained" />
+              <FilterTagSection category="Playing" />
             </div>
           </form>
         </div>

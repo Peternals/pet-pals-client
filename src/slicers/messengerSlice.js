@@ -16,6 +16,9 @@ const messengerSlice = createSlice({
   name: "messenger",
   initialState,
   reducers: {
+    addConversationAction: (state, action) => {
+      state.conversations.unshift(action.payload);
+    },
     addMessageAction: (state, action) => {
       state.messages.push(action.payload);
     },
@@ -81,6 +84,7 @@ export const {
   setSeenStateAction,
   signOutMessengerCleanUp,
   cleanOutMessengerBox,
+  addConversationAction,
 } = messengerSlice.actions;
 const messengerReducer = messengerSlice.reducer;
 

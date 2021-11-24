@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "axios";
+import { socket } from "../../socket";
+import { useDispatch } from "react-redux";
+import { addConversationAction } from "../../slicers/messengerSlice";
+import { getOwnerRequest } from "../../slicers/actions/userAction";
 const { REACT_APP_SERVER_URL } = process.env;
 
-const AnswerForm = ({
-  answerFormRef,
-  setCurrentRequest,
-  currentRequest,
-  getRequests,
-}) => {
+const AnswerForm = ({ answerFormRef, setCurrentRequest, currentRequest }) => {
+  const dispatch = useDispatch();
   const closeAnswerForm = () => {
     setCurrentRequest({});
     answerFormRef.current.classList.remove("showAnswerForm");
@@ -28,7 +28,7 @@ const AnswerForm = ({
         }
       );
       if (action === "Approved") {
-        await axios.post(
+        const newConversation = await axios.post(
           `${REACT_APP_SERVER_URL}/messages/conversations`,
           { user_id: currentRequest._id },
           {
@@ -37,9 +37,19 @@ const AnswerForm = ({
             },
           }
         );
+        if (newConversation.data !== false) {
+          dispatch(addConversationAction(newConversation.data));
+        }
       }
-      await getRequests();
+      await dispatch(getOwnerRequest());
       closeAnswerForm();
+      socket.emit("notifyRequest", {
+        user_id: currentRequest._id,
+        request: {
+          ...currentRequest.request,
+          status: action,
+        },
+      });
     } catch (error) {
       console.log(error);
     }

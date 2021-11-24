@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { verifyTokenAction } from "./actions/userAction";
+import { getOwnerRequest, verifyTokenAction } from "./actions/userAction";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
   _id: null,
   Carer: null,
   interests: [],
+  ownerRequests: [],
 };
 
 export const validation = createAsyncThunk(
@@ -58,13 +59,22 @@ export const signIn = createAsyncThunk("auth/signIn", async (signInInput) => {
   }
 });
 
+export const fetchUserInfo = createAsyncThunk("user/fetch", async (_id) => {
+  try {
+    const response = await axios.get(`${REACT_APP_SERVER_URL}/user/${_id}`);
+    return response.data;
+  } catch (err) {
+    return { err: err.response.data };
+  }
+});
+
 export const updateUserInfo = createAsyncThunk(
   "user/update",
-  async ({ _id, data }) => {
+  async ({ _id, updateData }) => {
     try {
       const response = await axios.patch(
         `${REACT_APP_SERVER_URL}/user/${_id}`,
-        { _id, data }
+        { _id, updateData }
       );
       return response.data;
     } catch (err) {
@@ -89,6 +99,19 @@ export const userSlice = createSlice({
     getProfilePicture: (state, action) => {
       state.profile_picture = action.payload.profile_picture;
     },
+    updateRequest: (state, action) => {
+      const reqId = action.payload._id;
+
+      let filter;
+      if (state.Carer && state.Carer.requests.length > 0) {
+        filter = state.Carer.requests.filter((req) => req._id !== reqId);
+      } else {
+        filter = [];
+      }
+      state.Carer = {
+        requests: [...filter, action.payload],
+      };
+    },
     signOutCleanUp: (state) => {
       state.isLoggedIn = false;
       state.isSuccess = false;
@@ -100,6 +123,17 @@ export const userSlice = createSlice({
       state.type = null;
       state._id = null;
       state.Carer = null;
+      state.ownerRequests = [];
+      state.interests = [];
+    },
+    setRequestSeenState: (state) => {
+      console.log("hello");
+      if (state.Carer && state.Carer.requests.length > 0) {
+        state.Carer.requests = state.Carer.requests.map((req) => {
+          req.seen = true;
+          return req;
+        });
+      }
     },
   },
   extraReducers: {
@@ -142,13 +176,20 @@ export const userSlice = createSlice({
         isLoggedIn: "err" in action.payload ? false : true,
       };
     },
+    [fetchUserInfo.fulfilled]: (state, action) => {
+      state.interests = action.payload.interests;
+    },
     [updateUserInfo.fulfilled]: (state, action) => {
       if (!action.payload.err) {
         state.username = action.payload.username;
         state.email = action.payload.email;
         state.description = action.payload.description;
         state.profile_picture = action.payload.profile_picture;
+        state.interests = action.payload.interests;
       }
+    },
+    [getOwnerRequest.fulfilled]: (state, action) => {
+      state.ownerRequests = action.payload;
     },
   },
 });
@@ -159,5 +200,7 @@ export const {
   getProfilePicture,
   getType,
   signOutCleanUp,
+  updateRequest,
+  setRequestSeenState,
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -7,6 +7,7 @@ const initialState = {
   allPets: [],
   filteredPets: [],
   isFiltered: false,
+  state: "Recommendation",
 };
 
 export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
@@ -23,13 +24,35 @@ export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
   }
 });
 
+export const defaultFetchPetsByTag = createAsyncThunk(
+  "pet/defaultFetchPetsByTag",
+  async (tags) => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data: response } = await axios.get(
+        `${REACT_APP_SERVER_URL}/pet/tag/single?value=[${tags.map(
+          (tag) => `"${tag}"`
+        )}]`,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      );
+      return response;
+    } catch (err) {
+      return { err: err.response.data };
+    }
+  }
+);
+
 export const fetchPetsByTag = createAsyncThunk(
   "pet/fetchPetsByTag",
   async (tags) => {
     try {
       const token = localStorage.getItem("token");
       const { data: response } = await axios.get(
-        `${REACT_APP_SERVER_URL}/pet/tag?name=[${tags.map(
+        `${REACT_APP_SERVER_URL}/pet/tag/all?value=[${tags.map(
           (tag) => `"${tag}"`
         )}]`,
         {
@@ -49,9 +72,17 @@ const filterOptionSlice = createSlice({
   name: "filterOptions",
   initialState,
   reducers: {
+    clearFilteredPets: (state) => {
+      state.filteredPets = [];
+      state.state = "Recommendation";
+    },
+    setFilterState: (state, action) => {
+      state.state = action.payload;
+    },
     resetFilter: (state, action) => {
       state.tags = [];
       state.isFiltered = true;
+      state.state = "Recommendation";
     },
     addFilter: (state, action) => {
       const added = action.payload;
@@ -66,15 +97,22 @@ const filterOptionSlice = createSlice({
     [fetchAllPets.fulfilled]: (state, action) => {
       state.allPets = action.payload;
       state.isFiltered = false;
+      state.state = "All Pets";
+    },
+    [defaultFetchPetsByTag.fulfilled]: (state, action) => {
+      state.filteredPets = action.payload;
+      state.isFiltered = true;
     },
     [fetchPetsByTag.fulfilled]: (state, action) => {
       state.filteredPets = action.payload;
       state.isFiltered = true;
+      state.state = "Results";
     },
   },
 });
 
 export const {
+  clearFilteredPets,
   resetFilter,
   addFilter,
   removeFilter,

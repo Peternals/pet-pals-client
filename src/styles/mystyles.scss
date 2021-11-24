@@ -1,0 +1,14 @@
+@import "~selectize/dist/css/selectize.css";
+
+@import "../node_modules/bulma/sass/utilities/functions";
+$coral: #ff7f50;
+$coral-invert: findColorInvert($coral);
+
+@import "../node_modules/bulma/sass/utilities/derived-variables.sass";
+$addColors: (
+  "coral": (
+    $coral,
+    $coral-invert,
+  ),
+);
+$colors: map-merge($colors, $addColors);

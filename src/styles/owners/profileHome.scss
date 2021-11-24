@@ -15,7 +15,7 @@
       overflow: hidden;
       width: 100%;
       height: max-content;
-      max-height: 45%;
+      max-height: 40vh;
       border-radius: 30px;
       box-shadow: 1px 1px 5px $shadow;
       margin-bottom: 10px;
@@ -135,6 +135,9 @@
         width: 100%;
         border-radius: 30px;
         box-shadow: 1px 1px 5px $shadow;
+        .summary {
+          margin-bottom: 10px;
+        }
       }
     }
   }
@@ -145,6 +148,9 @@
         flex-direction: row;
         .calendar {
           width: 57%;
+          min-height: 321px;
+          height: max-content;
+          max-height: max-content;
         }
         .petInfo {
           width: 40%;

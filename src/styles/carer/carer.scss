@@ -26,7 +26,7 @@
     font-weight: bolder;
   }
   .filterContainer {
-    // width: 205px;
+    // width: 300px;
     height: 100%;
     .filterContainer2 {
       // width: 205px;
@@ -48,7 +48,11 @@
       flex-direction: column;
       position: fixed;
       z-index: 100;
-      background-color: white;
+      background-color: rgb(248, 248, 248);
+      overflow: hidden;
+      .field {
+        margin-top: 20px;
+      }
       .seeAll {
         background-color: $secondaryColor;
       }
@@ -57,6 +61,12 @@
       }
       form {
         height: 80%;
+        display: flex;
+        flex-direction: column;
+        .tagSectionContainer {
+          flex-grow: 1;
+          overflow-y: auto;
+        }
       }
       button {
         &:hover {
@@ -86,8 +96,8 @@
         height: 100%;
         margin-top: 10px;
 
-        overflow-y: auto;
-        overflow-x: hidden;
+        // overflow-y: auto;
+        // overflow-x: hidden;
         padding-bottom: 20px;
       }
     }
@@ -132,13 +142,16 @@
 @media only screen and (min-width: 780px) {
   .carerMain {
     width: 100%;
+    .container {
+      width: 80%;
+    }
     .fa-search {
       display: none;
     }
     .filterContainer {
-      width: 205px;
+      width: 300px;
       .filterContainer2 {
-        width: 205px;
+        width: 300px;
         .showFilter {
           width: 205px;
           padding: 5px;
@@ -149,7 +162,7 @@
           }
           padding: 5px;
           background-color: transparent;
-          width: 205px;
+          width: 300px;
           left: auto;
         }
       }

@@ -16,13 +16,17 @@ import Navbar from "./components/navbar/Navbar";
 import PetInfo from "./components/owners/PetInfo";
 import Request from "./components/owners/Request";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyTokenAction } from "./slicers/actions/userAction";
+import {
+  getOwnerRequest,
+  verifyTokenAction,
+} from "./slicers/actions/userAction";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Page404 from "./pages/Page404";
 import Carer from "./components/carer/Carer";
 import OwnerHome from "./components/owners/OwnerHome";
 import GalleryPage from "./pages/GalleryPage";
-import UpdateUserInfo from "./pages/UpdateUserInfo";
+import UpdateUserInfoOwner from "./pages/UpdateUserInfoOwner";
+import UpdateUserInfoCarer from "./pages/UpdateUserInfoCarer";
 import CarerProfilePage from "./pages/CarerProfilePage";
 import {
   addMessageAction,
@@ -31,6 +35,10 @@ import {
 } from "./slicers/messengerSlice";
 import { getConversationsAction } from "./slicers/actions/messageActions";
 import axios from "axios";
+import "bulma/css/bulma.min.css";
+import { updateRequest } from "./slicers/userSlice";
+import ringtone from "./assets/ringtone.mp3";
+import UpdatePetInfo from "./components/owners/UpdatePetInfo";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -43,11 +51,12 @@ function App() {
     (state) => state.messenger.currentChatUser
   );
 
+  // get all messages, set message actions to be received by the user
   useEffect(() => {
     if (isLoggedIn === true) {
       socket.on("receiveMessage", async (data) => {
-        console.log("1");
         dispatch(getConversationsAction());
+        new Audio(ringtone).play();
         if (currentChatUser._id === data.sender_id) {
           dispatch(addMessageAction(data));
           dispatch(
@@ -73,6 +82,7 @@ function App() {
     };
   }, [dispatch, currentChatUser, isLoggedIn]);
 
+  //verify token and get user info
   useEffect(() => {
     (async () => {
       try {
@@ -83,6 +93,35 @@ function App() {
     })();
   }, [dispatch]);
 
+  //if the user is login, add the user to the socket user array
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      socket.connect();
+      socket.emit("addUser", { user_id: id });
+      socket.on("notifyRequest", (data) => {
+        new Audio(ringtone).play();
+        dispatch(getConversationsAction());
+        dispatch(updateRequest(data.request));
+      });
+    }
+    return () => {
+      socket.disconnect();
+    };
+  }, [isLoggedIn, id, dispatch]);
+
+  //if the user is an owner, get requests
+  useEffect(() => {
+    if (isLoggedIn === true && type === "Owner") {
+      dispatch(getOwnerRequest());
+      socket.on("requestReceive", () => {
+        new Audio(ringtone).play();
+
+        dispatch(getOwnerRequest());
+      });
+    }
+  }, [isLoggedIn, type, dispatch]);
+
+  //get all conversations of the user
   useEffect(() => {
     (async () => {
       try {
@@ -96,119 +135,130 @@ function App() {
       dispatch(signOutMessengerCleanUp());
     };
   }, [dispatch, isLoggedIn]);
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      socket.connect();
-      socket.emit("addUser", { user_id: id });
-    }
-    return () => {
-      socket.disconnect();
-    };
-  }, [isLoggedIn, id]);
 
   const closeAnyNotif = (e) => {
     // document.querySelector(".notification").classList.remove("showNotif");
   };
   return (
-    <div className="App" onMouseDown={closeAnyNotif}>
+    <>
       <div className="background"></div>
-      <HashRouter>
-        <Navbar />
-        <Routes>
-          <Route path="" element={<Home />} />
+      <div className="App" onMouseDown={closeAnyNotif}>
+        <HashRouter>
+          <Navbar />
+          <Routes>
+            <Route path="" element={<Home />} />
 
-          {/* owner pages only */}
-          {type === "Owner" && (
+            {/* owner pages only */}
+            {type === "Owner" && (
+              <>
+                <Route
+                  path="/owner"
+                  element={
+                    <PrivateRoute>
+                      <OwnerHome />
+                    </PrivateRoute>
+                  }>
+                  <Route
+                    path="/owner/pet-setting"
+                    element={
+                      <PrivateRoute>
+                        <UpdatePetInfo />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route exact path="/owner" element={<PetInfo />} />
+                  <Route exact path="/owner/requests" element={<Request />} />
+                </Route>
+                <Route
+                  //change to --> path="setting/:id" after we get user_id in redux
+                  path="/owner/setting"
+                  element={
+                    <PrivateRoute>
+                      <UpdateUserInfoOwner />
+                    </PrivateRoute>
+                  }
+                />
+              </>
+            )}
+
+            {/* carer pages only */}
+            {/* might be worng spelling */}
+            {type === "Carer" && (
+              <Route path="/carer">
+                <Route
+                  path="/carer/"
+                  element={
+                    <PrivateRoute>
+                      <Carer />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/pet/:id"
+                  element={
+                    <PrivateRoute>
+                      <Pet />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/questionnaire"
+                  element={
+                    <PrivateRoute>
+                      <Questionnaire />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/profile"
+                  element={
+                    <PrivateRoute>
+                      <CarerProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/setting"
+                  element={
+                    <PrivateRoute>
+                      <UpdateUserInfoCarer />
+                    </PrivateRoute>
+                  }
+                />
+              </Route>
+            )}
+
+            {/* both user can access this */}
+
             <Route
-              path="/owner"
+              path="/messenger"
               element={
                 <PrivateRoute>
-                  <OwnerHome />
+                  <Messenger />
                 </PrivateRoute>
-              }>
-              <Route exact path="/owner" element={<PetInfo />} />
-              <Route exact path="/owner/requests" element={<Request />} />
-            </Route>
-          )}
-
-          {/* carer pages only */}
-          {/* might be worng spelling */}
-          {type === "Carer" && (
-            <Route path="/carer">
-              <Route
-                path="/carer/"
-                element={
-                  <PrivateRoute>
-                    <Carer />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/pet/:id"
-                element={
-                  <PrivateRoute>
-                    <Pet />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/questionnaire"
-                element={
-                  <PrivateRoute>
-                    <Questionnaire />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/profile"
-                element={
-                  <PrivateRoute>
-                    <CarerProfilePage />
-                  </PrivateRoute>
-                }
-              />
-            </Route>
-          )}
-
-          {/* both user can access this */}
-
-          <Route
-            path="/messenger"
-            element={
-              <PrivateRoute>
-                <Messenger />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/gallery/:id"
-            element={
-              <PrivateRoute>
-                <GalleryPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            //change to --> path="setting/:id" after we get user_id in redux
-            path="/setting"
-            element={
-              <PrivateRoute>
-                <UpdateUserInfo />
-              </PrivateRoute>
-            }
-          />
-          {/* anyone can access this */}
-          <Route exact path="/signin" element={<SignIn />} />
-          <Route exact path="/signup" element={<SignUp />} />
-          <Route exact path="/step2" element={<Step2 />} />
-          <Route exact path="/step3/owner" element={<Step3Owner />} />
-          <Route exact path="/step3/carer" element={<Step3Carer />} />
-          <Route exact path="/step4" element={<Step4 />} />
-          <Route exact path="/step5" element={<Step5 />} />
-          <Route exact path="*" element={<Page404 />} />
-        </Routes>
-      </HashRouter>
-    </div>
+              }
+            />
+            <Route
+              path="/gallery/:id"
+              element={
+                <PrivateRoute>
+                  <GalleryPage />
+                </PrivateRoute>
+              }
+            />
+            {/* anyone can access this */}
+            <Route exact path="/signin" element={<SignIn />} />
+            <Route exact path="/signup" element={<SignUp />} />
+            <Route exact path="/step2" element={<Step2 />} />
+            <Route exact path="/step3/owner" element={<Step3Owner />} />
+            <Route exact path="/step3/carer" element={<Step3Carer />} />
+            <Route exact path="/step4" element={<Step4 />} />
+            <Route exact path="/step5" element={<Step5 />} />
+            <Route exact path="*" element={<Page404 />} />
+          </Routes>
+        </HashRouter>
+      </div>
+    </>
   );
 }
 

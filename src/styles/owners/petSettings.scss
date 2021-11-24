@@ -1,0 +1,59 @@
+@import "../variables.scss";
+.petSettings {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .petForm {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 4px $shadow;
+    flex-direction: column;
+    textarea {
+      height: 100px;
+      resize: none;
+      margin-bottom: 20px;
+    }
+    label {
+      color: $primaryColor;
+      font-size: 1.3em;
+    }
+  }
+  .saveBtn {
+    background-color: $secondaryColor !important;
+    border: 1px solid $secondaryColor;
+  }
+
+  .updateQuestionnaireForm {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 4px $shadow;
+    flex-direction: column;
+    ol {
+    }
+    .questionnaires {
+      font-size: 1.3em;
+      i {
+        color: $tertiaryColor;
+        cursor: pointer;
+      }
+      margin: 10px 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    form {
+      margin-top: 20px;
+      display: flex;
+      grid-gap: 10px;
+    }
+  }
+}
