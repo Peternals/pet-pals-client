@@ -165,12 +165,11 @@ const UpdateUserInfo = () => {
   };
 
   return (
-    <main style={{ marginTop: 200 }}>
-      <h1>Edit profile</h1>
-      <div>{errorMessage ? errorMessage : successMessage}</div>
+    <main className="updateUser">
       <div className="update">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>Profile</div>
+          <h1>Edit profile</h1>
+          <div>{errorMessage ? errorMessage : successMessage}</div>
           <div>
             <input
               type="file"

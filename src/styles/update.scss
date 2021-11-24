@@ -1,7 +1,21 @@
-.update {
-  width: 100%;
+@import "./variables.scss";
+
+.updateUser {
+  padding-top: 70px;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  form {
+    padding: 20px;
+    max-width: 700px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 1px 1px 4px $shadow;
+  }
+  .update {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
