@@ -89,6 +89,11 @@ const Navbar = () => {
                       </i>
                     </li>
                   </Link>
+                  <Link to="/owner/pet-setting">
+                    <li>
+                      <i className="fa fas fa-paw"></i>
+                    </li>
+                  </Link>
                 </>
               ) : (
                 <>
