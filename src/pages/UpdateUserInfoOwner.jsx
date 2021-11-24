@@ -102,12 +102,11 @@ const UpdateUserInfo = () => {
   };
 
   return (
-    <main style={{ marginTop: 200 }}>
-      <h1>Edit profile</h1>
-      <div>{errorMessage ? errorMessage : successMessage}</div>
+    <main className="updateUser">
       <div className="update">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>Profile</div>
+          <h1>Edit profile</h1>
+          <div>{errorMessage ? errorMessage : successMessage}</div>
           <div>
             <input
               type="file"
@@ -124,22 +123,33 @@ const UpdateUserInfo = () => {
           </div>
           <input
             type="text"
+            className="input"
             placeholder="username"
             onChange
             {...register("username")}
           />
           <div>{errors.username?.message}</div>
-          <input type="text" placeholder="email" {...register("email")} />
+          <input
+            type="text"
+            placeholder="email"
+            className="input"
+            {...register("email")}
+          />
           <div>{errors.email?.message}</div>
           <input
             type="password"
+            className="input"
             placeholder="password"
             {...register("password")}
           />
           <div>{errors.password?.message}</div>
-          <input type="type" placeholder="Bio" {...register("description")} />
-          <br />
-          <button>Save</button>
+          <textarea
+            type="type"
+            placeholder="Bio"
+            className="input"
+            {...register("description")}></textarea>
+
+          <button className="btn btn-primary saveBtn">Save</button>
         </form>
       </div>
     </main>

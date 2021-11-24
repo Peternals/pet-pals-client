@@ -1,7 +1,7 @@
 @import "./variables.scss";
 
 .updateUser {
-  padding-top: 70px;
+  padding: 70px 0;
   height: 100%;
   width: 100%;
   form {
@@ -10,6 +10,51 @@
     width: 90%;
     background-color: white;
     box-shadow: 1px 1px 4px $shadow;
+    border-radius: 20px;
+    input {
+      width: 100%;
+      margin: 5px 0;
+    }
+    textarea {
+      height: 100px;
+      resize: none;
+    }
+    h5 {
+      font-size: 1em !important;
+      font-family: "ABeeZee", sans-serif;
+    }
+    .saveBtn {
+      margin-top: 5px;
+      background-color: $secondaryColor !important;
+      border: 1px solid $secondaryColor;
+    }
+    ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        font-weight: 100;
+      }
+      .is-coral {
+        color: black;
+      }
+      label {
+        padding: 2px 5px;
+        opacity: 0.7;
+        margin: 5px;
+        color: white;
+      }
+      input[type="checkbox"] {
+        display: none;
+      }
+      input[type="checkbox"]:checked ~ label {
+        opacity: 1 !important;
+        transform: scale(1.2);
+        margin: 5px 10px;
+      }
+      input[type="checkbox"]:checked ~ li {
+      }
+    }
   }
   .update {
     width: 100%;

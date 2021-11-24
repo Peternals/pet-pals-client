@@ -184,104 +184,133 @@ const UpdateUserInfo = () => {
               <img src={preview} alt="selectedImg" style={{ width: "20%" }} />
             )}
           </div>
-          <input
-            type="text"
-            placeholder="username"
-            onChange
-            {...register("username")}
-          />
-          <div>{errors.username?.message}</div>
-          <input type="text" placeholder="email" {...register("email")} />
-          <div>{errors.email?.message}</div>
-          <input
-            type="password"
-            placeholder="password"
-            {...register("password")}
-          />
-          <div>{errors.password?.message}</div>
-          <input type="type" placeholder="Bio" {...register("description")} />
-          <hr></hr>
-          <div>Interests</div>
-          <div>
-            <div>Pet Type :</div>
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="username"
+              className="input"
+              onChange
+              {...register("username")}
+            />
+            <div>{errors.username?.message}</div>
+            <input
+              type="text"
+              placeholder="email"
+              className="input"
+              {...register("email")}
+            />
+            <div>{errors.email?.message}</div>
+            <input
+              type="password"
+              className="input"
+              placeholder="password"
+              {...register("password")}
+            />
+            <div>{errors.password?.message}</div>
+            <textarea
+              type="type"
+              className="input"
+              placeholder="Bio"
+              {...register("description")}></textarea>
+          </div>
+          <h3>Interest</h3>
+          <h5>Pet Type:</h5>
+          <ul>
             {typeTags.map((type, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
                   type="checkbox"
                   value={type}
+                  id={type}
                   name="petType"
                   {...register("petType")}
                 />
-                {type}&nbsp;&nbsp;
-              </label>
+                <label className="tag is-coral" htmlFor={type}>
+                  {type}
+                </label>
+              </li>
             ))}
-          </div>
-          <div>
-            Pet Sieze :&nbsp;&nbsp;
+          </ul>
+          <h5>Pet Size:</h5>
+          <ul>
             {sizeTags.map((size, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
                   type="checkbox"
                   value={size}
                   name="petSizeTag"
+                  id={size}
                   {...register("petSizeTag")}
                 />
-                {size}&nbsp;&nbsp;
-              </label>
+                <label className="tag is-warning" htmlFor={size}>
+                  {size}
+                </label>
+              </li>
             ))}
-          </div>
-          <div>
-            Pet Health :&nbsp;&nbsp;
+          </ul>
+          <h5>Pet Health :</h5>
+          <ul>
             {healthTags.map((health, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
                   type="checkbox"
                   value={health}
                   name="health"
+                  id={health}
                   {...register("petHealthTag")}
                 />
-                {health}&nbsp;&nbsp;
-              </label>
+                <label className="tag is-success" htmlFor={health}>
+                  {health}
+                </label>
+              </li>
             ))}
-          </div>
-          <div>
-            Trained :&nbsp;&nbsp;
+          </ul>
+          <h5>Trained :</h5>
+          <ul>
             {trainedTags.map((trained, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
                   type="checkbox"
                   value={trained}
+                  id={trained}
                   name="trained"
                   {...register("petTrainedTag")}
                 />
-                {trained}&nbsp;&nbsp;
-              </label>
+                <label className="tag is-danger" htmlFor={trained}>
+                  {trained}
+                </label>
+              </li>
             ))}
-          </div>
-          <div>
-            Where to Play ? :&nbsp;&nbsp;
+          </ul>
+          <h5>Where to play? :</h5>
+          <ul>
             {playingTags.map((playing, i) => (
-              <label key={i}>
+              <li key={i}>
                 <input
                   type="checkbox"
                   value={playing}
                   name="playing"
+                  id={playing}
                   {...register("petPlayingTag")}
                 />
-                {playing}&nbsp;&nbsp;
-              </label>
+                <label className="tag is-info" htmlFor={playing}>
+                  {playing}
+                </label>
+              </li>
             ))}
-          </div>
+          </ul>
           <br />
-          <div>The Current Intersts </div>
+          <h3>The Current Interests </h3>
           <div>
             {currentInterests
               ? currentInterests.map((interest, i) => (
-                  <span key={i}>{interest}&nbsp;&nbsp;</span>
+                  <span className="tag" key={i}>
+                    {interest}
+                  </span>
                 ))
               : ""}
           </div>
-          <button>Save</button>
+          <button className="btn btn-primary saveBtn">Save</button>
         </form>
       </div>
     </main>
