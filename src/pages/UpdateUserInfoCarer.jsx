@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
+// import { submitPic } from "../util/uploadImage";
 
 const UpdateUserInfo = () => {
   const [errorMessage, setErrorMessage] = useState("");

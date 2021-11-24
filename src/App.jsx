@@ -37,6 +37,7 @@ import { getConversationsAction } from "./slicers/actions/messageActions";
 import axios from "axios";
 import { updateRequest } from "./slicers/userSlice";
 import ringtone from "./assets/ringtone.mp3";
+import UpdatePetInfo from "./components/owners/UpdatePetInfo";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -156,6 +157,14 @@ function App() {
                   </PrivateRoute>
                 }
               >
+                <Route
+                  path="/owner/pet-setting"
+                  element={
+                    <PrivateRoute>
+                      <UpdatePetInfo />
+                    </PrivateRoute>
+                  }
+                />
                 <Route exact path="/owner" element={<PetInfo />} />
                 <Route exact path="/owner/requests" element={<Request />} />
               </Route>
@@ -236,7 +245,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
           {/* anyone can access this */}
           <Route exact path="/signin" element={<SignIn />} />
           <Route exact path="/signup" element={<SignUp />} />

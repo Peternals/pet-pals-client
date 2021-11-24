@@ -88,6 +88,11 @@ const Navbar = () => {
                       <span>{requests === 0 ? "" : requests}</span>
                     </li>
                   </Link>
+                  <Link to="/owner/pet-setting">
+                    <li>
+                      <i className="fa fas fa-paw"></i>
+                    </li>
+                  </Link>
                 </>
               ) : (
                 <>
