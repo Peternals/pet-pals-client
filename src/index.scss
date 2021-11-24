@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(245, 245, 245);
+  width: 100%;
+  color: rgb(49, 49, 49);
+  position: relative;
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(46, 46, 46);
+  }
+  p {
+    font-size: 0.9em;
+    line-height: normal;
+    margin-bottom: 0;
+  }
+
+  article {
+    margin-bottom: 0;
+  }
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    background-color: aquamarine;
+    opacity: 0.06;
+    background: url("./assets/background.jpg");
+  }
+  .App {
+    max-width: 1260px;
+    margin: auto;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Chicle", cursive;
+    color: #3c99dc;
+    font-size: 2em !important;
+  }
+
+  li,
+  a {
+    font-family: "ABeeZee", sans-serif;
+  }
+}

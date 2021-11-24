@@ -140,124 +140,125 @@ function App() {
     // document.querySelector(".notification").classList.remove("showNotif");
   };
   return (
-    <div className="App" onMouseDown={closeAnyNotif}>
+    <>
       <div className="background"></div>
-      <HashRouter>
-        <Navbar />
-        <Routes>
-          <Route path="" element={<Home />} />
+      <div className="App" onMouseDown={closeAnyNotif}>
+        <HashRouter>
+          <Navbar />
+          <Routes>
+            <Route path="" element={<Home />} />
 
-          {/* owner pages only */}
-          {type === "Owner" && (
-            <>
-              <Route
-                path="/owner"
-                element={
-                  <PrivateRoute>
-                    <OwnerHome />
-                  </PrivateRoute>
-                }
-              >
+            {/* owner pages only */}
+            {type === "Owner" && (
+              <>
                 <Route
-                  path="/owner/pet-setting"
+                  path="/owner"
                   element={
                     <PrivateRoute>
-                      <UpdatePetInfo />
+                      <OwnerHome />
+                    </PrivateRoute>
+                  }>
+                  <Route
+                    path="/owner/pet-setting"
+                    element={
+                      <PrivateRoute>
+                        <UpdatePetInfo />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route exact path="/owner" element={<PetInfo />} />
+                  <Route exact path="/owner/requests" element={<Request />} />
+                </Route>
+                <Route
+                  //change to --> path="setting/:id" after we get user_id in redux
+                  path="/owner/setting"
+                  element={
+                    <PrivateRoute>
+                      <UpdateUserInfoOwner />
                     </PrivateRoute>
                   }
                 />
-                <Route exact path="/owner" element={<PetInfo />} />
-                <Route exact path="/owner/requests" element={<Request />} />
+              </>
+            )}
+
+            {/* carer pages only */}
+            {/* might be worng spelling */}
+            {type === "Carer" && (
+              <Route path="/carer">
+                <Route
+                  path="/carer/"
+                  element={
+                    <PrivateRoute>
+                      <Carer />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/pet/:id"
+                  element={
+                    <PrivateRoute>
+                      <Pet />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/questionnaire"
+                  element={
+                    <PrivateRoute>
+                      <Questionnaire />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/profile"
+                  element={
+                    <PrivateRoute>
+                      <CarerProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/carer/setting"
+                  element={
+                    <PrivateRoute>
+                      <UpdateUserInfoCarer />
+                    </PrivateRoute>
+                  }
+                />
               </Route>
-              <Route
-                //change to --> path="setting/:id" after we get user_id in redux
-                path="/owner/setting"
-                element={
-                  <PrivateRoute>
-                    <UpdateUserInfoOwner />
-                  </PrivateRoute>
-                }
-              />
-            </>
-          )}
+            )}
 
-          {/* carer pages only */}
-          {/* might be worng spelling */}
-          {type === "Carer" && (
-            <Route path="/carer">
-              <Route
-                path="/carer/"
-                element={
-                  <PrivateRoute>
-                    <Carer />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/pet/:id"
-                element={
-                  <PrivateRoute>
-                    <Pet />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/questionnaire"
-                element={
-                  <PrivateRoute>
-                    <Questionnaire />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/profile"
-                element={
-                  <PrivateRoute>
-                    <CarerProfilePage />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/carer/setting"
-                element={
-                  <PrivateRoute>
-                    <UpdateUserInfoCarer />
-                  </PrivateRoute>
-                }
-              />
-            </Route>
-          )}
+            {/* both user can access this */}
 
-          {/* both user can access this */}
-
-          <Route
-            path="/messenger"
-            element={
-              <PrivateRoute>
-                <Messenger />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/gallery/:id"
-            element={
-              <PrivateRoute>
-                <GalleryPage />
-              </PrivateRoute>
-            }
-          />
-          {/* anyone can access this */}
-          <Route exact path="/signin" element={<SignIn />} />
-          <Route exact path="/signup" element={<SignUp />} />
-          <Route exact path="/step2" element={<Step2 />} />
-          <Route exact path="/step3/owner" element={<Step3Owner />} />
-          <Route exact path="/step3/carer" element={<Step3Carer />} />
-          <Route exact path="/step4" element={<Step4 />} />
-          <Route exact path="/step5" element={<Step5 />} />
-          <Route exact path="*" element={<Page404 />} />
-        </Routes>
-      </HashRouter>
-    </div>
+            <Route
+              path="/messenger"
+              element={
+                <PrivateRoute>
+                  <Messenger />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/gallery/:id"
+              element={
+                <PrivateRoute>
+                  <GalleryPage />
+                </PrivateRoute>
+              }
+            />
+            {/* anyone can access this */}
+            <Route exact path="/signin" element={<SignIn />} />
+            <Route exact path="/signup" element={<SignUp />} />
+            <Route exact path="/step2" element={<Step2 />} />
+            <Route exact path="/step3/owner" element={<Step3Owner />} />
+            <Route exact path="/step3/carer" element={<Step3Carer />} />
+            <Route exact path="/step4" element={<Step4 />} />
+            <Route exact path="/step5" element={<Step5 />} />
+            <Route exact path="*" element={<Page404 />} />
+          </Routes>
+        </HashRouter>
+      </div>
+    </>
   );
 }
 

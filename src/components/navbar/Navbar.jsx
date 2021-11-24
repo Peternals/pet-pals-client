@@ -84,9 +84,8 @@ const Navbar = () => {
                 <>
                   <Link to="/owner/requests">
                     <li>
-                      <i className="fa fa-bell">
-                        {requests === 0 ? "" : requests}
-                      </i>
+                      <i className="fa fa-bell"></i>
+                      <span>{requests === 0 ? "" : requests}</span>
                     </li>
                   </Link>
                   <Link to="/owner/pet-setting">
@@ -98,9 +97,8 @@ const Navbar = () => {
               ) : (
                 <>
                   <li onMouseUp={openNotif}>
-                    <i className="fa fa-bell">
-                      {newRequests === 0 ? "" : newRequests}
-                    </i>
+                    <i className="fa fa-bell"></i>
+                    <span>{newRequests === 0 ? "" : newRequests}</span>
                     <Notification />
                   </li>
                   <Link to="/carer/profile">
@@ -112,9 +110,8 @@ const Navbar = () => {
               )}
               <Link to="/messenger">
                 <li>
-                  <i className="fa fa-wechat">
-                    {newConversations === 0 ? "" : newConversations}
-                  </i>
+                  <i className="fa fa-wechat"></i>
+                  <span>{newConversations === 0 ? "" : newConversations}</span>
                 </li>
               </Link>
               {/* TODO: change --> /setting/:id after user id is stored in redux */}
