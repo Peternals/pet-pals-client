@@ -150,22 +150,38 @@ export default function Step3Carer() {
             {...register("description")}
           ></textarea>
           <div>{errors.description?.message}</div>
-          <select type="text" {...register("petType")}>
-            <option>Select Pet Type</option>
+          <ul>
             {typeTags.map((type, i) => (
-              <option value={type} key={i}>
-                {type}
-              </option>
+              <li>
+                <input
+                  type="checkbox"
+                  value={type}
+                  name="type"
+                  id={type}
+                  {...register("petType")}
+                />
+                <label key={i} htmlFor={type}>
+                  {type}
+                </label>
+              </li>
             ))}
-          </select>
-          <select type="text" {...register("petSizeTag")}>
-            <option>Select size</option>
+          </ul>
+          <ul>
             {sizeTags.map((size, i) => (
-              <option value={size} key={i}>
-                {size}
-              </option>
+              <li>
+                <input
+                  type="checkbox"
+                  value={size}
+                  name="type"
+                  id={size}
+                  {...register("petSizeTag")}
+                />
+                <label key={i} htmlFor={size}>
+                  {size}
+                </label>
+              </li>
             ))}
-          </select>
+          </ul>
           <ul>
             {healthTags.map((health, i) => (
               <li>
