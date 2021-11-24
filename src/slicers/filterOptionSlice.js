@@ -7,6 +7,7 @@ const initialState = {
   allPets: [],
   filteredPets: [],
   isFiltered: false,
+  state: "Recommendation",
 };
 
 export const fetchAllPets = createAsyncThunk("pet/fetchPets", async () => {
@@ -73,10 +74,15 @@ const filterOptionSlice = createSlice({
   reducers: {
     clearFilteredPets: (state) => {
       state.filteredPets = [];
+      state.state = "Recommendation";
+    },
+    setFilterState: (state, action) => {
+      state.state = action.payload;
     },
     resetFilter: (state, action) => {
       state.tags = [];
       state.isFiltered = true;
+      state.state = "Recommendation";
     },
     addFilter: (state, action) => {
       const added = action.payload;
@@ -91,6 +97,7 @@ const filterOptionSlice = createSlice({
     [fetchAllPets.fulfilled]: (state, action) => {
       state.allPets = action.payload;
       state.isFiltered = false;
+      state.state = "All Pets";
     },
     [defaultFetchPetsByTag.fulfilled]: (state, action) => {
       state.filteredPets = action.payload;
@@ -99,6 +106,7 @@ const filterOptionSlice = createSlice({
     [fetchPetsByTag.fulfilled]: (state, action) => {
       state.filteredPets = action.payload;
       state.isFiltered = true;
+      state.state = "Results";
     },
   },
 });
