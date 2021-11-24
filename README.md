@@ -26,8 +26,8 @@ To use this application,
 * This is the client side repository. You need to run the server side at the same time. This is [Server Repository](https://github.com/Team-Freshly-Washed-Turtles/pet-server).
 * You need Node.js, yarn installed on your computer. Also, you need to use mongodb on your computer or on cloud.
 # Getting Started 🎬
-#### 1. Install Dependency
-To install all dependency, run this code in your terminal.
+#### 1. Install Dependencies
+To install all dependencies, run this code in your terminal.
 ```
 yarn
 ```
