@@ -1,7 +1,6 @@
 import axios from "axios";
 const { REACT_APP_SERVER_URL } = process.env;
 
-// for uploading sigle image (owner and carer)
 export const submitPic = async (imageInput) => {
   try {
     const formData = new FormData();
@@ -16,8 +15,6 @@ export const submitPic = async (imageInput) => {
     console.log(err);
   }
 };
-
-// for uploading multiple image (pets)
 
 export const submitPicForPet = async (imageInput) => {
   try {
