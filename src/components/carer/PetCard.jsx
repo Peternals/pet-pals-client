@@ -5,7 +5,7 @@ const { REACT_APP_SERVER_URL } = process.env;
 
 const PetCard = ({ pet }) => {
   return (
-    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 cardContainer">
+    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 cardContainer">
       <div className="card-sl">
         <div className="card-image">
           <img
@@ -16,12 +16,9 @@ const PetCard = ({ pet }) => {
         <div className="card-heading">
           <h4>{pet.name}</h4>
           <p>{pet.description}</p>
-        </div>
-        <div
-          className="tags card-text tagOverride"
-          // style={{ position: "absolute", bottom: 0 }}
-        >
-          <Tags tags={pet.tag} />
+          <div className="tags card-text tagOverride">
+            <Tags tags={pet.tag} />
+          </div>
         </div>
         <Link to={`/carer/pet/${pet._id}`} state={{ pet: pet }}>
           <button className="card-button"> Request</button>
