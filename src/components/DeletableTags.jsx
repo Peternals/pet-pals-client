@@ -5,7 +5,7 @@ const DeletableTags = ({ tags, deleteTag }) => {
   return (
     <div className="field is-grouped is-grouped-multiline">
       {tags.map((tg, i) => (
-        <div class="control">
+        <div className="control">
           <div className="tags has-addons" key={i}>
             <span className={getTagClass(tg.color)}>{tg.value}</span>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/anchor-has-content*/}

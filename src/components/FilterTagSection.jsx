@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addFilter, removeFilter } from "../slicers/filterOptionSlice";
 import DeletableTags from "./DeletableTags";
-import axios from "axios";
-const { REACT_APP_SERVER_URL } = process.env;
+import { getAllTags, mapOptionsFromTags } from "../slicers/tagSlice";
 
 const FilterTagSection = ({ category }) => {
-  const [allTags, setAllTags] = useState([]);
-  const [options, setOptions] = useState([]);
+  const allTags = useSelector((state) =>
+    state.tag.allTags.filter((tag) => tag.category === category)
+  );
+  const options = useSelector((state) => {
+    return state.tag.options.filter((option) => {
+      return allTags.some((tag) => tag.value === option.value);
+    });
+  });
   const dispatch = useDispatch();
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -16,28 +21,13 @@ const FilterTagSection = ({ category }) => {
   useEffect(() => {
     (async () => {
       try {
-        const action = await axios.get(
-          `${REACT_APP_SERVER_URL}/tag/category/${category}`,
-          {
-            headers: {
-              "x-access-token": localStorage.getItem("token"),
-            },
-          }
-        );
-        setAllTags(action.data);
-        setOptions(
-          allTags.map((tag) => {
-            return {
-              value: tag.value,
-              label: tag.value,
-            };
-          })
-        );
+        await dispatch(getAllTags());
+        await dispatch(mapOptionsFromTags());
       } catch (error) {
         console.log(error);
       }
     })();
-  }, [category, allTags]);
+  }, [dispatch]);
 
   const updateSelectedTags = (tag, action) => {
     let tags;

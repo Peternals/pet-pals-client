@@ -4,6 +4,7 @@ import messengerReducer from "./slicers/messengerSlice";
 import userReducer from "./slicers/userSlice";
 import petReducer from "./slicers/petSlice";
 import filterOptionReducer from "./slicers/filterOptionSlice";
+import tagReducer from "./slicers/tagSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     messenger: messengerReducer,
     datePicker: dateReducer,
     filterOptions: filterOptionReducer,
+    tag: tagReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
