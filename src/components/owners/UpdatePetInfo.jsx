@@ -58,7 +58,11 @@ const UpdatePetInfo = () => {
       <h1>Update Pet Info</h1>
       <h2>{errorMessage ? errorMessage : successMessage}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="petForm">
-        <input type="file" multiple {...register("pet_pictures")} />
+        <label className="fileBtn">
+          Pet Pictures
+          <input type="file" multiple {...register("pet_pictures")} />
+        </label>
+
         <label>Name:</label>
         <input
           type="text"

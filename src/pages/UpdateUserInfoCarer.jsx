@@ -169,19 +169,24 @@ const UpdateUserInfo = () => {
       <div className="update">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1>Edit profile</h1>
-          <div>{errorMessage ? errorMessage : successMessage}</div>
+
           <div>
-            <input
-              type="file"
-              placeholder="profile picture"
-              {...imageField}
-              onChange={(e) => {
-                imageField.onChange(e);
-                onSelectFile(e);
-              }}
-            />
+            <label className="fileBtn">
+              Profile Picture
+              <input
+                type="file"
+                placeholder="profile picture"
+                {...imageField}
+                onChange={(e) => {
+                  imageField.onChange(e);
+                  onSelectFile(e);
+                }}
+              />
+            </label>
             {selectedFile && (
-              <img src={preview} alt="selectedImg" style={{ width: "20%" }} />
+              <figure>
+                <img src={preview} alt="selectedImg" style={{ width: "20%" }} />
+              </figure>
             )}
           </div>
           <div className="input-group">
@@ -311,6 +316,7 @@ const UpdateUserInfo = () => {
               : ""}
           </div>
           <button className="btn btn-primary saveBtn">Save</button>
+          <div>{errorMessage ? errorMessage : successMessage}</div>
         </form>
       </div>
     </main>
