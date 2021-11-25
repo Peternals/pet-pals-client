@@ -90,7 +90,11 @@ export default function Step3Owner() {
             <img src={preview} alt="selectedImg" style={{ width: "40%" }} />
           )}
           <div>{errors.profile_picture?.message}</div>
-          <input type="text" placeholder="username" {...register("username")} />
+          <input
+            type="text"
+            placeholder="Full Name"
+            {...register("username")}
+          />
           <div>{errors.username?.message}</div>
           <textarea
             type="text"
