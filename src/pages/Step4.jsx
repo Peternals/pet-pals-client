@@ -93,12 +93,9 @@ export default function Step4() {
 
   const renderImg = () => {
     const allImg = preview.map((url, i) => (
-      <img
-        key={i}
-        src={url}
-        alt="selectedImg"
-        style={{ width: "20%", height: "10%" }}
-      />
+      <figure>
+        <img key={i} src={url} alt="selectedImg" />
+      </figure>
     ));
     return allImg;
   };
@@ -140,18 +137,26 @@ export default function Step4() {
     <>
       <div className="step4">
         <form onSubmit={handleSubmit(handleNext)}>
-          <input
-            type="file"
-            id="file"
-            multiple
-            placeholder="Picture"
-            {...imageField}
-            onChange={(e) => {
-              imageField.onChange(e);
-              onSelectFile(e);
-            }}
-          />
-          {selectedFile && renderImg()}
+          <h1>Pet Info</h1>
+          <div>
+            <label htmlfor="file" className="fileBtn">
+              Select Pet Pictures
+              <input
+                type="file"
+                id="file"
+                multiple
+                placeholder="Picture"
+                {...imageField}
+                onChange={(e) => {
+                  imageField.onChange(e);
+                  onSelectFile(e);
+                }}
+              />
+            </label>
+          </div>
+          <section className="previewImgs">
+            {selectedFile && renderImg()}
+          </section>
           <div>{errors.pet_picture?.message}</div>
           <input type="text" placeholder="PetName" {...register("petName")} />
           <div>{errors.petName?.message}</div>
@@ -217,8 +222,7 @@ export default function Step4() {
           <textarea
             type="text"
             placeholder="Bio"
-            {...register("petDescription")}
-          ></textarea>
+            {...register("petDescription")}></textarea>
           <div>{errors.petDescription?.message}</div>
           <button>Next</button>
           <Link to="/step3/owner">Back</Link>

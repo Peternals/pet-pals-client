@@ -76,32 +76,39 @@ export default function Step3Owner() {
     <>
       <div className="step3Owner">
         <form onSubmit={handleSubmit(handleNext)}>
-          <input
-            type="file"
-            id="file"
-            placeholder="Picture"
-            {...imageField}
-            onChange={(e) => {
-              imageField.onChange(e);
-              onSelectFile(e);
-            }}
-          />
+          <h1>User Info</h1>
+          <div>
+            <label htmlfor="file" className="fileBtn">
+              Select Profile Picture
+              <input
+                type="file"
+                id="file"
+                placeholder="Picture"
+                {...imageField}
+                onChange={(e) => {
+                  imageField.onChange(e);
+                  onSelectFile(e);
+                }}
+              />
+            </label>
+          </div>
           {selectedFile && (
-            <img src={preview} alt="selectedImg" style={{ width: "40%" }} />
+            <figure className="profilePic">
+              <img src={preview} alt="selectedImg" />
+            </figure>
           )}
-          <div>{errors.profile_picture?.message}</div>
+          <div className="error">{errors.profile_picture?.message}</div>
           <input
             type="text"
             placeholder="Full Name"
             {...register("username")}
           />
-          <div>{errors.username?.message}</div>
+          <div className="error">{errors.username?.message}</div>
           <textarea
             type="text"
             placeholder="Bio"
-            {...register("description")}
-          ></textarea>
-          <div>{errors.description?.message}</div>
+            {...register("description")}></textarea>
+          <div className="error">{errors.description?.message}</div>
           <button>Next</button>
           <Link className="backBtn" to="/step2">
             Back
