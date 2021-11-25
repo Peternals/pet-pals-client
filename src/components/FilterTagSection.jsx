@@ -14,6 +14,9 @@ const FilterTagSection = ({ category }) => {
       return allTags.some((tag) => tag.value === option.value);
     });
   });
+
+  const filterState = useSelector((state) => state.filterOptions.state);
+
   const dispatch = useDispatch();
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -29,10 +32,16 @@ const FilterTagSection = ({ category }) => {
     })();
   }, [dispatch]);
 
+  useEffect(() => {
+    if (filterState !== "Results") {
+      setSelectedTags([]);
+    }
+  }, [filterState]);
+
   const updateSelectedTags = (tag, action) => {
     let tags;
     if (action === "create") {
-      tags = [...selectedTags, tag];
+      tags = selectedTags.includes(tag) ? selectedTags : [...selectedTags, tag];
     } else if (action === "delete") {
       tags = selectedTags.filter((tg) => tg.value !== tag.value);
     }

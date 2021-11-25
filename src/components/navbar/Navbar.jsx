@@ -75,7 +75,7 @@ const Navbar = () => {
     <header className="navHeader">
       <nav className="navMain">
         <Link to="/">
-          <h2>Pet Rental</h2>
+          <h2>Pet Pals</h2>
         </Link>
         <ul className="mainOptions">
           {isLoggedIn === true && (
