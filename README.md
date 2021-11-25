@@ -1,12 +1,13 @@
 This was created during our time as a student at Code Chrysalis.
-# 🐶🐢🐱🐰 Pet Rental App (Client) 🦜🐷🐭🦦
+# 🐶🐢🐱🐰 Pet Pals (Client) 🦜🐷🐭🦦
+This is the client side repository. You need to run the server side at the same time. This is [Server Repository](https://github.com/Team-Freshly-Washed-Turtles/pet-server).
 
 1. [About　💁](#about-)
 2. [Features　✨](#features-)
 3. [Requirements　🙏](#requirements-)
 4. [Getting Started　🎬](#getting-started-)
 5. [Tech Stack　🤖](#tech-stack-)
-6. [Author 📝](#author-)
+6. [Authors 📝](#authors-)
 
 # About 💁
 This is an application that connects the people who want to interact with animals with pet owners.  
@@ -40,10 +41,15 @@ SKIP_PREFLIGHT_CHECK=true
 ```
 #### 3. Access To Your Local Host
 To see the app, open your browser and access your local host url which you set up in ```.env``` file.
-#### 4. Let's start!
+#### 4. Let's get started!
 <img width="500" alt="Screen Shot 2021-11-24 at 19 17 11" src="https://user-images.githubusercontent.com/83794734/143219860-ee33732a-67ce-4038-8d9d-40a292b4e1ab.png"> 
   
 # Tech Stack 🤖  
-|<img src="" alt="" width="100">|---|---|---|---|
+|<img src="https://user-images.githubusercontent.com/83794734/143388086-2f543482-4c32-4d1b-9c10-00ea95769c8c.png" alt="React image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143385316-257a292f-799f-493e-967e-d721a2771734.png" alt="Redux image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143388023-1728a310-6365-4572-8dd3-8b3e29b7c99e.png" alt="Bulma image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143388046-8e246ed1-c551-4729-ba5c-97ba3fdc4e02.png" alt="JWT image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143386343-31b0b2a3-1211-4b7e-9533-bfc3f9d388a4.png" alt="Socket.io image" width="100">|
 |---|---|---|---|---|
-# Author 📝
+|[React](https://reactjs.org/)|[Redux](https://redux-toolkit.js.org/)|[Bulma](https://bulma.io/)|[JWT](https://jwt.io/)|[Socket.io](https://socket.io/)|
+# Authors 📝  
+- [Callum Koike Marshall](https://github.com/marsc0388)
+- [Karin Umehara](https://github.com/karin0216)
+- [Yu Takaki](https://github.com/YuTakaki)
+- [Eiko Imai](https://github.com/eiko0705)
