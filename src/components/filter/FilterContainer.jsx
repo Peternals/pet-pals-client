@@ -62,16 +62,18 @@ const FilterContainer = () => {
               See All
             </button>
             <button className="reset" onClick={resetView}>
-              Reset
+              Recommendation
             </button>
           </div>
           <form onSubmit={handleSubmit}>
             <button className="searchPets">Search Pets</button>
-            <FilterTagSection category="Type" />
-            <FilterTagSection category="Size" />
-            <FilterTagSection category="Pet health" />
-            <FilterTagSection category="Trained" />
-            <FilterTagSection category="Playing" />
+            <div className="tagSectionContainer">
+              <FilterTagSection category="Type" />
+              <FilterTagSection category="Size" />
+              <FilterTagSection category="Pet health" />
+              <FilterTagSection category="Trained" />
+              <FilterTagSection category="Playing" />
+            </div>
           </form>
         </div>
       </div>

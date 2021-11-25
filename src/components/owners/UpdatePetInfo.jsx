@@ -6,6 +6,7 @@ import {
   getPetInfo,
 } from "../../slicers/petSlice";
 import { useDispatch, useSelector } from "react-redux";
+import "../../styles/owners/petSettings.scss";
 import { submitPicForPet } from "../../util/uploadImage";
 
 const UpdatePetInfo = () => {
@@ -53,38 +54,48 @@ const UpdatePetInfo = () => {
   };
 
   return (
-    <section style={{ margin: 100 }}>
+    <section className="petSettings">
       <h1>Update Pet Info</h1>
       <h2>{errorMessage ? errorMessage : successMessage}</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="petForm">
+        <input type="file" multiple {...register("pet_pictures")} />
         <label>Name:</label>
-        <input type="text" placeholder={petInfo.name} {...register("name")} />
-        <label>Bio:</label>
         <input
           type="text"
-          placeholder={petInfo.description}
-          {...register("description")}
+          placeholder={petInfo.name}
+          className="input"
+          {...register("name")}
         />
-        <input type="file" multiple {...register("pet_pictures")} />
-        <button>Save</button>
+        <label>Bio:</label>
+        <textarea
+          type="text"
+          className="input"
+          placeholder={petInfo.description}
+          {...register("description")}></textarea>
+        <button className="btn btn-primary saveBtn">Save</button>
       </form>
       <h2 style={{ marginTop: 30 }}>Update Questionnaire</h2>
-      {questions &&
-        questions.map((q, i) => (
-          <div key={i}>
-            <p>{q}</p>
-            <button onClick={() => handleDelete(i)}>Delete</button>
-          </div>
-        ))}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder="Add Question"
-          defaultValue=""
-          {...register("questionnaire")}
-        />
-        <button>Add</button>
-      </form>
+      <section className="updateQuestionnaireForm">
+        <ol>
+          {questions &&
+            questions.map((q, i) => (
+              <li key={i} className="questionnaires">
+                <p>{q}</p>
+                <i className="fa fa-close" onClick={() => handleDelete(i)}></i>
+              </li>
+            ))}
+        </ol>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="text"
+            placeholder="Add Question"
+            defaultValue=""
+            className="input"
+            {...register("questionnaire")}
+          />
+          <button className="btn btn-primary saveBtn">Add</button>
+        </form>
+      </section>
     </section>
   );
 };

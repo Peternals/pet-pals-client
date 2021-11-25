@@ -66,7 +66,11 @@ const FilterTagSection = ({ category }) => {
 
   return (
     <div className="box">
-      <Select options={options} onChange={handleUpdate} />
+      <Select
+        options={options}
+        onChange={handleUpdate}
+        placeholder={category}
+      />
       <DeletableTags tags={selectedTags} deleteTag={deleteTag} />
     </div>
   );
