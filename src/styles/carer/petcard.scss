@@ -1,12 +1,21 @@
 @import "../variables.scss";
 
 /* Card Styles */
-
+.cardContainer {
+  margin-bottom: 20px;
+}
+.tagOverride {
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-top: 5px !important;
+}
 .card-sl {
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin-bottom: 20px;
   transition: 0.5s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   &:hover {
     transform: scale(1.05);
   }
@@ -65,26 +74,8 @@
   font-weight: bold;
   background: #fff;
   padding: 10px 15px;
+  flex-grow: 1;
 }
-// .card-heading {
-//   font-size: 18px;
-//   font-weight: bold;
-//   height: 30%;
-//   display: flex;
-//   align-items: flex-end;
-//   background: rgb(29, 29, 29);
-//   background: linear-gradient(
-//     0deg,
-//     rgba(29, 29, 29, 0.8690826672465861) 0%,
-//     rgba(255, 255, 255, 0) 100%
-//   );
-//   padding: 10px 15px;
-//   position: absolute;
-//   color: white;
-//   bottom: 0;
-//   left: 0;
-//   width: 100%;
-// }
 
 .card-text {
   padding: 10px 15px;

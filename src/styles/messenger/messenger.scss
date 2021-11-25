@@ -2,83 +2,84 @@
 @import "./messageBox.scss";
 
 .messengerPage {
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	padding-top: 70px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  padding-top: 70px;
+  height: 100vh;
 
-	.messengerContainer {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		max-width: 1000px;
-		margin: auto;
-		.messengerHeader {
-			display: flex;
-			height: 10%;
-			padding: 10px;
-			margin-bottom: 10px;
-			box-shadow: 1px 1px 5px $shadow;
-			background-color: white;
-			.contactListHeader {
-				display: flex;
-				width: 100%;
-				justify-content: center;
-				align-items: center;
-			}
-			.messageBoxHeader {
-				display: flex;
-				width: 100%;
-				justify-content: center;
-				align-items: center;
-				position: relative;
-				.fa-angle-left {
-					position: absolute;
-					left: 10px;
-					font-weight: bolder;
-					font-size: 2em;
-				}
-			}
+  .messengerContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1000px;
+    margin: auto;
+    .messengerHeader {
+      display: flex;
+      height: 10%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 1px 1px 5px $shadow;
+      background-color: white;
+      .contactListHeader {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+      .messageBoxHeader {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        .fa-angle-left {
+          position: absolute;
+          left: 10px;
+          font-weight: bolder;
+          font-size: 2em;
+        }
+      }
 
-			.hideHeader {
-				display: none;
-			}
-		}
-		.messengerContent {
-			display: flex;
-			height: 90%;
-		}
-		.hideMessenger {
-			display: none;
-		}
-		@include contacts;
-		@include messageBox;
-	}
+      .hideHeader {
+        display: none;
+      }
+    }
+    .messengerContent {
+      display: flex;
+      height: 90%;
+    }
+    .hideMessenger {
+      display: none;
+    }
+    @include contacts;
+    @include messageBox;
+  }
 }
 @media only screen and (min-width: 700px) {
-	.messengerPage {
-		padding: 10px;
-		padding-top: 70px;
-		padding-bottom: 20px;
-		.messengerContainer {
-			height: 90%;
-		}
-		.messengerHeader {
-			.contactListHeader {
-				width: 30% !important;
-			}
-			.messageBoxHeader {
-				width: 70% !important;
-				.fa-angle-left {
-					display: none;
-				}
-			}
-		}
-		.hideHeader {
-			display: flex !important;
-		}
-	}
-	.hideMessenger {
-		display: block !important;
-	}
+  .messengerPage {
+    padding: 10px;
+    padding-top: 70px;
+    padding-bottom: 20px;
+    .messengerContainer {
+      height: 90%;
+    }
+    .messengerHeader {
+      .contactListHeader {
+        width: 30% !important;
+      }
+      .messageBoxHeader {
+        width: 70% !important;
+        .fa-angle-left {
+          display: none;
+        }
+      }
+    }
+    .hideHeader {
+      display: flex !important;
+    }
+  }
+  .hideMessenger {
+    display: block !important;
+  }
 }

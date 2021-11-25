@@ -5,6 +5,7 @@ import "../styles/carer/questionnaire.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDate } from "../slicers/datePickerSlice";
+import { socket } from "../socket";
 
 // TODO: Questionnaire receives the questionnaire for the pet.
 const Questionnaire = () => {
@@ -92,6 +93,7 @@ const Questionnaire = () => {
           "x-access-token": localStorage.getItem("token"),
         },
       });
+      socket.emit("requestSend", { user_id: pet.owner_id });
       dispatch(updateDate({ key: "startDate", data: null }));
       dispatch(updateDate({ key: "endDate", data: null }));
     } catch (err) {

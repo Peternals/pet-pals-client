@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Question({ question, index, removeQuestion, currentQuestionRef }) {
   return (
@@ -14,6 +15,18 @@ function Question({ question, index, removeQuestion, currentQuestionRef }) {
 
 function QForm({ addQuestion }) {
   const [value, setValue] = useState("");
+  const type = useSelector((state) => state.pet.info.type);
+
+  const questions = [
+    `Do you like ${type.toLowerCase()}s?`,
+    `Have you ever taken care of ${type.toLowerCase()}s?`,
+    `How do you like ${type.toLowerCase()}s?`,
+    `What should you be careful when you play with ${type.toLowerCase()}s?`,
+  ];
+
+  const randomQuestion = () => {
+    return questions[Math.floor(Math.random() * questions.length)];
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -28,7 +41,7 @@ function QForm({ addQuestion }) {
         type="text"
         className="input"
         value={value}
-        placeholder="Add Questions"
+        placeholder={randomQuestion()}
         onChange={(e) => setValue(e.target.value)}
       />
       <button onClick={handleClick} className="fa fa-plus"></button>
@@ -51,7 +64,7 @@ function QuestionForm(props) {
 
   return (
     <>
-      <ol>
+      <ol className="questions">
         {props.questions.map((question, index) => (
           <Question
             key={index}
