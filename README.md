@@ -4,10 +4,11 @@ This is the client side repository. You need to run the server side at the same 
 
 1. [About　💁](#about-)
 2. [Features　✨](#features-)
-3. [Requirements　🙏](#requirements-)
-4. [Getting Started　🎬](#getting-started-)
-5. [Tech Stack　🤖](#tech-stack-)
-6. [Authors 📝](#authors-)
+3. [Live Application 🌈](#live-application-)
+4. [Requirements　🙏](#requirements-)
+5. [Getting Started　🎬](#getting-started-)
+6. [Tech Stack　🤖](#tech-stack-)
+7. [Authors 📝](#authors-)
 
 # About 💁
 This is an application that connects the people who want to interact with animals with pet owners.  
@@ -21,7 +22,9 @@ Carers can easily search pets which they are interested in with tag system. They
 #### 3. Chat Functionality
 When an owner accept offers from a carer, they can use chat functionality to talk more concretely with each other. This functionality removes the anxiety of both owners and carers by communicating with each other directly.
 #### 4. Notification
-When a carer sends a request to meet a pet, it will be notified to the owner in real time. Also, when an owner approves a carer's request, it will be notified in real time to the carer. With this feature, both will not overlook the action from the other.
+When a carer sends a request to meet a pet, it will be notified to the owner in real time. Also, when an owner approves a carer's request, it will be notified in real time to the carer. With this feature, both will not overlook the action from the other.  
+# Live Application 🌈
+You can try the live application [here](https://stupefied-leakey-aa78c8.netlify.app/).  
 # Requirements 🙏
 To use this application, 
 * This is the client side repository. You need to run the server side at the same time. This is [Server Repository](https://github.com/Team-Freshly-Washed-Turtles/pet-server).
@@ -50,9 +53,9 @@ To see the app, open your browser and access your local host url which you set u
 <img width="500" alt="Screen Shot 2021-11-24 at 19 17 11" src="https://user-images.githubusercontent.com/83794734/143219860-ee33732a-67ce-4038-8d9d-40a292b4e1ab.png"> 
   
 # Tech Stack 🤖  
-|<img src="https://user-images.githubusercontent.com/83794734/143388086-2f543482-4c32-4d1b-9c10-00ea95769c8c.png" alt="React image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143385316-257a292f-799f-493e-967e-d721a2771734.png" alt="Redux image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143388023-1728a310-6365-4572-8dd3-8b3e29b7c99e.png" alt="Bulma image" width="100">|
-|---|---|---|
-|[React](https://reactjs.org/)|[Redux](https://redux-toolkit.js.org/)|[Bulma](https://bulma.io/)|
+|<img src="https://user-images.githubusercontent.com/83794734/143388086-2f543482-4c32-4d1b-9c10-00ea95769c8c.png" alt="React image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143385316-257a292f-799f-493e-967e-d721a2771734.png" alt="Redux image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143388023-1728a310-6365-4572-8dd3-8b3e29b7c99e.png" alt="Bulma image" width="100">|<img src="https://user-images.githubusercontent.com/83794734/143400683-4ad4938b-6696-43b3-929c-95d3f4d4d7cf.png" alt="Netlify image" width="100">|
+|---|---|---|---|
+|[React](https://reactjs.org/)|[Redux](https://redux-toolkit.js.org/)|[Bulma](https://bulma.io/)|[netlify](https://www.netlify.com/)|
 # Authors 📝  
 - [Callum Koike Marshall](https://github.com/marsc0388)
 - [Karin Umehara](https://github.com/karin0216)
