@@ -39,9 +39,14 @@ REACT_APP_SERVER_URL=//your local host url
 REACT_APP_WS=ws://localhost: //your local host port number
 SKIP_PREFLIGHT_CHECK=true
 ```
-#### 3. Access To Your Local Host
+#### 3. Run the server  
+To start the server, run this code in your terminal.
+```
+yarn start
+```
+#### 4. Access To Your Local Host
 To see the app, open your browser and access your local host url which you set up in ```.env``` file.
-#### 4. Let's get started!
+#### 5. Let's get started!
 <img width="500" alt="Screen Shot 2021-11-24 at 19 17 11" src="https://user-images.githubusercontent.com/83794734/143219860-ee33732a-67ce-4038-8d9d-40a292b4e1ab.png"> 
   
 # Tech Stack 🤖  
