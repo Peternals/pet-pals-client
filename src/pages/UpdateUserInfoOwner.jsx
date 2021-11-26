@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import axios from "axios";
-const { REACT_APP_SERVER_URL } = process.env;
+import { submitPic } from "../util/uploadImage";
 
 const UpdateUserInfo = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -57,21 +56,6 @@ const UpdateUserInfo = () => {
   };
 
   const onSubmit = async (data) => {
-    const submitPic = async (imageInput) => {
-      try {
-        const formData = new FormData();
-        formData.append("file", imageInput);
-
-        const response = await axios.post(
-          `${REACT_APP_SERVER_URL}/pic/upload`,
-          formData
-        );
-        return response.data[0].filename;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     let img;
     if (data.profile_picture[0] !== undefined) {
       img = await submitPic(data.profile_picture[0]);
@@ -152,7 +136,8 @@ const UpdateUserInfo = () => {
             type="type"
             placeholder="Bio"
             className="input"
-            {...register("description")}></textarea>
+            {...register("description")}
+          ></textarea>
 
           <button className="btn btn-primary saveBtn">Save</button>
           <div>{errorMessage ? errorMessage : successMessage}</div>
