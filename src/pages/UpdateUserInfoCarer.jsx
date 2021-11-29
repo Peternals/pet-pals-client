@@ -168,7 +168,7 @@ const UpdateUserInfo = () => {
             </label>
             {selectedFile && (
               <figure>
-                <img src={preview} alt="selectedImg" style={{ width: "20%" }} />
+                <img src={preview} alt="selectedImg" />
               </figure>
             )}
           </div>
