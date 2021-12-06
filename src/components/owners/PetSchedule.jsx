@@ -7,9 +7,6 @@ const { REACT_APP_SERVER_URL } = process.env;
 const PetSchedule = () => {
   const [scheduleState, setScheduleState] = useState("calendar");
   const [schedule, setSchedule] = useState([]);
-  const onActiveStartDateChange = (e) => {
-    console.log(e);
-  };
 
   useEffect(() => {
     (async () => {
@@ -54,8 +51,7 @@ const PetSchedule = () => {
 
       {scheduleState === "calendar" ? (
         <Calendar
-          onChange={onActiveStartDateChange}
-          tileClassName={({ date, view }) => {
+          tileClassName={({ date }) => {
             const currentDay = new Date().setHours(0, 0, 0, 0);
             if (
               schedule.find(

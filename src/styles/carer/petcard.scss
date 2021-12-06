@@ -40,6 +40,8 @@
   position: relative;
   height: 220px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .card-image img {
