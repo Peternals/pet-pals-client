@@ -127,7 +127,6 @@ export const userSlice = createSlice({
       state.interests = [];
     },
     setRequestSeenState: (state) => {
-      console.log("hello");
       if (state.Carer && state.Carer.requests.length > 0) {
         state.Carer.requests = state.Carer.requests.map((req) => {
           req.seen = true;
