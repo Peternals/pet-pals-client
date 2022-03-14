@@ -100,11 +100,12 @@ const Pet = () => {
             <div className="mainPic">
               {pet.pet_pictures && pet.pet_pictures.length >= 1 ? (
                 <LazyLoadImage
+                  effect="blur"
                   src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
                   alt="pet pic"
                 />
               ) : (
-                <LazyLoadImage src={samplePet} alt="pet" />
+                <LazyLoadImage effect="blur" src={samplePet} alt="pet" />
               )}
             </div>
           </figure>

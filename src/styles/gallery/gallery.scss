@@ -11,6 +11,12 @@
   display: none;
   align-items: center;
   justify-content: center;
+  .lazy-load-image-background{
+    height: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
   img {
     max-height: 90%;
     max-width: 90%;

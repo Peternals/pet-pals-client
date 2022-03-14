@@ -95,7 +95,7 @@ export default function Step4() {
   const renderImg = () => {
     const allImg = preview.map((url, i) => (
       <figure>
-        <LazyLoadImage key={i} src={url} alt="selectedImg" />
+        <LazyLoadImage  effect="blur" key={i} src={url} alt="selectedImg" />
       </figure>
     ));
     return allImg;

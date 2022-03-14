@@ -169,7 +169,7 @@ const UpdateUserInfo = () => {
             </label>
             {selectedFile && (
               <figure>
-                <LazyLoadImage src={preview} alt="selectedImg" />
+                <LazyLoadImage effect="blur" src={preview} alt="selectedImg" />
               </figure>
             )}
           </div>

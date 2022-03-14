@@ -32,7 +32,7 @@ const Home = () => {
               </Link>
             </section>
             <figure>
-              <LazyLoadImage className="donNCat" src={petCover} alt="pets "/>
+              <LazyLoadImage effect="blur" className="donNCat" src={petCover} alt="pets "/>
             </figure>
           </div>
         </main>

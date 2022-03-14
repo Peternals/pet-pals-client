@@ -39,6 +39,7 @@ import "bulma/css/bulma.min.css";
 import { updateRequest } from "./slicers/userSlice";
 import ringtone from "./assets/ringtone.mp3";
 import UpdatePetInfo from "./components/owners/UpdatePetInfo";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const { REACT_APP_SERVER_URL } = process.env;
 

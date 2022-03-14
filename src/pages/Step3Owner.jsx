@@ -95,7 +95,7 @@ export default function Step3Owner() {
           </div>
           {selectedFile && (
             <figure className="profilePic">
-              <LazyLoadImage src={preview} alt="selectedImg" />
+              <LazyLoadImage effect="blur" src={preview} alt="selectedImg" />
             </figure>
           )}
           <div className="error">{errors.profile_picture?.message}</div>
