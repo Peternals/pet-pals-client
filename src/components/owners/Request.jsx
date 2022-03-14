@@ -24,6 +24,7 @@ const Request = () => {
           requests.map((req) => (
             <div className="request">
               <LazyLoadImage
+                effect="blur"
                 src={`${REACT_APP_SERVER_URL}/pic/${req.profile_picture}`}
                 alt="img"
               />

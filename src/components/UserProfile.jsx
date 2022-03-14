@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/owners/ownerHome.scss";
 import { useSelector } from "react-redux";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 const { REACT_APP_SERVER_URL } = process.env;
 
 const UserProfile = () => {
@@ -13,6 +14,7 @@ const UserProfile = () => {
           <div className="figure">
             <figure>
                 <LazyLoadImage
+                  effect="blur"
                   alt={'profile'}
                   src={`${REACT_APP_SERVER_URL}/pic/${user.profile_picture}`} // use normal <img> attributes as props
                 />

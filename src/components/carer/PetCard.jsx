@@ -10,6 +10,7 @@ const PetCard = ({ pet }) => {
       <div className="card-sl">
         <div className="card-image">
           <LazyLoadImage
+              effect="blur"
               src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
               alt="pet"
             />

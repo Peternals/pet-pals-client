@@ -20,11 +20,12 @@ const Gallery = ({ petImg }) => {
       <div className={`fullScreenImg ${fullScreen === true && "hideImage"}`}>
         {petImg.length ? (
           <LazyLoadImage 
+            effect="blur"
             src={`${REACT_APP_SERVER_URL}/pic/${petImg[currImg]}`}
             alt="img"
           />
         ) : (
-          <LazyLoadImage src={samplePet} alt="pet" />
+          <LazyLoadImage effect="blur" src={samplePet} alt="pet" />
         )}
 
         <i className="fa fa-close" onClick={() => setFullScreen(false)}></i>
@@ -33,6 +34,7 @@ const Gallery = ({ petImg }) => {
         {petImg.length ? (
           petImg.map((img, i) => (
             <LazyLoadImage 
+              effect="blur"
               src={`${REACT_APP_SERVER_URL}/pic/${img}`}
               alt="pet"
               onClick={() => openImg(i)}
@@ -40,7 +42,7 @@ const Gallery = ({ petImg }) => {
             />
           ))
         ) : (
-          <LazyLoadImage src={samplePet} alt="pet" />
+          <LazyLoadImage effect="blur" src={samplePet} alt="pet" />
           
         )}
       </section>

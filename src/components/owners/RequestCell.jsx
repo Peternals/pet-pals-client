@@ -7,6 +7,7 @@ const RequestCell = ({ sched }) => {
     <li className="request">
       <figure>
         <LazyLoadImage
+          effect="blur"
           alt="img"
           src={`${REACT_APP_SERVER_URL}/pic/${sched.profile_picture}`}
         />

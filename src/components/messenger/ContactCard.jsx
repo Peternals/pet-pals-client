@@ -91,6 +91,7 @@ const ContactCard = (props) => {
 			<div className="imgContainer">
 				<figure className="contactImg">
 					<LazyLoadImage
+						effect="blur"
 						src={
 							userInfo.profile_picture
 								? `${REACT_APP_SERVER_URL}/pic/${userInfo.profile_picture}`

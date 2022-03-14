@@ -43,6 +43,7 @@ const PetInfo = () => {
       <figure className="petPic">
         {ownersPet.pet_pictures && (
           <LazyLoadImage
+            effect="blur"
             src={`${REACT_APP_SERVER_URL}/pic/${ownersPet.pet_pictures[0]}`}
             alt="Pet"/>
         )}
