@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { submitPic } from "../util/uploadImage";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const UpdateUserInfo = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -106,7 +107,7 @@ const UpdateUserInfo = () => {
             </label>
             {selectedFile && (
               <figure>
-                <img src={preview} alt="selectedImg" />
+                <LazyLoadImage src={preview} alt="selectedImg" />
               </figure>
             )}
           </div>

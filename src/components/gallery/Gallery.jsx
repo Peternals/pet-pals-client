@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/gallery/gallery.scss";
 import samplePet from "../../assets/sampleDog2.jpeg";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const Gallery = ({ petImg }) => {
@@ -18,12 +19,12 @@ const Gallery = ({ petImg }) => {
     <>
       <div className={`fullScreenImg ${fullScreen === true && "hideImage"}`}>
         {petImg.length ? (
-          <img
+          <LazyLoadImage 
             src={`${REACT_APP_SERVER_URL}/pic/${petImg[currImg]}`}
             alt="img"
           />
         ) : (
-          <img src={samplePet} alt="pet" />
+          <LazyLoadImage src={samplePet} alt="pet" />
         )}
 
         <i className="fa fa-close" onClick={() => setFullScreen(false)}></i>
@@ -31,7 +32,7 @@ const Gallery = ({ petImg }) => {
       <section className="gallerySection">
         {petImg.length ? (
           petImg.map((img, i) => (
-            <img
+            <LazyLoadImage 
               src={`${REACT_APP_SERVER_URL}/pic/${img}`}
               alt="pet"
               onClick={() => openImg(i)}
@@ -39,7 +40,8 @@ const Gallery = ({ petImg }) => {
             />
           ))
         ) : (
-          <img src={samplePet} alt="pet" />
+          <LazyLoadImage src={samplePet} alt="pet" />
+          
         )}
       </section>
     </>

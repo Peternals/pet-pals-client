@@ -6,6 +6,8 @@ import { submitPic } from "../util/uploadImage";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import Loader from "../components/Loader";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function Step3Carer() {
   const [selectedFile, setSelectedFile] = useState();
@@ -14,6 +16,7 @@ export default function Step3Carer() {
   const signUpInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
 
   const typeTags = [
     "Dog",
@@ -79,6 +82,7 @@ export default function Step3Carer() {
   };
 
   const handleSubmitAction = async (e) => {
+    setLoader(true);
     const inputFile = document.querySelector("#file");
     const usernameVal = e.username;
     const descriptionVal = e.description;
@@ -118,11 +122,15 @@ export default function Step3Carer() {
     if (submitAction.payload.user) {
       navigate("/");
     }
+    setLoader(false);
   };
 
   return (
     <>
       <div className="step3Carer">
+      {loader && (
+        <Loader />
+      )}
         <form onSubmit={handleSubmit(handleSubmitAction)}>
           <h1>User Info</h1>
           <div>
@@ -142,7 +150,7 @@ export default function Step3Carer() {
           </div>
           {selectedFile && (
             <figure className="profilePic">
-              <img src={preview} alt="selectedImg" />
+              <LazyLoadImage src={preview} alt="selectedImg" />
             </figure>
           )}
           <div className="error">{errors.profile_picture?.message}</div>

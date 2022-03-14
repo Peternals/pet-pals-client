@@ -6,6 +6,7 @@ import {
 	setSeenStateAction,
 } from "../../slicers/messengerSlice";
 import moment from "moment";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const ContactCard = (props) => {
@@ -89,7 +90,7 @@ const ContactCard = (props) => {
 		<article className={checkSeen()} onClick={setCurrentChat}>
 			<div className="imgContainer">
 				<figure className="contactImg">
-					<img
+					<LazyLoadImage
 						src={
 							userInfo.profile_picture
 								? `${REACT_APP_SERVER_URL}/pic/${userInfo.profile_picture}`

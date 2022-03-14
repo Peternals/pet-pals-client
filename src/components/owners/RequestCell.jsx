@@ -1,11 +1,12 @@
 import React from "react";
 import moment from "moment";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const { REACT_APP_SERVER_URL } = process.env;
 const RequestCell = ({ sched }) => {
   return (
     <li className="request">
       <figure>
-        <img
+        <LazyLoadImage
           alt="img"
           src={`${REACT_APP_SERVER_URL}/pic/${sched.profile_picture}`}
         />
