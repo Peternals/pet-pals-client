@@ -6,11 +6,13 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDate } from "../slicers/datePickerSlice";
 import { socket } from "../socket";
+import Loader from "../components/Loader";
 
 // TODO: Questionnaire receives the questionnaire for the pet.
 const Questionnaire = () => {
   const { REACT_APP_SERVER_URL } = process.env;
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
   const user_id = useSelector((state) => state.user._id);
@@ -60,6 +62,7 @@ const Questionnaire = () => {
 
   async function onSubmit(data) {
     data.preventDefault();
+    setLoader(true)
 
     const request = {
       pet_id: pet._id,
@@ -100,6 +103,7 @@ const Questionnaire = () => {
       console.error(err);
     }
     navigate("/");
+    setLoader(false)
   }
 
   // await axios.post("", {}, {
@@ -130,6 +134,9 @@ const Questionnaire = () => {
 
   return (
     <main className="questionnaireMain">
+      {loader && (
+        <Loader />
+      )}
       <form onSubmit={onSubmit}>
         {pet.questionnaire.map((question, index) => {
           return (
