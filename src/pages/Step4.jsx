@@ -12,6 +12,7 @@ import {
   getPetTag,
 } from "../slicers/petSlice";
 import "../styles/registration/step.scss";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function Step4() {
   const [selectedFile, setSelectedFile] = useState([]);
@@ -94,7 +95,7 @@ export default function Step4() {
   const renderImg = () => {
     const allImg = preview.map((url, i) => (
       <figure>
-        <img key={i} src={url} alt="selectedImg" />
+        <LazyLoadImage key={i} src={url} alt="selectedImg" />
       </figure>
     ));
     return allImg;

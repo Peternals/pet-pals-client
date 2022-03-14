@@ -3,6 +3,7 @@ import { Navigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import petCover from "../assets/coverImg.png";
 import "../styles/home.scss";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Home = () => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -31,7 +32,7 @@ const Home = () => {
               </Link>
             </section>
             <figure>
-              <img className="donNCat" src={petCover} alt="pets"></img>
+              <LazyLoadImage className="donNCat" src={petCover} alt="pets "/>
             </figure>
           </div>
         </main>

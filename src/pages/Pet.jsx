@@ -7,6 +7,7 @@ import Gallery from "../components/gallery/Gallery";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Tags from "../components/Tag";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -98,12 +99,12 @@ const Pet = () => {
           <figure>
             <div className="mainPic">
               {pet.pet_pictures && pet.pet_pictures.length >= 1 ? (
-                <img
+                <LazyLoadImage
                   src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
                   alt="pet pic"
                 />
               ) : (
-                <img src={samplePet} alt="pet" />
+                <LazyLoadImage src={samplePet} alt="pet" />
               )}
             </div>
           </figure>

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import AnswerForm from "./AnswerForm";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const Request = () => {
@@ -22,7 +23,7 @@ const Request = () => {
         {requests.length > 0 ? (
           requests.map((req) => (
             <div className="request">
-              <img
+              <LazyLoadImage
                 src={`${REACT_APP_SERVER_URL}/pic/${req.profile_picture}`}
                 alt="img"
               />

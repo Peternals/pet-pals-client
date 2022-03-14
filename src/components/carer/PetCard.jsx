@@ -1,4 +1,5 @@
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import Tags from "../Tag";
 const { REACT_APP_SERVER_URL } = process.env;
@@ -8,10 +9,10 @@ const PetCard = ({ pet }) => {
     <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 cardContainer">
       <div className="card-sl">
         <div className="card-image">
-          <img
-            src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
-            alt="pet"
-          />
+          <LazyLoadImage
+              src={`${REACT_APP_SERVER_URL}/pic/${pet.pet_pictures[0]}`}
+              alt="pet"
+            />
         </div>
         <div className="card-heading">
           <h4>{pet.name}</h4>

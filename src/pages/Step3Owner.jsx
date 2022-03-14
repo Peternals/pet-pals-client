@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import "../styles/registration/step.scss";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function Step3Owner() {
   const [selectedFile, setSelectedFile] = useState();
@@ -94,7 +95,7 @@ export default function Step3Owner() {
           </div>
           {selectedFile && (
             <figure className="profilePic">
-              <img src={preview} alt="selectedImg" />
+              <LazyLoadImage src={preview} alt="selectedImg" />
             </figure>
           )}
           <div className="error">{errors.profile_picture?.message}</div>

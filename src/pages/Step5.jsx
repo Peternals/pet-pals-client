@@ -7,10 +7,12 @@ import { petDataStore } from "../slicers/petSlice";
 import { submitPic, submitPicForPet } from "../util/uploadImage";
 import QuestionForm from "../components/owners/QuestionForm";
 import "../styles/registration/step5.scss";
+import Loader from "../components/Loader";
 
 export default function Step5() {
   const dispatch = useDispatch();
   const userSignUpInfo = useSelector((state) => state.user);
+  const [loader, setLoader] = useState(false);
   const petSignUpInfo = useSelector((state) => state.pet.info);
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
@@ -30,6 +32,7 @@ export default function Step5() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
 
     const userProfilePic = await submitPic(userSignUpInfo.profile_picture);
     const submitAction = await dispatch(
@@ -63,10 +66,14 @@ export default function Step5() {
     if (submitAction.payload.user && petDataStoreAction.payload.name) {
       navigate("/");
     }
+    setLoader(false);
   };
 
   return (
     <main className="step5Main">
+      {loader && (
+        <Loader />
+      )}
       <form className="ste5MainForm" onSubmit={handleSubmit}>
         <h2>Questionnaire</h2>
         <QuestionForm

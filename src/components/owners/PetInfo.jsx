@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import PetSchedule from "./PetSchedule";
 import Tags from "../Tag";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const PetInfo = () => {
@@ -41,9 +42,9 @@ const PetInfo = () => {
     <section className="homeSection">
       <figure className="petPic">
         {ownersPet.pet_pictures && (
-          <img
+          <LazyLoadImage
             src={`${REACT_APP_SERVER_URL}/pic/${ownersPet.pet_pictures[0]}`}
-            alt="Pet"></img>
+            alt="Pet"/>
         )}
       </figure>
       <div className="petSchedule">
