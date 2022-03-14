@@ -6,12 +6,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import "../styles/registration/signIn_signUp.scss";
+import Loader from "../components/Loader";
 
 export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
 
   // this code is for validation
   // validation rule
@@ -31,6 +33,7 @@ export default function SignIn() {
 
   // when the form is valid and submitted, this method is called
   const handleSignIn = async (data) => {
+    setLoader(true);
     const signInAction = await dispatch(
       signIn({
         email: data.email,
@@ -42,11 +45,15 @@ export default function SignIn() {
     } else {
       navigate("/");
     }
+    setLoader(false);
   };
 
   return (
     <>
       <div className="sign-in-container">
+        {loader && (
+          <Loader />
+        )}
         <form onSubmit={handleSubmit(handleSignIn)} className="signInForm">
           <h1>Sign In</h1>
           <div className="error">{errorMessage}</div>
